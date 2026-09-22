@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Disease Risk Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <span>DR</span>
+                <h2>Disease Risk</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="/dashboard" class="active">
+                    Dashboard
+                </a>
+
+                <a href="/prediction">
+                    Disease Prediction
+                </a>
+
+                <a href="#">
+                    My Patients
+                </a>
+
+                <a href="#">
+                    Prediction History
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <button onclick="logout()" class="logout-btn">
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+
+            <!-- Header -->
+            <header class="dashboard-header">
+
+                <div>
+                    <p class="dashboard-label">HEALTH DASHBOARD</p>
+
+                    <h1>
+                        Welcome, <span id="userName">User</span> 👋
+                    </h1>
+
+                    <p class="dashboard-subtitle">
+                        Monitor your health risk and manage your predictions.
+                    </p>
+                </div>
+
+                <div class="user-profile">
+                    <div class="profile-avatar" id="userInitial">
+                        U
+                    </div>
+
+                    <div>
+                        <strong id="profileName">User</strong>
+                        <small id="profileEmail">user@example.com</small>
+                    </div>
+                </div>
+
+            </header>
+
+
+            <!-- Statistics -->
+            <section class="dashboard-stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🩺
+                    </div>
+
+                    <div>
+                        <span>Total Predictions</span>
+                        <h2 id="totalPredictions">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👤
+                    </div>
+
+                    <div>
+                        <span>Patients</span>
+                        <h2 id="totalPatients">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🧬
+                    </div>
+
+                    <div>
+                        <span>Diseases Covered</span>
+                        <h2>6</h2>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Main Cards -->
+            <section class="dashboard-grid">
+
+                <div class="dashboard-card prediction-card">
+
+                    <div class="card-icon">
+                        🧠
+                    </div>
+
+                    <h2>Start a Health Prediction</h2>
+
+                    <p>
+                        Enter health-related information and get
+                        a risk prediction from our trained machine
+                        learning models.
+                    </p>
+
+                    <a href="/prediction" class="btn-primary">
+                        Start Prediction
+                    </a>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+                        <div>
+                            <h2>Diseases Available</h2>
+                            <p>Current prediction models</p>
+                        </div>
+                    </div>
+
+                    <div class="disease-list">
+
+                        <div class="disease-item">
+                            <span>Diabetes</span>
+                            <span class="status available">
+                                Available
+                            </span>
+                        </div>
+
+                        <div class="disease-item">
+                            <span>Heart Disease</span>
+                            <span class="status development">
+                                In Development
+                            </span>
+                        </div>
+
+                        <div class="disease-item">
+                            <span>Kidney Disease</span>
+                            <span class="status development">
+                                In Development
+                            </span>
+                        </div>
+
+                        <div class="disease-item">
+                            <span>Liver Disease</span>
+                            <span class="status development">
+                                In Development
+                            </span>
+                        </div>
+
+                        <div class="disease-item">
+                            <span>Parkinson's Disease</span>
+                            <span class="status development">
+                                In Development
+                            </span>
+                        </div>
+
+                        <div class="disease-item">
+                            <span>Stroke</span>
+                            <span class="status development">
+                                In Development
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Information -->
+            <section class="dashboard-info">
+
+                <div class="info-card">
+
+                    <h2>About Risk Prediction</h2>
+
+                    <p>
+                        This system provides machine-learning-based
+                        health risk predictions using the information
+                        entered by the user.
+                    </p>
+
+                    <p>
+                        The results indicate estimated risk levels
+                        and are intended for health awareness and
+                        educational purposes only.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script>
+        // Load logged-in user information
+        const storedUser = localStorage.getItem("user");
+
+        if (storedUser) {
+
+            const user = JSON.parse(storedUser);
+
+            document.getElementById("userName").textContent =
+                user.name;
+
+            document.getElementById("profileName").textContent =
+                user.name;
+
+            document.getElementById("profileEmail").textContent =
+                user.email;
+
+            // Show first letter of user's name
+            document.getElementById("userInitial").textContent =
+                user.name.charAt(0).toUpperCase();
+        }
+    </script>
+
+</body>
+</html>
