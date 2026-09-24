@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from config import Config
 from extensions import db, jwt
 from routes.patient import patient_bp
+from routes.admin import admin_bp
 from models.user import User
 from models.patient import Patient
 from models.prediction import Prediction
@@ -23,6 +24,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(prediction_bp)
     app.register_blueprint(patient_bp)
+    app.register_blueprint(admin_bp)
 
     # Create database tables
     with app.app_context():
