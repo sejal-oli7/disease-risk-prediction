@@ -6,7 +6,7 @@
 
 <div class="dashboard-layout">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
         <div class="logo">
@@ -21,17 +21,20 @@
                 Dashboard
             </a>
 
+            <!-- NEW DISEASE PREDICTION -->
             <a href="{{ url_for('prediction') }}">
                 <span>🩺</span>
                 Disease Prediction
             </a>
 
-            <a href="#">
+            <!-- MY PATIENTS -->
+            <a href="{{ url_for('patients') }}">
                 <span>👤</span>
                 My Patients
             </a>
 
-            <a href="#">
+            <!-- PREDICTION HISTORY -->
+            <a href="{{ url_for('prediction_history') }}">
                 <span>📊</span>
                 Prediction History
             </a>
@@ -58,10 +61,10 @@
     </aside>
 
 
-    <!-- Main Dashboard -->
+    <!-- MAIN DASHBOARD -->
     <main class="dashboard-main">
 
-        <!-- Header -->
+        <!-- HEADER -->
         <header class="dashboard-header">
 
             <div>
@@ -77,13 +80,14 @@
                 </h1>
 
                 <p class="dashboard-subtitle">
-                    Monitor your health risk and manage your predictions.
+                    Explore six machine-learning-based disease risk
+                    prediction modules and manage your prediction results.
                 </p>
 
             </div>
 
 
-            <!-- User Profile -->
+            <!-- USER PROFILE -->
             <div class="user-profile">
 
                 <div
@@ -110,7 +114,7 @@
         </header>
 
 
-        <!-- Statistics -->
+        <!-- STATISTICS -->
         <section class="dashboard-stats">
 
             <div class="stat-card">
@@ -178,11 +182,10 @@
         </section>
 
 
-        <!-- Dashboard Grid -->
+        <!-- MAIN CARDS -->
         <section class="dashboard-grid">
 
-
-            <!-- Start Prediction -->
+            <!-- START PREDICTION -->
             <div class="dashboard-card prediction-card">
 
                 <div class="card-icon">
@@ -209,7 +212,7 @@
             </div>
 
 
-            <!-- Available Diseases -->
+            <!-- DISEASE MODULES -->
             <div class="dashboard-card">
 
                 <div class="card-header">
@@ -221,7 +224,7 @@
                         </h2>
 
                         <p>
-                            Available prediction modules
+                            Six prediction modules are currently available
                         </p>
 
                     </div>
@@ -231,11 +234,10 @@
 
                 <div class="disease-list">
 
-
                     <div class="disease-item">
 
                         <span>
-                            Diabetes
+                            🩸 Diabetes
                         </span>
 
                         <span class="status available">
@@ -248,24 +250,11 @@
                     <div class="disease-item">
 
                         <span>
-                            Heart Disease
+                            ❤️ Heart Disease
                         </span>
 
-                        <span class="status development">
-                            Coming Soon
-                        </span>
-
-                    </div>
-
-
-                    <div class="disease-item">
-
-                        <span>
-                            Kidney Disease
-                        </span>
-
-                        <span class="status development">
-                            Coming Soon
+                        <span class="status available">
+                            Available
                         </span>
 
                     </div>
@@ -274,24 +263,11 @@
                     <div class="disease-item">
 
                         <span>
-                            Liver Disease
+                            🫘 Kidney Disease
                         </span>
 
-                        <span class="status development">
-                            Coming Soon
-                        </span>
-
-                    </div>
-
-
-                    <div class="disease-item">
-
-                        <span>
-                            Parkinson's Disease
-                        </span>
-
-                        <span class="status development">
-                            Coming Soon
+                        <span class="status available">
+                            Available
                         </span>
 
                     </div>
@@ -300,15 +276,40 @@
                     <div class="disease-item">
 
                         <span>
-                            Stroke
+                            🧬 Liver Disease
                         </span>
 
-                        <span class="status development">
-                            Coming Soon
+                        <span class="status available">
+                            Available
                         </span>
 
                     </div>
 
+
+                    <div class="disease-item">
+
+                        <span>
+                            🧠 Parkinson's Disease
+                        </span>
+
+                        <span class="status available">
+                            Available
+                        </span>
+
+                    </div>
+
+
+                    <div class="disease-item">
+
+                        <span>
+                            🩺 Stroke
+                        </span>
+
+                        <span class="status available">
+                            Available
+                        </span>
+
+                    </div>
 
                 </div>
 
@@ -317,7 +318,7 @@
         </section>
 
 
-        <!-- Health Information -->
+        <!-- HEALTH INFORMATION -->
         <section class="dashboard-info">
 
             <div class="info-card">
@@ -344,113 +345,135 @@
         </section>
 
 
-        <!-- Quick Actions -->
+        <!-- ANALYTICS -->
+        <section class="dashboard-analytics">
+
+            <div class="analytics-header">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        HEALTH ANALYTICS
+                    </p>
+
+                    <h2>
+                        Prediction Overview
+                    </h2>
+
+                    <p>
+                        Visual summary of your prediction activity
+                        and risk results.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-grid">
+
+                <!-- PREDICTION CHART -->
+                <div class="chart-card">
+
+                    <div class="chart-card-header">
+
+                        <div class="chart-card-icon">
+                            <i class="fa-solid fa-chart-column"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Prediction Distribution
+                            </h3>
+
+                            <p>
+                                Predictions by disease
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrapper">
+
+                        <canvas
+                            id="predictionChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RISK CHART -->
+                <div class="chart-card">
+
+                    <div class="chart-card-header">
+
+                        <div class="chart-card-icon">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Risk Distribution
+                            </h3>
+
+                            <p>
+                                Overall prediction results
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrapper">
+
+                        <canvas
+                            id="riskChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
         <section class="dashboard-grid">
-            <!-- ========================================
-     DASHBOARD ANALYTICS
-======================================== -->
 
-<section class="dashboard-analytics">
+            <!-- PATIENTS -->
+            <div class="dashboard-card">
 
-    <div class="analytics-header">
-
-        <div>
-
-            <p class="dashboard-label">
-                HEALTH ANALYTICS
-            </p>
-
-            <h2>
-                Prediction Overview
-            </h2>
-
-            <p>
-                Visual summary of your prediction activity
-                and risk results.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="chart-grid">
-
-
-        <!-- Prediction Distribution -->
-
-        <div class="chart-card">
-
-            <div class="chart-card-header">
-
-                <div class="chart-card-icon">
-                    <i class="fa-solid fa-chart-pie"></i>
+                <div class="card-icon">
+                    👥
                 </div>
 
-                <div>
+                <h2>
+                    My Patients
+                </h2>
 
-                    <h3>
-                        Prediction Distribution
-                    </h3>
+                <p>
+                    View and manage patients registered under
+                    your account.
+                </p>
 
-                    <p>
-                        Predictions by disease
-                    </p>
-
-                </div>
+                <a
+                    href="{{ url_for('patients') }}"
+                    class="btn-secondary"
+                >
+                    View Patients →
+                </a>
 
             </div>
 
-            <div class="chart-wrapper">
 
-                <canvas
-                    id="predictionChart"
-                ></canvas>
-
-            </div>
-
-        </div>
-
-
-        <!-- Risk Distribution -->
-
-        <div class="chart-card">
-
-            <div class="chart-card-header">
-
-                <div class="chart-card-icon">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                </div>
-
-                <div>
-
-                    <h3>
-                        Risk Distribution
-                    </h3>
-
-                    <p>
-                        Overall prediction results
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="chart-wrapper">
-
-                <canvas
-                    id="riskChart"
-                ></canvas>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-</section>
-
+            <!-- PREDICTION HISTORY -->
             <div class="dashboard-card">
 
                 <div class="card-icon">
@@ -466,33 +489,11 @@
                     and results.
                 </p>
 
-                <a href="#" class="btn-secondary">
-                    View History
-                </a>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <div class="card-icon">
-                    📈
-                </div>
-
-                <h2>
-                    Health Analytics
-                </h2>
-
-                <p>
-                    Understand your prediction results through
-                    simple health risk information.
-                </p>
-
                 <a
-                    href="{{ url_for('prediction') }}"
+                    href="{{ url_for('prediction_history') }}"
                     class="btn-secondary"
                 >
-                    Analyze Health
+                    View Predictions →
                 </a>
 
             </div>
@@ -504,18 +505,22 @@
 </div>
 
 
+<!-- DASHBOARD USER SCRIPT -->
+
 <script>
 
-    /*
-     * Load logged-in user information
-     */
-    const storedUser = localStorage.getItem("user");
+    // Load logged-in user information
+
+    const storedUser =
+        localStorage.getItem("user");
+
 
     if (storedUser) {
 
         try {
 
-            const user = JSON.parse(storedUser);
+            const user =
+                JSON.parse(storedUser);
 
             const name =
                 user.name || "User";
@@ -524,25 +529,52 @@
                 user.email || "user@example.com";
 
 
-            document.getElementById(
-                "userName"
-            ).textContent = name;
+            const userName =
+                document.getElementById("userName");
+
+            const profileName =
+                document.getElementById("profileName");
+
+            const profileEmail =
+                document.getElementById("profileEmail");
+
+            const userInitial =
+                document.getElementById("userInitial");
 
 
-            document.getElementById(
-                "profileName"
-            ).textContent = name;
+            if (userName) {
+
+                userName.textContent =
+                    name;
+
+            }
 
 
-            document.getElementById(
-                "profileEmail"
-            ).textContent = email;
+            if (profileName) {
+
+                profileName.textContent =
+                    name;
+
+            }
 
 
-            document.getElementById(
-                "userInitial"
-            ).textContent =
-                name.charAt(0).toUpperCase();
+            if (profileEmail) {
+
+                profileEmail.textContent =
+                    email;
+
+            }
+
+
+            if (userInitial) {
+
+                userInitial.textContent =
+                    name
+                        .charAt(0)
+                        .toUpperCase();
+
+            }
+
 
         } catch (error) {
 
@@ -556,9 +588,8 @@
     }
 
 
-    /*
-     * Logout user
-     */
+    // Logout user
+
     function logoutUser() {
 
         localStorage.removeItem(
@@ -575,6 +606,7 @@
 
         window.location.href =
             "{{ url_for('login') }}";
+
     }
 
 </script>

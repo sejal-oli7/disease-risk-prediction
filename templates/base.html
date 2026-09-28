@@ -1,54 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1"
+        content="width=device-width, initial-scale=1.0"
     >
 
     <title>
-        {% block title %}
-        MULTI | Multi Disease Risk Prediction System
-        {% endblock %}
+        {% block title %}MULTI{% endblock %}
     </title>
 
-
-    <!-- Google Font -->
-
     <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
     >
-
-
-    <!-- Font Awesome -->
 
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-
-    <!-- Chart.js -->
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-    <!-- Main CSS -->
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    {% block extra_css %}{% endblock %}
 
 </head>
 
@@ -56,295 +32,230 @@
 <body>
 
 
-<!-- ========================================
-     NAVBAR
-======================================== -->
-
-<nav class="main-navbar">
+<header class="navbar">
 
     <div class="navbar-container">
 
-
-        <!-- Brand -->
-
         <a
             href="{{ url_for('home') }}"
-            class="navbar-brand"
+            class="navbar-logo"
         >
 
-            <span class="navbar-brand-icon">
-
-                <i class="fa-solid fa-stethoscope"></i>
-
+            <span class="logo-icon">
+                DR
             </span>
 
-            <span class="navbar-brand-text">
+            <span class="logo-text">
                 MULTI
             </span>
 
         </a>
 
 
-        <!-- Navigation -->
-
-        <div class="navbar-links">
-
-            <a href="{{ url_for('home') }}">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-
-
-            <a href="{{ url_for('about') }}">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>About</span>
-            </a>
-
-
-            <a href="{{ url_for('services') }}">
-                <i class="fa-solid fa-heart-pulse"></i>
-                <span>Services</span>
-            </a>
-
-
-            <a href="{{ url_for('how_it_works') }}">
-                <i class="fa-solid fa-route"></i>
-                <span>How It Works</span>
-            </a>
-
-
-            <a href="{{ url_for('contact') }}">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-
-
-            <!-- Logged In Navigation -->
-
-            <span
-                id="authenticatedNav"
-                class="auth-nav"
-                style="display: none;"
-            >
-
-                <a href="{{ url_for('dashboard') }}">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </a>
-
-
-                <a
-                    id="adminNav"
-                    href="{{ url_for('admin_dashboard') }}"
-                    class="admin-nav"
-                    style="display: none;"
-                >
-
-                    <i class="fa-solid fa-user-shield"></i>
-
-                    <span>Admin</span>
-
-                </a>
-
-
-                <a
-                    href="#"
-                    id="logoutLink"
-                    class="logout-link"
-                >
-
-                    <i class="fa-solid fa-right-from-bracket"></i>
-
-                    <span>Logout</span>
-
-                </a>
-
-            </span>
-
-
-            <!-- Guest Navigation -->
-
-            <span
-                id="guestNav"
-                class="guest-nav"
-            >
-
-                <a
-                    href="{{ url_for('login') }}"
-                    class="login-link"
-                >
-
-                    <i class="fa-solid fa-right-to-bracket"></i>
-
-                    <span>Login</span>
-
-                </a>
-
-
-                <a
-                    href="{{ url_for('register') }}"
-                    class="register-nav"
-                >
-
-                    <i class="fa-solid fa-user-plus"></i>
-
-                    <span>Get Started</span>
-
-                </a>
-
-            </span>
-
-        </div>
-
-
-        <!-- Mobile Menu Button -->
-
-        <button
-            type="button"
-            class="mobile-menu-btn"
-            id="mobileMenuBtn"
-        >
-
-            <i class="fa-solid fa-bars"></i>
-
-        </button>
-
-    </div>
-
-</nav>
-
-
-
-<!-- ========================================
-     FLASH MESSAGES
-======================================== -->
-
-{% with messages = get_flashed_messages(with_categories=true) %}
-
-    {% if messages %}
-
-        <div class="flash-container">
-
-            {% for category, message in messages %}
-
-                <div class="flash {{ category }}">
-                    {{ message }}
-                </div>
-
-            {% endfor %}
-
-        </div>
-
-    {% endif %}
-
-{% endwith %}
-
-
-
-<!-- ========================================
-     MAIN CONTENT
-======================================== -->
-
-<main>
-
-    {% block content %}
-    {% endblock %}
-
-</main>
-
-
-
-<!-- ========================================
-     FOOTER
-======================================== -->
-
-<footer class="main-footer">
-
-    <div class="footer-container">
-
-
-        <!-- Brand -->
-
-        <div class="footer-column footer-about">
-
-            <a
-                href="{{ url_for('home') }}"
-                class="footer-brand"
-            >
-
-                <span class="footer-brand-icon">
-
-                    <i class="fa-solid fa-stethoscope"></i>
-
-                </span>
-
-                <span>
-                    MULTI
-                </span>
-
-            </a>
-
-
-            <p class="footer-tagline">
-                Multi Disease Risk Prediction System
-            </p>
-
-
-            <p>
-                A machine-learning-based platform designed
-                to provide health risk awareness through
-                data-driven predictions.
-            </p>
-
-
-            <div class="footer-social">
-
-                <a href="#" aria-label="GitHub">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-
-                <a href="#" aria-label="LinkedIn">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-
-                <a href="#" aria-label="Email">
-                    <i class="fa-solid fa-envelope"></i>
-                </a>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- Quick Links -->
-
-        <div class="footer-column">
-
-            <h3>
-                Quick Links
-            </h3>
-
+        <nav class="navbar-menu">
 
             <a href="{{ url_for('home') }}">
                 Home
             </a>
 
-
             <a href="{{ url_for('about') }}">
-                About Us
+                About
             </a>
-
 
             <a href="{{ url_for('services') }}">
                 Services
             </a>
 
-
-            <a href="{{ url_for('how_it_works') }}">
-                How It Works
+            <a href="{{ url_for('contact') }}">
+                Contact
             </a>
 
+            <a
+                href="{{ url_for('login') }}"
+                class="nav-login"
+            >
+                Login
+            </a>
+
+            <a
+                href="{{ url_for('register') }}"
+                class="nav-register"
+            >
+                Get Started
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+{% if request.path == "/prediction" or request.path == "/prediction-history" %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>
+                DR
+            </span>
+
+            <h2>
+                MULTI
+            </h2>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="{{ url_for('dashboard') }}">
+
+                <span>
+                    🏠
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="{{ url_for('prediction') }}"
+                {% if request.path == "/prediction" %}
+                class="active"
+                {% endif %}
+            >
+
+                <span>
+                    🩺
+                </span>
+
+                Disease Prediction
+
+            </a>
+
+
+            <a href="{{ url_for('patients') }}">
+
+                <span>
+                    👤
+                </span>
+
+                My Patients
+
+            </a>
+
+
+            <a
+                href="{{ url_for('prediction_history') }}"
+                {% if request.path == "/prediction-history" %}
+                class="active"
+                {% endif %}
+            >
+
+                <span>
+                    📊
+                </span>
+
+                Prediction History
+
+            </a>
+
+
+            <a href="{{ url_for('about') }}">
+
+                <span>
+                    ℹ️
+                </span>
+
+                About
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                onclick="logoutUser()"
+                class="logout-btn"
+            >
+
+                🚪 Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+{% else %}
+
+    <main>
+
+{% endif %}
+
+
+
+    {% block content %}{% endblock %}
+
+
+
+{% if request.path == "/prediction" or request.path == "/prediction-history" %}
+
+    </main>
+
+</div>
+
+{% else %}
+
+    </main>
+
+{% endif %}
+
+
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <h3>
+                MULTI
+            </h3>
+
+            <p>
+                Machine-learning-based disease risk
+                prediction and health awareness system.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('about') }}">
+                About
+            </a>
+
+            <a href="{{ url_for('services') }}">
+                Services
+            </a>
 
             <a href="{{ url_for('contact') }}">
                 Contact
@@ -352,155 +263,14 @@
 
         </div>
 
-
-
-        <!-- Prediction Modules -->
-
-        <div class="footer-column">
-
-            <h3>
-                Prediction Modules
-            </h3>
-
-
-            <a href="{{ url_for('prediction') }}">
-                Diabetes
-            </a>
-
-
-            <a href="{{ url_for('prediction') }}">
-                Heart Disease
-            </a>
-
-
-            <a href="{{ url_for('prediction') }}">
-                Kidney Disease
-            </a>
-
-
-            <a href="{{ url_for('prediction') }}">
-                Liver Disease
-            </a>
-
-
-            <a href="{{ url_for('prediction') }}">
-                Parkinson's Disease
-            </a>
-
-
-            <a href="{{ url_for('prediction') }}">
-                Stroke
-            </a>
-
-        </div>
-
-
-
-        <!-- Contact -->
-
-        <div class="footer-column footer-contact">
-
-            <h3>
-                Contact Us
-            </h3>
-
-
-            <div class="contact-row">
-
-                <span class="contact-icon">
-                    <i class="fa-solid fa-envelope"></i>
-                </span>
-
-                <div>
-
-                    <small>Email</small>
-
-                    <p>
-                        support@multi.com
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="contact-row">
-
-                <span class="contact-icon">
-                    <i class="fa-solid fa-phone"></i>
-                </span>
-
-                <div>
-
-                    <small>Phone</small>
-
-                    <p>
-                        +977 98XXXXXXXX
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="contact-row">
-
-                <span class="contact-icon">
-                    <i class="fa-solid fa-location-dot"></i>
-                </span>
-
-                <div>
-
-                    <small>Location</small>
-
-                    <p>
-                        Nepal
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
 
 
-
-    <!-- Footer Bottom -->
-
     <div class="footer-bottom">
 
-        <div class="footer-bottom-container">
-
-            <p>
-                © 2026
-                <strong>MULTI</strong>.
-                All rights reserved.
-            </p>
-
-
-            <div class="footer-bottom-links">
-
-                <a href="#">
-                    Privacy Policy
-                </a>
-
-                <span>•</span>
-
-                <a href="#">
-                    Terms of Use
-                </a>
-
-                <span>•</span>
-
-                <a href="#">
-                    Help
-                </a>
-
-            </div>
-
-        </div>
+        <p>
+            © 2026 MULTI. All rights reserved.
+        </p>
 
     </div>
 
@@ -508,158 +278,34 @@
 
 
 
-<!-- ========================================
-     MAIN JAVASCRIPT
-======================================== -->
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+></script>
 
 
-<!-- ========================================
-     NAVIGATION JAVASCRIPT
-======================================== -->
+{% block extra_js %}{% endblock %}
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+function logoutUser() {
 
-    const token =
-        localStorage.getItem("access_token");
+    localStorage.removeItem(
+        "access_token"
+    );
 
-    const authenticatedNav =
-        document.getElementById("authenticatedNav");
+    localStorage.removeItem(
+        "user"
+    );
 
-    const guestNav =
-        document.getElementById("guestNav");
+    localStorage.removeItem(
+        "user_role"
+    );
 
-    const adminNav =
-        document.getElementById("adminNav");
+    window.location.href =
+        "{{ url_for('login') }}";
 
-    const logoutLink =
-        document.getElementById("logoutLink");
-
-    const mobileMenuBtn =
-        document.getElementById("mobileMenuBtn");
-
-    const navbarLinks =
-        document.querySelector(".navbar-links");
-
-
-    /* ========================================
-       AUTHENTICATION NAVIGATION
-    ======================================== */
-
-    if (token) {
-
-        if (authenticatedNav) {
-            authenticatedNav.style.display = "inline-flex";
-        }
-
-        if (guestNav) {
-            guestNav.style.display = "none";
-        }
-
-
-        /*
-         * Read JWT payload only to determine
-         * whether the Admin link is visible.
-         */
-
-        try {
-
-            const payload =
-                JSON.parse(
-                    atob(
-                        token.split(".")[1]
-                    )
-                );
-
-
-            if (
-                payload.role === "admin" &&
-                adminNav
-            ) {
-
-                adminNav.style.display =
-                    "inline-flex";
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Unable to read JWT payload:",
-                error
-            );
-
-        }
-
-    } else {
-
-        if (authenticatedNav) {
-            authenticatedNav.style.display = "none";
-        }
-
-        if (guestNav) {
-            guestNav.style.display = "inline-flex";
-        }
-
-    }
-
-
-    /* ========================================
-       LOGOUT
-    ======================================== */
-
-    if (logoutLink) {
-
-        logoutLink.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                localStorage.removeItem(
-                    "access_token"
-                );
-
-                localStorage.removeItem(
-                    "user"
-                );
-
-                localStorage.removeItem(
-                    "user_role"
-                );
-
-                window.location.href =
-                    "{{ url_for('login') }}";
-
-            }
-        );
-
-    }
-
-
-    /* ========================================
-       MOBILE MENU
-    ======================================== */
-
-    if (mobileMenuBtn) {
-
-        mobileMenuBtn.addEventListener(
-            "click",
-            function () {
-
-                navbarLinks.classList.toggle(
-                    "mobile-open"
-                );
-
-            }
-        );
-
-    }
-
-});
+}
 
 </script>
 

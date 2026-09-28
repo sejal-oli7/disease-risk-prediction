@@ -47,6 +47,10 @@ def create_app():
     def prediction():
         return render_template("prediction.html")
 
+    @app.route("/prediction-history")
+    def prediction_history():
+        return render_template("prediction_history.html")
+
     @app.route("/admin")
     def admin_dashboard():
         return render_template("admin_dashboard.html")
@@ -66,6 +70,10 @@ def create_app():
     @app.route("/how-it-works")
     def how_it_works():
         return render_template("how_it_works.html")
+
+    @app.route("/patients")
+    def patients():
+        return render_template("patients.html")
 
     return app
 

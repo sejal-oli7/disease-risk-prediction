@@ -1,0 +1,1032 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction History | MULTI{% endblock %}
+
+{% block content %}
+
+<div class="history-page">
+
+    <!-- PAGE HEADER -->
+    <section class="history-header">
+
+        <div>
+
+            <p class="history-label">
+                HEALTH RECORDS
+            </p>
+
+            <h1>
+                Prediction History
+            </h1>
+
+            <p>
+                View your previous disease risk prediction
+                results and health records.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('prediction') }}"
+            class="history-primary-btn"
+        >
+            <i class="fa-solid fa-plus"></i>
+            New Prediction
+        </a>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="history-stats">
+
+        <div class="history-stat-card">
+
+            <div class="history-stat-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    Total Predictions
+                </span>
+
+                <strong id="historyTotal">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="history-stat-card">
+
+            <div class="history-stat-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    Low Risk
+                </span>
+
+                <strong id="historyLow">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="history-stat-card">
+
+            <div class="history-stat-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    Medium Risk
+                </span>
+
+                <strong id="historyMedium">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="history-stat-card">
+
+            <div class="history-stat-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    High Risk
+                </span>
+
+                <strong id="historyHigh">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HISTORY CARD -->
+    <section class="history-card">
+
+        <!-- TOOLBAR -->
+        <div class="history-toolbar">
+
+            <div>
+
+                <h2>
+                    Previous Predictions
+                </h2>
+
+                <p>
+                    Your recent disease risk prediction records
+                </p>
+
+            </div>
+
+
+            <div class="history-filters">
+
+                <div class="history-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="historySearch"
+                        placeholder="Search disease..."
+                    >
+
+                </div>
+
+
+                <select id="riskFilter">
+
+                    <option value="all">
+                        All Risk Levels
+                    </option>
+
+                    <option value="low">
+                        Low Risk
+                    </option>
+
+                    <option value="medium">
+                        Medium Risk
+                    </option>
+
+                    <option value="high">
+                        High Risk
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOADING -->
+        <div
+            id="historyLoading"
+            class="history-message"
+        >
+
+            <div class="history-spinner"></div>
+
+            <p>
+                Loading prediction history...
+            </p>
+
+        </div>
+
+
+        <!-- ERROR -->
+        <div
+            id="historyError"
+            class="history-message history-error"
+            style="display: none;"
+        >
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <h3>
+                Unable to load history
+            </h3>
+
+            <p id="historyErrorText">
+                Something went wrong.
+            </p>
+
+            <button
+                type="button"
+                onclick="loadPredictionHistory()"
+                class="history-retry-btn"
+            >
+                Try Again
+            </button>
+
+        </div>
+
+
+        <!-- EMPTY -->
+        <div
+            id="historyEmpty"
+            class="history-message"
+            style="display: none;"
+        >
+
+            <div class="history-empty-icon">
+
+                <i class="fa-solid fa-file-medical"></i>
+
+            </div>
+
+            <h3>
+                No Predictions Found
+            </h3>
+
+            <p>
+                You have not created any disease risk
+                predictions yet.
+            </p>
+
+            <a
+                href="{{ url_for('prediction') }}"
+                class="history-primary-btn"
+            >
+                Start Your First Prediction
+            </a>
+
+        </div>
+
+
+        <!-- TABLE -->
+        <div
+            id="historyTableWrapper"
+            class="history-table-wrapper"
+            style="display: none;"
+        >
+
+            <table class="history-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Disease
+                        </th>
+
+                        <th>
+                            Patient
+                        </th>
+
+                        <th>
+                            Result
+                        </th>
+
+                        <th>
+                            Probability
+                        </th>
+
+                        <th>
+                            Risk Level
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="historyTableBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+    let predictionHistory = [];
+
+
+    // ========================================
+    // LOAD HISTORY WHEN PAGE OPENS
+    // ========================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            loadPredictionHistory();
+
+
+            const searchInput =
+                document.getElementById(
+                    "historySearch"
+                );
+
+
+            const riskFilter =
+                document.getElementById(
+                    "riskFilter"
+                );
+
+
+            if (searchInput) {
+
+                searchInput.addEventListener(
+                    "input",
+                    filterHistory
+                );
+
+            }
+
+
+            if (riskFilter) {
+
+                riskFilter.addEventListener(
+                    "change",
+                    filterHistory
+                );
+
+            }
+
+        }
+    );
+
+
+    // ========================================
+    // GET PREDICTION HISTORY
+    // ========================================
+
+    async function loadPredictionHistory() {
+
+        const loading =
+            document.getElementById(
+                "historyLoading"
+            );
+
+
+        const error =
+            document.getElementById(
+                "historyError"
+            );
+
+
+        const empty =
+            document.getElementById(
+                "historyEmpty"
+            );
+
+
+        const table =
+            document.getElementById(
+                "historyTableWrapper"
+            );
+
+
+        loading.style.display = "flex";
+
+        error.style.display = "none";
+
+        empty.style.display = "none";
+
+        table.style.display = "none";
+
+
+        const token =
+            localStorage.getItem(
+                "access_token"
+            );
+
+
+        if (!token) {
+
+            showHistoryError(
+                "You are not logged in. Please login again."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/predict/history",
+                    {
+                        method: "GET",
+
+                        headers: {
+
+                            "Authorization":
+                                "Bearer " + token,
+
+                            "Content-Type":
+                                "application/json"
+
+                        }
+
+                    }
+                );
+
+
+            const contentType =
+                response.headers.get(
+                    "content-type"
+                );
+
+
+            /*
+             * Make sure the backend actually
+             * returned JSON.
+             */
+
+            if (
+                !contentType ||
+                !contentType.includes(
+                    "application/json"
+                )
+            ) {
+
+                const text =
+                    await response.text();
+
+                console.error(
+                    "Server returned non-JSON:",
+                    text
+                );
+
+                throw new Error(
+                    "Server returned an invalid response."
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Unable to load prediction history."
+                );
+
+            }
+
+
+            predictionHistory =
+                Array.isArray(
+                    data.predictions
+                )
+                    ? data.predictions
+                    : [];
+
+
+            updateHistoryStats(
+                predictionHistory
+            );
+
+
+            if (
+                predictionHistory.length === 0
+            ) {
+
+                loading.style.display =
+                    "none";
+
+                empty.style.display =
+                    "flex";
+
+                return;
+
+            }
+
+
+            renderHistory(
+                predictionHistory
+            );
+
+
+            loading.style.display =
+                "none";
+
+            table.style.display =
+                "block";
+
+
+        } catch (error) {
+
+            console.error(
+                "Prediction history error:",
+                error
+            );
+
+
+            showHistoryError(
+                error.message
+            );
+
+        }
+
+    }
+
+
+    // ========================================
+    // UPDATE STATISTICS
+    // ========================================
+
+    function updateHistoryStats(
+        records
+    ) {
+
+        let low = 0;
+
+        let medium = 0;
+
+        let high = 0;
+
+
+        records.forEach(
+            function (record) {
+
+                const risk =
+                    String(
+                        record.risk_level ||
+                        ""
+                    ).toLowerCase();
+
+
+                if (risk === "low") {
+
+                    low++;
+
+                }
+
+                else if (
+                    risk === "medium"
+                ) {
+
+                    medium++;
+
+                }
+
+                else if (
+                    risk === "high"
+                ) {
+
+                    high++;
+
+                }
+
+            }
+        );
+
+
+        document.getElementById(
+            "historyTotal"
+        ).textContent =
+            records.length;
+
+
+        document.getElementById(
+            "historyLow"
+        ).textContent =
+            low;
+
+
+        document.getElementById(
+            "historyMedium"
+        ).textContent =
+            medium;
+
+
+        document.getElementById(
+            "historyHigh"
+        ).textContent =
+            high;
+
+    }
+
+
+    // ========================================
+    // RENDER HISTORY TABLE
+    // ========================================
+
+    function renderHistory(
+        records
+    ) {
+
+        const tbody =
+            document.getElementById(
+                "historyTableBody"
+            );
+
+
+        tbody.innerHTML = "";
+
+
+        records.forEach(
+            function (record, index) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const disease =
+                    record.disease ||
+                    "Unknown";
+
+
+                const patient =
+                    record.patient_name ||
+                    "Unknown Patient";
+
+
+                const result =
+                    record.prediction !== undefined
+                        ? record.prediction
+                        : "—";
+
+
+                const probability =
+                    record.probability !== undefined &&
+                    record.probability !== null
+                        ? formatProbability(
+                            record.probability
+                        )
+                        : "—";
+
+
+                const risk =
+                    record.risk_level ||
+                    "Unknown";
+
+
+                const date =
+                    formatDate(
+                        record.created_at
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+
+                    <td>
+
+                        <div class="history-disease">
+
+                            <div class="history-disease-icon">
+
+                                <i class="fa-solid fa-heart-pulse"></i>
+
+                            </div>
+
+                            <strong>
+                                ${escapeHtml(disease)}
+                            </strong>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(patient)}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            String(result)
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            probability
+                        )}
+                    </td>
+
+
+                    <td>
+
+                        <span class="${getRiskClass(risk)}">
+
+                            ${escapeHtml(
+                                risk
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(date)}
+                    </td>
+
+                `;
+
+
+                tbody.appendChild(
+                    row
+                );
+
+            }
+        );
+
+    }
+
+
+    // ========================================
+    // SEARCH + FILTER
+    // ========================================
+
+    function filterHistory() {
+
+        const searchInput =
+            document.getElementById(
+                "historySearch"
+            );
+
+
+        const riskFilter =
+            document.getElementById(
+                "riskFilter"
+            );
+
+
+        const search =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+
+        const selectedRisk =
+            riskFilter.value;
+
+
+        const filtered =
+            predictionHistory.filter(
+                function (record) {
+
+                    const disease =
+                        String(
+                            record.disease ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const risk =
+                        String(
+                            record.risk_level ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const matchesSearch =
+                        disease.includes(
+                            search
+                        );
+
+
+                    const matchesRisk =
+                        selectedRisk === "all" ||
+                        risk === selectedRisk;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesRisk
+                    );
+
+                }
+            );
+
+
+        renderHistory(
+            filtered
+        );
+
+    }
+
+
+    // ========================================
+    // FORMAT PROBABILITY
+    // ========================================
+
+    function formatProbability(
+        probability
+    ) {
+
+        let value =
+            Number(probability);
+
+
+        if (isNaN(value)) {
+
+            return String(
+                probability
+            );
+
+        }
+
+
+        /*
+         * If backend sends decimal
+         * such as 0.82, convert to 82%.
+         */
+
+        if (
+            value >= 0 &&
+            value <= 1
+        ) {
+
+            value =
+                value * 100;
+
+        }
+
+
+        return (
+            value.toFixed(2) + "%"
+        );
+
+    }
+
+
+    // ========================================
+    // FORMAT DATE
+    // ========================================
+
+    function formatDate(
+        value
+    ) {
+
+        if (!value) {
+
+            return "—";
+
+        }
+
+
+        const date =
+            new Date(value);
+
+
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "—";
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-US",
+            {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            }
+        );
+
+    }
+
+
+    // ========================================
+    // RISK BADGE
+    // ========================================
+
+    function getRiskClass(
+        risk
+    ) {
+
+        const value =
+            String(
+                risk
+            ).toLowerCase();
+
+
+        if (value === "low") {
+
+            return "risk-badge risk-low";
+
+        }
+
+
+        if (value === "medium") {
+
+            return "risk-badge risk-medium";
+
+        }
+
+
+        if (value === "high") {
+
+            return "risk-badge risk-high";
+
+        }
+
+
+        return "risk-badge";
+
+    }
+
+
+    // ========================================
+    // ESCAPE HTML
+    // ========================================
+
+    function escapeHtml(
+        value
+    ) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            value;
+
+
+        return div.innerHTML;
+
+    }
+
+
+    // ========================================
+    // SHOW ERROR
+    // ========================================
+
+    function showHistoryError(
+        message
+    ) {
+
+        document.getElementById(
+            "historyLoading"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "historyEmpty"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "historyTableWrapper"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "historyError"
+        ).style.display =
+            "flex";
+
+
+        document.getElementById(
+            "historyErrorText"
+        ).textContent =
+            message;
+
+    }
+
+</script>
+
+{% endblock %}

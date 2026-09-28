@@ -226,16 +226,6 @@ function initializeLogin() {
                     ? passwordElement.value
                     : "";
 
-            const roleElement =
-                document.querySelector(
-                    'input[name="role"]:checked'
-                );
-
-            const role =
-                roleElement
-                    ? roleElement.value
-                    : "user";
-
             if (!email || !password) {
 
                 alert(
@@ -314,31 +304,64 @@ function initializeLogin() {
                     return;
                 }
 
+                /*
+                 * Save JWT token
+                 */
                 saveToken(token);
 
+                /*
+                 * Get actual user information
+                 * from the backend response.
+                 */
+                const userRole =
+                    data.user?.role || "user";
+
+                const userData = {
+                    id: data.user?.id,
+                    name:
+                        data.user?.name ||
+                        email.split("@")[0],
+                    email:
+                        data.user?.email ||
+                        email,
+                    role: userRole
+                };
+
+                /*
+                 * Save user information
+                 */
                 localStorage.setItem(
                     "user",
-                    JSON.stringify({
-                        name:
-                            data.user?.name ||
-                            email.split("@")[0],
-
-                        email:
-                            data.user?.email ||
-                            email
-                    })
+                    JSON.stringify(userData)
                 );
 
+                /*
+                 * Save actual backend role
+                 */
                 localStorage.setItem(
                     "user_role",
-                    role
+                    userRole
                 );
 
                 console.log(
                     "JWT token saved successfully."
                 );
 
-                if (role === "admin") {
+                console.log(
+                    "Logged in user:",
+                    userData
+                );
+
+                console.log(
+                    "Logged in user role:",
+                    userRole
+                );
+
+                /*
+                 * Redirect according to the
+                 * actual role returned by backend.
+                 */
+                if (userRole === "admin") {
 
                     window.location.href =
                         "/admin";
@@ -363,7 +386,6 @@ function initializeLogin() {
         }
     );
 }
-
 
 /* ========================================
    LOGOUT
@@ -2398,3 +2420,189 @@ document.addEventListener(
 
     }
 );
+// ========================================
+// DASHBOARD ANALYTICS CHARTS
+// ========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const predictionCanvas =
+        document.getElementById("predictionChart");
+
+    const riskCanvas =
+        document.getElementById("riskChart");
+
+
+    // Stop if dashboard charts are not present
+    if (!predictionCanvas || !riskCanvas) {
+        return;
+    }
+
+
+    // ========================================
+    // PREDICTION DISTRIBUTION DATA
+    // ========================================
+
+    const predictionData = {
+
+        labels: [
+            "Diabetes",
+            "Heart Disease",
+            "Kidney Disease",
+            "Liver Disease",
+            "Parkinson's Disease",
+            "Stroke"
+        ],
+
+        datasets: [
+
+            {
+
+                label: "Predictions",
+
+                data: [
+                    4,
+                    3,
+                    2,
+                    3,
+                    2,
+                    3
+                ],
+
+                borderWidth: 1
+
+            }
+
+        ]
+
+    };
+
+
+    // ========================================
+    // RISK DISTRIBUTION DATA
+    // ========================================
+
+    const riskData = {
+
+        labels: [
+            "Low Risk",
+            "Medium Risk",
+            "High Risk"
+        ],
+
+        datasets: [
+
+            {
+
+                label: "Risk Level",
+
+                data: [
+                    6,
+                    2,
+                    9
+                ],
+
+                borderWidth: 1
+
+            }
+
+        ]
+
+    };
+
+
+    // ========================================
+    // PREDICTION DISTRIBUTION
+    // BAR CHART
+    // ========================================
+
+    new Chart(
+
+        predictionCanvas,
+
+        {
+
+            type: "bar",
+
+            data: predictionData,
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
+                    }
+
+                },
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            stepSize: 1
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+    // ========================================
+    // RISK DISTRIBUTION
+    // DOUGHNUT CHART
+    // ========================================
+
+    new Chart(
+
+        riskCanvas,
+
+        {
+
+            type: "doughnut",
+
+            data: riskData,
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom"
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+});
