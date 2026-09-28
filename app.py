@@ -10,53 +10,62 @@ from models.prediction import Prediction
 from routes.auth import auth_bp
 from routes.prediction import prediction_bp
 
+
 def create_app():
     app = Flask(__name__)
 
-    # Load configuration
     app.config.from_object(Config)
 
-    # Initialize database and JWT
     db.init_app(app)
     jwt.init_app(app)
 
-    # Register API blueprints
     app.register_blueprint(auth_bp)
     app.register_blueprint(prediction_bp)
     app.register_blueprint(patient_bp)
     app.register_blueprint(admin_bp)
 
-    # Create database tables
     with app.app_context():
         db.create_all()
 
-    # -------------------------
-    # Frontend Pages
-    # -------------------------
-
     @app.route("/")
     def home():
-        return render_template("index.html")
+        return render_template("home.html")
 
-    @app.route("/login")
-    def login_page():
-        return render_template("login.html")
+    @app.route("/auth")
+    def login():
+        return render_template("auth/login.html")
 
     @app.route("/register")
-    def register_page():
-        return render_template("register.html")
+    def register():
+        return render_template("auth/register.html")
 
     @app.route("/dashboard")
-    def dashboard_page():
+    def dashboard():
         return render_template("dashboard.html")
 
     @app.route("/prediction")
-    def prediction_page():
+    def prediction():
         return render_template("prediction.html")
 
     @app.route("/admin")
-    def admin_page():
+    def admin_dashboard():
         return render_template("admin_dashboard.html")
+
+    @app.route("/about")
+    def about():
+        return render_template("about.html")
+
+    @app.route("/services")
+    def services():
+        return render_template("services.html")
+
+    @app.route("/contact")
+    def contact():
+        return render_template("contact.html")
+
+    @app.route("/how-it-works")
+    def how_it_works():
+        return render_template("how_it_works.html")
 
     return app
 

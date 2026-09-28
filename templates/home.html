@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}MULTI | Multi Disease Risk Prediction{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+  <div class="hero-copy">
+
+    <span class="eyebrow">AI-POWERED HEALTH ANALYTICS</span>
+
+    <h1>
+      Multi Disease<br>
+      <span>Risk Prediction</span> System
+    </h1>
+
+    <p>
+      Analyze health parameters, explore risk indicators, view prediction
+      history, and understand results through clear visualizations.
+    </p>
+
+    <div class="actions">
+
+      <a class="btn primary" href="{{ url_for('prediction') }}">
+        Start Prediction →
+      </a>
+
+      <a class="btn ghost" href="{{ url_for('how_it_works') }}">
+        How It Works
+      </a>
+
+    </div>
+
+    <div class="mini-stats">
+
+      <div>
+        <b>6+</b>
+        <small>Disease Modules</small>
+      </div>
+
+      <div>
+        <b>24/7</b>
+        <small>Digital Access</small>
+      </div>
+
+      <div>
+        <b>100%</b>
+        <small>Responsive UI</small>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="hero-card">
+
+    <div class="pulse">♥</div>
+
+    <h3>Health Risk Overview</h3>
+
+    <div class="risk-row">
+      <span>Overall Health</span>
+      <strong>Analysis Ready</strong>
+    </div>
+
+    <div class="progress">
+      <i></i>
+    </div>
+
+    <div class="metric-grid">
+
+      <div>
+        <b>6</b>
+        <small>Models</small>
+      </div>
+
+      <div>
+        <b>AI</b>
+        <small>Analytics</small>
+      </div>
+
+      <div>
+        <b>∞</b>
+        <small>History</small>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="section-head">
+
+    <span class="eyebrow">OUR MODULES</span>
+
+    <h2>One platform for multiple risk checks</h2>
+
+  </div>
+
+
+  <div class="card-grid">
+
+    {% for key, name in diseases %}
+
+    <div class="info-card">
+
+      <div class="icon">✚</div>
+
+      <h3>{{ name }}</h3>
+
+      <p>
+        Enter relevant health information and view a structured
+        risk result.
+      </p>
+
+    </div>
+
+    {% endfor %}
+
+  </div>
+
+</section>
+
+{% endblock %}

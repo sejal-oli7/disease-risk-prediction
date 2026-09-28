@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+
+{% block title %}New Prediction | MULTI{% endblock %}
+
+{% block content %}
+
+<main class="prediction-page">
+
+```
+<div class="prediction-container">
+
+    <!-- Header -->
+
+    <div class="prediction-header">
+
+        <span class="section-badge">
+            HEALTH RISK ASSESSMENT
+        </span>
+
+        <h1>
+            New Disease Prediction
+        </h1>
+
+        <p>
+            Enter the patient information and select a disease
+            to perform a machine-learning-based risk prediction.
+        </p>
+
+    </div>
+
+
+    <!-- Notice -->
+
+    <div class="notice-box">
+
+        <strong>
+            Important:
+        </strong>
+
+        This system provides machine-learning-based risk
+        predictions for health awareness purposes only.
+        It is not a medical diagnosis or treatment recommendation.
+
+    </div>
+
+
+    <!-- Prediction Form -->
+
+    <section class="prediction-card">
+
+        <form id="predictionForm">
+
+            <!-- Patient Information -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+
+                    <h2>
+                        Patient Information
+                    </h2>
+
+                    <p>
+                        Enter the basic information of the patient.
+                    </p>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <!-- Patient ID -->
+
+                    <div class="form-group">
+
+                        <label for="patient_id">
+                            Patient ID
+                        </label>
+
+                        <input
+                            type="number"
+                            id="patient_id"
+                            name="patient_id"
+                            min="1"
+                            placeholder="Enter patient ID"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Patient Name -->
+
+                    <div class="form-group">
+
+                        <label for="patient_name">
+                            Patient Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="patient_name"
+                            name="patient_name"
+                            placeholder="Enter patient name"
+                        >
+
+                    </div>
+
+
+                    <!-- Disease -->
+
+                    <div class="form-group">
+
+                        <label for="disease">
+                            Select Disease
+                        </label>
+
+                        <select
+                            id="disease"
+                            name="disease"
+                            required
+                        >
+
+                            <option value="">
+                                Select a disease
+                            </option>
+
+                            <option value="diabetes">
+                                Diabetes
+                            </option>
+
+                            <option value="heart">
+                                Heart Disease
+                            </option>
+
+                            <option value="kidney">
+                                Kidney Disease
+                            </option>
+
+                            <option value="liver">
+                                Liver Disease
+                            </option>
+
+                            <option value="parkinsons">
+                                Parkinson's Disease
+                            </option>
+
+                            <option value="stroke">
+                                Stroke
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Dynamic Model Fields -->
+
+            <div
+                id="diseaseFields"
+                class="form-section"
+                style="display: none;"
+            >
+
+                <div class="form-section-title">
+
+                    <h2>
+                        Model Input Parameters
+                    </h2>
+
+                    <p>
+                        Enter the values required for the selected
+                        disease prediction model.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="fieldsContainer"
+                    class="form-grid"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- Form Actions -->
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="clearBtn"
+                    class="btn btn-secondary"
+                >
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Clear
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    <i class="fa-solid fa-chart-line"></i>
+                    Generate Prediction
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- Loading -->
+
+    <div
+        id="loadingBox"
+        class="loading-box"
+        style="display: none;"
+    >
+
+        <div class="loader"></div>
+
+        <p>
+            Processing prediction...
+        </p>
+
+    </div>
+
+
+    <!-- Error -->
+
+    <div
+        id="errorBox"
+        class="error-box"
+        style="display: none;"
+    >
+
+        <strong>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            Error
+        </strong>
+
+        <p id="errorMessage"></p>
+
+    </div>
+
+
+    <!-- Prediction Result -->
+
+    <section
+        id="predictionResult"
+        class="prediction-result"
+        style="display: none;"
+    >
+
+        <div class="result-card">
+
+            <div class="result-main">
+
+                <span class="result-label">
+                    RISK LEVEL
+                </span>
+
+                <h2 id="resultRisk">
+                    -
+                </h2>
+
+                <p id="resultMessage">
+                    Prediction completed successfully.
+                </p>
+
+            </div>
+
+
+            <div class="result-details">
+
+                <div class="result-item">
+
+                    <span>
+                        Disease
+                    </span>
+
+                    <strong id="resultDisease">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <span>
+                        Prediction
+                    </span>
+
+                    <strong id="resultPrediction">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <span>
+                        Probability
+                    </span>
+
+                    <strong id="resultProbability">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <span>
+                        Patient ID
+                    </span>
+
+                    <strong id="resultPatient">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+```
+
+</main>
+
+{% endblock %}

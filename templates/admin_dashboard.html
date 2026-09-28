@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard — MDRP</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================================
+         ADMIN NAVBAR
+    ================================= -->
+
+    <header class="admin-navbar">
+
+        <div class="admin-brand">
+            <span class="brand-icon">✚</span>
+            <span>Multi Disease Risk Prediction</span>
+        </div>
+
+        <div class="admin-nav-right">
+
+            <span id="adminName">
+                Admin
+            </span>
+
+            <button
+                type="button"
+                id="adminLogoutBtn"
+                class="admin-logout-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================
+         MAIN DASHBOARD
+    ================================= -->
+
+    <main class="admin-container">
+
+        <div class="admin-header">
+
+            <div>
+                <p class="admin-label">
+                    ADMIN PANEL
+                </p>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p class="admin-subtitle">
+                    Monitor users, patients, predictions and risk statistics.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="refreshAdminBtn"
+                class="admin-refresh-btn"
+            >
+                ↻ Refresh
+            </button>
+
+        </div>
+
+
+        <!-- ================================
+             STATISTICS CARDS
+        ================================= -->
+
+        <section class="admin-stats-grid">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    👥
+                </div>
+
+                <div>
+                    <p>
+                        Total Users
+                    </p>
+
+                    <h2 id="totalUsers">
+                        0
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    🧑‍⚕️
+                </div>
+
+                <div>
+                    <p>
+                        Total Patients
+                    </p>
+
+                    <h2 id="totalPatients">
+                        0
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    🔬
+                </div>
+
+                <div>
+                    <p>
+                        Total Predictions
+                    </p>
+
+                    <h2 id="totalPredictions">
+                        0
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    ⚠️
+                </div>
+
+                <div>
+                    <p>
+                        High Risk
+                    </p>
+
+                    <h2 id="highRisk">
+                        0
+                    </h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             RISK SUMMARY
+        ================================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <p class="admin-label">
+                        RISK SUMMARY
+                    </p>
+
+                    <h2>
+                        Prediction Risk Overview
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="risk-summary-grid">
+
+                <div class="risk-card risk-low">
+
+                    <span class="risk-card-icon">
+                        ✓
+                    </span>
+
+                    <div>
+                        <span>
+                            Low Risk
+                        </span>
+
+                        <strong id="lowRisk">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="risk-card risk-medium">
+
+                    <span class="risk-card-icon">
+                        !
+                    </span>
+
+                    <div>
+                        <span>
+                            Medium Risk
+                        </span>
+
+                        <strong id="mediumRisk">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="risk-card risk-high">
+
+                    <span class="risk-card-icon">
+                        ⚠
+                    </span>
+
+                    <div>
+                        <span>
+                            High Risk
+                        </span>
+
+                        <strong id="highRiskSummary">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             RECENT PREDICTIONS
+        ================================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <p class="admin-label">
+                        ACTIVITY
+                    </p>
+
+                    <h2>
+                        Recent Predictions
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient ID</th>
+                            <th>Disease</th>
+                            <th>Prediction</th>
+                            <th>Probability</th>
+                            <th>Risk Level</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="recentPredictionsBody">
+
+                        <tr>
+                            <td colspan="7" class="admin-loading">
+                                Loading predictions...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             USERS
+        ================================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <p class="admin-label">
+                        USERS
+                    </p>
+
+                    <h2>
+                        Registered Users
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="usersTableBody">
+
+                        <tr>
+                            <td colspan="4" class="admin-loading">
+                                Loading users...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             PATIENTS
+        ================================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <p class="admin-label">
+                        PATIENTS
+                    </p>
+
+                    <h2>
+                        Registered Patients
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Created</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="patientsTableBody">
+
+                        <tr>
+                            <td colspan="6" class="admin-loading">
+                                Loading patients...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             ALL PREDICTIONS
+        ================================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <p class="admin-label">
+                        PREDICTION HISTORY
+                    </p>
+
+                    <h2>
+                        All Predictions
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Patient ID</th>
+                            <th>Disease</th>
+                            <th>Prediction</th>
+                            <th>Probability</th>
+                            <th>Risk</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="allPredictionsBody">
+
+                        <tr>
+                            <td colspan="8" class="admin-loading">
+                                Loading predictions...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             ERROR MESSAGE
+        ================================= -->
+
+        <div
+            id="adminError"
+            class="admin-error"
+            style="display: none;"
+        ></div>
+
+    </main>
+
+
+    <!-- ================================
+         ADMIN SCRIPT
+    ================================= -->
+
+    <script>
+
+        function getAdminToken() {
+            return localStorage.getItem("access_token");
+        }
+
+
+        async function adminRequest(url) {
+
+            const token = getAdminToken();
+
+            if (!token) {
+                window.location.href = "/auth";
+                return null;
+            }
+
+
+            const response = await fetch(url, {
+
+                method: "GET",
+
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+
+            });
+
+
+            const data = await response.json();
+
+
+            if (response.status === 401) {
+
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("user");
+                localStorage.removeItem("user_role");
+
+                window.location.href = "/auth";
+
+                return null;
+            }
+
+
+            if (response.status === 403) {
+
+                throw new Error(
+                    "You do not have admin access."
+                );
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    data.message ||
+                    "Failed to load admin data."
+                );
+            }
+
+
+            return data;
+        }
+
+
+        function formatDiseaseName(disease) {
+
+            if (!disease) {
+                return "Unknown";
+            }
+
+            return disease
+                .replaceAll("_", " ")
+                .replace(/\b\w/g, letter => letter.toUpperCase());
+        }
+
+
+        function formatProbability(value) {
+
+            if (value === null || value === undefined) {
+                return "N/A";
+            }
+
+            const number = Number(value);
+
+            if (Number.isNaN(number)) {
+                return "N/A";
+            }
+
+            return `${(number * 100).toFixed(2)}%`;
+        }
+
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "N/A";
+            }
+
+            const date = new Date(value);
+
+            if (Number.isNaN(date.getTime())) {
+                return value;
+            }
+
+            return date.toLocaleString();
+        }
+
+
+        function riskClass(risk) {
+
+            if (!risk) {
+                return "";
+            }
+
+            return `risk-${risk.toLowerCase()}`;
+        }
+
+
+        function displayError(message) {
+
+            const errorElement =
+                document.getElementById("adminError");
+
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+        }
+
+
+        function clearError() {
+
+            const errorElement =
+                document.getElementById("adminError");
+
+            errorElement.textContent = "";
+            errorElement.style.display = "none";
+        }
+
+
+        async function loadAdminDashboard() {
+
+            try {
+
+                clearError();
+
+                const data =
+                    await adminRequest(
+                        "/api/admin/dashboard"
+                    );
+
+                if (!data) {
+                    return;
+                }
+
+
+                const statistics =
+                    data.statistics || {};
+
+
+                document.getElementById(
+                    "totalUsers"
+                ).textContent =
+                    statistics.total_users ?? 0;
+
+
+                document.getElementById(
+                    "totalPatients"
+                ).textContent =
+                    statistics.total_patients ?? 0;
+
+
+                document.getElementById(
+                    "totalPredictions"
+                ).textContent =
+                    statistics.total_predictions ?? 0;
+
+
+                document.getElementById(
+                    "highRisk"
+                ).textContent =
+                    statistics.high_risk ?? 0;
+
+
+                document.getElementById(
+                    "lowRisk"
+                ).textContent =
+                    statistics.low_risk ?? 0;
+
+
+                document.getElementById(
+                    "mediumRisk"
+                ).textContent =
+                    statistics.medium_risk ?? 0;
+
+
+                document.getElementById(
+                    "highRiskSummary"
+                ).textContent =
+                    statistics.high_risk ?? 0;
+
+
+                renderRecentPredictions(
+                    data.recent_predictions || []
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                displayError(
+                    error.message
+                );
+            }
+        }
+
+
+        function renderRecentPredictions(predictions) {
+
+            const tbody =
+                document.getElementById(
+                    "recentPredictionsBody"
+                );
+
+
+            if (!predictions.length) {
+
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="admin-empty">
+                            No predictions found.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+
+            tbody.innerHTML =
+                predictions.map(item => `
+
+                    <tr>
+
+                        <td>
+                            #${item.id}
+                        </td>
+
+                        <td>
+                            ${item.patient_id}
+                        </td>
+
+                        <td>
+                            ${formatDiseaseName(item.disease)}
+                        </td>
+
+                        <td>
+                            ${item.prediction}
+                        </td>
+
+                        <td>
+                            ${formatProbability(item.probability)}
+                        </td>
+
+                        <td>
+                            <span class="risk-badge ${riskClass(item.risk_level)}">
+                                ${item.risk_level || "N/A"}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${formatDate(item.created_at)}
+                        </td>
+
+                    </tr>
+
+                `).join("");
+        }
+
+
+        async function loadUsers() {
+
+            try {
+
+                const data =
+                    await adminRequest(
+                        "/api/admin/users"
+                    );
+
+                if (!data) {
+                    return;
+                }
+
+
+                const tbody =
+                    document.getElementById(
+                        "usersTableBody"
+                    );
+
+
+                const users =
+                    data.users || [];
+
+
+                if (!users.length) {
+
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="4" class="admin-empty">
+                                No users found.
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+                }
+
+
+                tbody.innerHTML =
+                    users.map(user => `
+
+                        <tr>
+
+                            <td>
+                                #${user.id}
+                            </td>
+
+                            <td>
+                                ${user.name}
+                            </td>
+
+                            <td>
+                                ${user.email}
+                            </td>
+
+                            <td>
+                                <span class="role-badge">
+                                    ${user.role}
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    `).join("");
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                displayError(
+                    error.message
+                );
+            }
+        }
+
+
+        async function loadPatients() {
+
+            try {
+
+                const data =
+                    await adminRequest(
+                        "/api/admin/patients"
+                    );
+
+                if (!data) {
+                    return;
+                }
+
+
+                const tbody =
+                    document.getElementById(
+                        "patientsTableBody"
+                    );
+
+
+                const patients =
+                    data.patients || [];
+
+
+                if (!patients.length) {
+
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="admin-empty">
+                                No patients found.
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+                }
+
+
+                tbody.innerHTML =
+                    patients.map(patient => `
+
+                        <tr>
+
+                            <td>
+                                #${patient.id}
+                            </td>
+
+                            <td>
+                                ${patient.user_id}
+                            </td>
+
+                            <td>
+                                ${patient.name}
+                            </td>
+
+                            <td>
+                                ${patient.age ?? "N/A"}
+                            </td>
+
+                            <td>
+                                ${patient.gender ?? "N/A"}
+                            </td>
+
+                            <td>
+                                ${formatDate(patient.created_at)}
+                            </td>
+
+                        </tr>
+
+                    `).join("");
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                displayError(
+                    error.message
+                );
+            }
+        }
+
+
+        async function loadAllPredictions() {
+
+            try {
+
+                const data =
+                    await adminRequest(
+                        "/api/admin/predictions"
+                    );
+
+                if (!data) {
+                    return;
+                }
+
+
+                const tbody =
+                    document.getElementById(
+                        "allPredictionsBody"
+                    );
+
+
+                const predictions =
+                    data.predictions || [];
+
+
+                if (!predictions.length) {
+
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="admin-empty">
+                                No predictions found.
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+                }
+
+
+                tbody.innerHTML =
+                    predictions.map(item => `
+
+                        <tr>
+
+                            <td>
+                                #${item.id}
+                            </td>
+
+                            <td>
+                                ${item.user_id}
+                            </td>
+
+                            <td>
+                                ${item.patient_id}
+                            </td>
+
+                            <td>
+                                ${formatDiseaseName(item.disease)}
+                            </td>
+
+                            <td>
+                                ${item.prediction}
+                            </td>
+
+                            <td>
+                                ${formatProbability(item.probability)}
+                            </td>
+
+                            <td>
+                                <span class="risk-badge ${riskClass(item.risk_level)}">
+                                    ${item.risk_level || "N/A"}
+                                </span>
+                            </td>
+
+                            <td>
+                                ${formatDate(item.created_at)}
+                            </td>
+
+                        </tr>
+
+                    `).join("");
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                displayError(
+                    error.message
+                );
+            }
+        }
+
+
+        function loadAdminUser() {
+
+            try {
+
+                const storedUser =
+                    localStorage.getItem("user");
+
+                if (!storedUser) {
+                    return;
+                }
+
+
+                const user =
+                    JSON.parse(storedUser);
+
+
+                const adminName =
+                    document.getElementById(
+                        "adminName"
+                    );
+
+
+                if (user.name) {
+                    adminName.textContent =
+                        user.name;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to load admin user.",
+                    error
+                );
+            }
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function () {
+
+                loadAdminUser();
+
+                await loadAdminDashboard();
+
+                await loadUsers();
+
+                await loadPatients();
+
+                await loadAllPredictions();
+
+            }
+        );
+
+
+        document.getElementById(
+            "refreshAdminBtn"
+        ).addEventListener(
+            "click",
+            async function () {
+
+                await loadAdminDashboard();
+
+                await loadUsers();
+
+                await loadPatients();
+
+                await loadAllPredictions();
+
+            }
+        );
+
+
+        document.getElementById(
+            "adminLogoutBtn"
+        ).addEventListener(
+            "click",
+            function () {
+
+                localStorage.removeItem(
+                    "access_token"
+                );
+
+                localStorage.removeItem(
+                    "user"
+                );
+
+                localStorage.removeItem(
+                    "user_role"
+                );
+
+                window.location.href = "/auth";
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+

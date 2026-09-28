@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | MULTI{% endblock %}
+
+{% block content %}
+
+<section class="page-head contact-head">
+
+<span class="eyebrow">
+    CONTACT US
+</span>
+
+<h1>
+    Get in <span>Touch</span>
+</h1>
+
+<p>
+    Have a question about the MULTI project?
+    Send us a message and we'll be happy to hear from you.
+</p>
+
+
+</section>
+
+<section class="contact-section">
+
+
+<div class="contact-grid">
+
+    <!-- Contact Form -->
+    <div class="contact-card">
+
+        <div class="contact-card-header">
+
+            <div class="contact-icon-large">
+                <i class="fa-solid fa-paper-plane"></i>
+            </div>
+
+            <div>
+                <h2>
+                    Send Us a Message
+                </h2>
+
+                <p>
+                    Fill out the form below.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form id="contactForm">
+
+            <div class="form-group">
+
+                <label for="contactName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="contactName"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="contactEmail">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="contactMessage">
+                    Message
+                </label>
+
+                <textarea
+                    id="contactMessage"
+                    name="message"
+                    rows="6"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn primary full"
+            >
+                <i class="fa-solid fa-paper-plane"></i>
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Project Information -->
+    <div class="contact-info">
+
+        <div class="contact-card">
+
+            <span class="eyebrow">
+                PROJECT INFORMATION
+            </span>
+
+            <h2>
+                MULTI
+            </h2>
+
+            <p class="contact-description">
+                Multi Disease Risk Prediction System is an
+                academic machine-learning project designed
+                to provide health risk awareness through
+                data-driven predictions.
+            </p>
+
+
+            <div class="contact-details">
+
+                <div class="contact-detail">
+
+                    <div class="detail-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div>
+                        <small>Email</small>
+                        <p>
+                            support@multi.local
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-detail">
+
+                    <div class="detail-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div>
+                        <small>Phone</small>
+                        <p>
+                            +977 98XXXXXXXX
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-detail">
+
+                    <div class="detail-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <small>Location</small>
+                        <p>
+                            Nepal
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-card academic-card">
+
+            <div class="academic-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+
+            <h3>
+                Academic Project
+            </h3>
+
+            <p>
+                MULTI is developed as an academic project
+                to demonstrate the application of machine
+                learning, web development, database systems,
+                and data visualization.
+            </p>
+
+            <div class="academic-note">
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span>
+                    For academic demonstration and
+                    educational purposes only.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}
