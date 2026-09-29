@@ -2,96 +2,62 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>{% block title %}MULTI{% endblock %}</title>
 
-    <title>
-        {% block title %}MULTI{% endblock %}
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     {% block extra_css %}{% endblock %}
-
 </head>
 
 
 <body>
 
-
+<!-- ===================== NAVBAR ===================== -->
 <header class="navbar">
-
     <div class="navbar-container">
 
-        <a
-            href="{{ url_for('home') }}"
-            class="navbar-logo"
-        >
+        <a href="{{ url_for('home') }}" class="navbar-logo">
 
-            <span class="logo-icon">
-                DR
-            </span>
+            <svg class="logo-svg" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#2be0a2"/>
+                        <stop offset="100%" stop-color="#0f9d6b"/>
+                    </linearGradient>
+                </defs>
+                <rect width="40" height="40" rx="10" fill="url(#logoGrad)"/>
+                <path d="M20 32.5C8 24 6 17 6 13.5C6 9.5 9 7 12.5 7C15.5 7 18.3 8.8 20 11.5C21.7 8.8 24.5 7 27.5 7C31 7 34 9.5 34 13.5C34 17 32 24 20 32.5Z"
+                      fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M10 19H15L17.5 14L21.5 25L24 19H30"
+                      fill="none" stroke="#fff" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
 
             <span class="logo-text">
-                MULTI
+                <span class="logo-title">Health<span class="logo-accent">Care</span></span>
+                <span class="logo-tagline">Risk Prediction</span>
             </span>
 
         </a>
 
-
         <nav class="navbar-menu">
-
-            <a href="{{ url_for('home') }}">
-                Home
-            </a>
-
-            <a href="{{ url_for('about') }}">
-                About
-            </a>
-
-            <a href="{{ url_for('services') }}">
-                Services
-            </a>
-
-            <a href="{{ url_for('contact') }}">
-                Contact
-            </a>
-
-            <a
-                href="{{ url_for('login') }}"
-                class="nav-login"
-            >
-                Login
-            </a>
-
-            <a
-                href="{{ url_for('register') }}"
-                class="nav-register"
-            >
-                Get Started
-            </a>
-
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('login') }}" class="nav-login">Login</a>
+            <a href="{{ url_for('register') }}" class="nav-register">Get Started</a>
         </nav>
 
     </div>
-
 </header>
 
 
-
+<!-- ===================== SIDEBAR LAYOUT ===================== -->
 {% if request.path == "/prediction" or request.path == "/prediction-history" %}
 
 <div class="dashboard-layout">
@@ -99,103 +65,40 @@
     <aside class="sidebar">
 
         <div class="logo">
-
-            <span>
-                DR
-            </span>
-
-            <h2>
-                MULTI
-            </h2>
-
+            <span>DR</span>
+            <h2>MULTI</h2>
         </div>
-
 
         <nav class="sidebar-nav">
 
             <a href="{{ url_for('dashboard') }}">
-
-                <span>
-                    🏠
-                </span>
-
-                Dashboard
-
+                <span>🏠</span> Dashboard
             </a>
 
-
-            <a
-                href="{{ url_for('prediction') }}"
-                {% if request.path == "/prediction" %}
-                class="active"
-                {% endif %}
-            >
-
-                <span>
-                    🩺
-                </span>
-
-                Disease Prediction
-
+            <a href="{{ url_for('prediction') }}"
+               {% if request.path == "/prediction" %}class="active"{% endif %}>
+                <span>🩺</span> Disease Prediction
             </a>
-
 
             <a href="{{ url_for('patients') }}">
-
-                <span>
-                    👤
-                </span>
-
-                My Patients
-
+                <span>👤</span> My Patients
             </a>
 
-
-            <a
-                href="{{ url_for('prediction_history') }}"
-                {% if request.path == "/prediction-history" %}
-                class="active"
-                {% endif %}
-            >
-
-                <span>
-                    📊
-                </span>
-
-                Prediction History
-
+            <a href="{{ url_for('prediction_history') }}"
+               {% if request.path == "/prediction-history" %}class="active"{% endif %}>
+                <span>📊</span> Prediction History
             </a>
 
-
-            <a href="{{ url_for('about') }}">
-
-                <span>
-                    ℹ️
-                </span>
-
-                About
-
-            </a>
-
+          
         </nav>
 
-
         <div class="sidebar-bottom">
-
-            <button
-                type="button"
-                onclick="logoutUser()"
-                class="logout-btn"
-            >
-
-                🚪 Logout
-
+            <button type="button" onclick="logoutUser()" class="logout-btn">
+                Logout
             </button>
-
         </div>
 
     </aside>
-
 
     <main class="dashboard-main">
 
@@ -206,9 +109,7 @@
 {% endif %}
 
 
-
     {% block content %}{% endblock %}
-
 
 
 {% if request.path == "/prediction" or request.path == "/prediction-history" %}
@@ -224,92 +125,130 @@
 {% endif %}
 
 
-
+<!-- ===================== FOOTER ===================== -->
 <footer class="footer">
 
     <div class="footer-container">
 
+        <!-- Brand -->
         <div class="footer-brand">
+            <a href="{{ url_for('home') }}" class="footer-logo">
+                <svg class="logo-svg" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="logoGrad2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#2be0a2"/>
+                            <stop offset="100%" stop-color="#0f9d6b"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="40" height="40" rx="10" fill="url(#logoGrad2)"/>
+                    <path d="M20 32.5C8 24 6 17 6 13.5C6 9.5 9 7 12.5 7C15.5 7 18.3 8.8 20 11.5C21.7 8.8 24.5 7 27.5 7C31 7 34 9.5 34 13.5C34 17 32 24 20 32.5Z"
+                          fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M10 19H15L17.5 14L21.5 25L24 19H30"
+                          fill="none" stroke="#fff" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="logo-title">Health<span class="logo-accent">Care</span></span>
+            </a>
 
-            <h3>
-                MULTI
-            </h3>
-
-            <p>
-                Machine-learning-based disease risk
-                prediction and health awareness system.
+            <p class="footer-desc">
+                A machine-learning-based platform for multi-disease risk prediction,
+                health awareness, and clear result visualization.
             </p>
 
+            <div class="footer-social">
+                <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
         </div>
 
+        <!-- Quick Links -->
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About Us</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
 
-        <div class="footer-links">
+        <!-- Modules -->
+        <div class="footer-col">
+            <h4>Prediction Modules</h4>
+            <a href="{{ url_for('prediction') }}">Diabetes</a>
+            <a href="{{ url_for('prediction') }}">Heart Disease</a>
+            <a href="{{ url_for('prediction') }}">Kidney Disease</a>
+            <a href="{{ url_for('prediction') }}">Liver Disease</a>
+            <a href="{{ url_for('prediction') }}">Parkinson's</a>
+        </div>
 
-            <a href="{{ url_for('home') }}">
-                Home
-            </a>
+        <!-- Resources -->
+        <div class="footer-col">
+            <h4>Resources</h4>
+            <a href="#">How It Works</a>
+            <a href="#">FAQs</a>
+            <a href="#">Health Tips</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
 
-            <a href="{{ url_for('about') }}">
-                About
-            </a>
+        <!-- Contact -->
+        <div class="footer-col footer-contact">
+            <h4>Contact Us</h4>
+            <p><i class="fa-solid fa-envelope"></i> support@multi.com</p>
+            <p><i class="fa-solid fa-phone"></i> +977 98XXXXXXXX</p>
+            <p><i class="fa-solid fa-location-dot"></i> Kathmandu, Nepal</p>
+            <p><i class="fa-solid fa-clock"></i> Sun – Fri, 9:00 AM – 5:00 PM</p>
+        </div>
 
-            <a href="{{ url_for('services') }}">
-                Services
-            </a>
+    </div>
 
-            <a href="{{ url_for('contact') }}">
-                Contact
-            </a>
 
+    <!-- Emergency + Disclaimer -->
+    <div class="footer-notice">
+
+        <div class="notice-box notice-emergency">
+            <i class="fa-solid fa-truck-medical"></i>
+            <p>
+                <strong>Medical emergency?</strong>
+                Do not rely on this tool. Contact your nearest hospital or call an ambulance immediately.
+            </p>
+        </div>
+
+        <div class="notice-box">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p>
+                <strong>Disclaimer:</strong>
+                This system provides risk estimates for awareness and educational purposes only.
+                It is not a substitute for professional medical advice, diagnosis, or treatment.
+                Always consult a qualified healthcare professional.
+            </p>
         </div>
 
     </div>
 
 
     <div class="footer-bottom">
-
-        <p>
-            © 2026 MULTI. All rights reserved.
-        </p>
-
+        <p>© 2026 MULTI Health Care. All rights reserved.</p>
+        <p class="footer-made">Built with using Flask &amp; Machine Learning</p>
     </div>
 
 </footer>
 
 
-
-<script
-    src="{{ url_for('static', filename='script.js') }}"
-></script>
-
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 {% block extra_js %}{% endblock %}
 
-
 <script>
-
 function logoutUser() {
-
-    localStorage.removeItem(
-        "access_token"
-    );
-
-    localStorage.removeItem(
-        "user"
-    );
-
-    localStorage.removeItem(
-        "user_role"
-    );
-
-    window.location.href =
-        "{{ url_for('login') }}";
-
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("user_role");
+    window.location.href = "{{ url_for('login') }}";
 }
-
 </script>
 
-
 </body>
-
 </html>

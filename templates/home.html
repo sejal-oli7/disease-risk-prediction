@@ -4,127 +4,346 @@
 
 {% block content %}
 
+<!-- ===================== HERO ===================== -->
 <section class="hero">
 
-  <div class="hero-copy">
+<div class="hero-copy">
 
-    <span class="eyebrow">AI-POWERED HEALTH ANALYTICS</span>
+<span class="eyebrow">AI-POWERED HEALTH ANALYTICS</span>
 
-    <h1>
+<h1>
       Multi Disease<br>
-      <span>Risk Prediction</span> System
-    </h1>
+<span>Risk Prediction</span> System
+</h1>
 
-    <p>
-      Analyze health parameters, explore risk indicators, view prediction
-      history, and understand results through clear visualizations.
-    </p>
+<p>
+      Enter your health parameters and get an instant machine-learning-based
+      risk estimate for multiple diseases. Explore risk indicators, track your
+      prediction history, and understand results through clear visualizations.
+</p>
 
-    <div class="actions">
+<div class="actions">
 
-      <a class="btn primary" href="{{ url_for('prediction') }}">
+<a class="btn primary" href="{{ url_for('prediction') }}">
         Start Prediction →
-      </a>
+</a>
 
-      <a class="btn ghost" href="{{ url_for('how_it_works') }}">
+<a class="btn ghost" href="{{ url_for('how_it_works') }}">
         How It Works
-      </a>
+</a>
 
-    </div>
+</div>
 
-    <div class="mini-stats">
+<ul class="hw-trust">
+<li><i class="fa-solid fa-circle-check"></i> Free to use</li>
+<li><i class="fa-solid fa-circle-check"></i> Results in seconds</li>
+<li><i class="fa-solid fa-circle-check"></i> Secure login</li>
+</ul>
 
-      <div>
-        <b>6+</b>
-        <small>Disease Modules</small>
-      </div>
+<div class="mini-stats">
 
-      <div>
-        <b>24/7</b>
-        <small>Digital Access</small>
-      </div>
+<div>
+<b>6+</b>
+<small>Disease Modules</small>
+</div>
 
-      <div>
-        <b>100%</b>
-        <small>Responsive UI</small>
-      </div>
+<div>
+<b>24/7</b>
+<small>Digital Access</small>
+</div>
 
-    </div>
+<div>
+<b>100%</b>
+<small>Responsive UI</small>
+</div>
 
-  </div>
+<div>
+<b>&lt; 5s</b>
+<small>Result Time</small>
+</div>
+
+</div>
+
+</div>
 
 
-  <div class="hero-card">
+<div class="hero-card">
 
-    <div class="pulse">♥</div>
+<div class="pulse">♥</div>
 
-    <h3>Health Risk Overview</h3>
+<h3>Health Risk Overview</h3>
 
-    <div class="risk-row">
-      <span>Overall Health</span>
-      <strong>Analysis Ready</strong>
-    </div>
+<div class="risk-row">
+<span>Overall Health</span>
+<strong>Analysis Ready</strong>
+</div>
 
-    <div class="progress">
-      <i></i>
-    </div>
+<div class="progress">
+<i></i>
+</div>
 
-    <div class="metric-grid">
+<div class="metric-grid">
 
-      <div>
-        <b>6</b>
-        <small>Models</small>
-      </div>
+<div>
+<b>6</b>
+<small>Models</small>
+</div>
 
-      <div>
-        <b>AI</b>
-        <small>Analytics</small>
-      </div>
+<div>
+<b>AI</b>
+<small>Analytics</small>
+</div>
 
-      <div>
-        <b>∞</b>
-        <small>History</small>
-      </div>
+<div>
+<b>∞</b>
+<small>History</small>
+</div>
 
-    </div>
+</div>
 
-  </div>
+<div class="hw-preview">
+<div><span>Diabetes</span><em class="hw-pill hw-low">Low</em></div>
+<div><span>Heart Disease</span><em class="hw-pill hw-mid">Moderate</em></div>
+<div><span>Kidney Disease</span><em class="hw-pill hw-low">Low</em></div>
+</div>
+<p class="hw-note">Sample preview only</p>
+
+</div>
 
 </section>
 
 
-<section class="section">
+<!-- ===================== MODULES ===================== -->
+<section class="section" id="modules">
 
-  <div class="section-head">
+<div class="section-head">
 
-    <span class="eyebrow">OUR MODULES</span>
+<span class="eyebrow">OUR MODULES</span>
 
-    <h2>One platform for multiple risk checks</h2>
+<h2>One platform for multiple risk checks</h2>
 
-  </div>
+<p>Each module uses its own trained machine-learning model built for a specific condition.</p>
+
+</div>
 
 
-  <div class="card-grid">
+{% set icons = {
+    'diabetes': 'fa-droplet',
+    'heart': 'fa-heart-pulse',
+    'kidney': 'fa-notes-medical',
+    'liver': 'fa-vial',
+    'breast_cancer': 'fa-ribbon',
+    'cancer': 'fa-ribbon',
+    'parkinsons': 'fa-brain',
+    'parkinson': 'fa-brain'
+} %}
 
-    {% for key, name in diseases %}
+{% set module_list = diseases or [
+    ('diabetes', 'Diabetes'),
+    ('heart', 'Heart Disease'),
+    ('kidney', 'Kidney Disease'),
+    ('liver', 'Liver Disease'),
+    ('breast_cancer', 'Breast Cancer'),
+    ('parkinsons', "Parkinson's Disease")
+] %}
 
-    <div class="info-card">
+<div class="card-grid">
 
-      <div class="icon">✚</div>
+    {% for key, name in module_list %}
 
-      <h3>{{ name }}</h3>
+<div class="info-card">
 
-      <p>
+<div class="icon"><i class="fa-solid {{ icons.get(key, 'fa-stethoscope') }}"></i></div>
+
+<h3>{{ name }}</h3>
+
+<p>
         Enter relevant health information and view a structured
-        risk result.
-      </p>
+        risk result with a clear visual summary.
+</p>
 
-    </div>
+<a class="hw-link" href="{{ url_for('prediction') }}">
+        Check risk <i class="fa-solid fa-arrow-right"></i>
+</a>
+
+</div>
 
     {% endfor %}
 
-  </div>
+</div>
 
+</section>
+
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<div class="hw-band">
+<section class="section" id="how-it-works">
+
+<div class="section-head">
+
+<span class="eyebrow">HOW IT WORKS</span>
+
+<h2>From your data to a clear result in four steps</h2>
+
+</div>
+
+<div class="hw-steps">
+
+<div class="hw-step">
+<span class="hw-no">01</span>
+<h3>Create an account</h3>
+<p>Register and log in securely so your results stay linked to you.</p>
+</div>
+
+<div class="hw-step">
+<span class="hw-no">02</span>
+<h3>Choose a disease</h3>
+<p>Pick the module you want to check from the prediction page.</p>
+</div>
+
+<div class="hw-step">
+<span class="hw-no">03</span>
+<h3>Enter parameters</h3>
+<p>Fill in your health values, such as those from a recent lab report.</p>
+</div>
+
+<div class="hw-step">
+<span class="hw-no">04</span>
+<h3>Get your result</h3>
+<p>View the risk level with visual charts and save it to your history.</p>
+</div>
+
+</div>
+
+</section>
+</div>
+
+
+<!-- ===================== FEATURES ===================== -->
+<section class="section" id="features">
+
+<div class="section-head">
+
+<span class="eyebrow">WHY CHOOSE US</span>
+
+<h2>Built for clarity, speed and privacy</h2>
+
+</div>
+
+<div class="card-grid">
+
+<div class="info-card">
+<div class="icon"><i class="fa-solid fa-bolt"></i></div>
+<h3>Instant predictions</h3>
+<p>Trained models return a risk estimate within seconds of submitting your values.</p>
+</div>
+
+<div class="info-card">
+<div class="icon"><i class="fa-solid fa-chart-pie"></i></div>
+<h3>Clear visualizations</h3>
+<p>Charts and risk levels make results easy to understand without medical jargon.</p>
+</div>
+
+<div class="info-card">
+<div class="icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+<h3>Prediction history</h3>
+<p>Every prediction is saved so you can review and compare results over time.</p>
+</div>
+
+<div class="info-card">
+<div class="icon"><i class="fa-solid fa-user-shield"></i></div>
+<h3>Secure access</h3>
+<p>Token-based login keeps your records protected and available only to you.</p>
+</div>
+
+<div class="info-card">
+<div class="icon"><i class="fa-solid fa-users"></i></div>
+<h3>Patient management</h3>
+<p>Doctors can manage multiple patients and their predictions in one place.</p>
+</div>
+
+<div class="info-card">
+<div class="icon"><i class="fa-solid fa-mobile-screen"></i></div>
+<h3>Works on any device</h3>
+<p>A fully responsive interface for desktop, tablet and mobile screens.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===================== CTA ===================== -->
+<section class="hw-cta">
+
+<div class="hw-cta-inner">
+
+<div>
+<h2>Ready to check your health risk?</h2>
+<p>Create a free account and run your first prediction in minutes.</p>
+</div>
+
+<div class="actions">
+<a class="btn primary" href="{{ url_for('register') }}">Get Started</a>
+<a class="btn ghost" href="{{ url_for('prediction') }}">Try a Prediction</a>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===================== FAQ ===================== -->
+<section class="section" id="faq">
+
+<div class="section-head">
+
+<span class="eyebrow">FAQ</span>
+
+<h2>Frequently asked questions</h2>
+
+</div>
+
+<div class="hw-faq-list">
+
+<details class="hw-faq">
+<summary>Is this a medical diagnosis?</summary>
+<p>No. The system gives a risk estimate for awareness only. It cannot replace a doctor's diagnosis, so always consult a qualified healthcare professional.</p>
+</details>
+
+<details class="hw-faq">
+<summary>How accurate are the predictions?</summary>
+<p>Each model is trained on public medical datasets. Accuracy depends on the model and on the quality of the values you enter, so treat results as guidance, not certainty.</p>
+</details>
+
+<details class="hw-faq">
+<summary>What information do I need?</summary>
+<p>Health values such as those found in a recent blood test or check-up report. Each module lists the inputs it needs.</p>
+</details>
+
+<details class="hw-faq">
+<summary>Is my data safe?</summary>
+<p>Your account is protected with secure login, and your prediction history is visible only to you.</p>
+</details>
+
+<details class="hw-faq">
+<summary>Do I need to create an account?</summary>
+<p>Yes. An account lets you save predictions and view your history later.</p>
+</details>
+
+</div>
+
+</section>
+
+
+<!-- ===================== DISCLAIMER ===================== -->
+<section class="hw-disclaimer">
+<p>
+<i class="fa-solid fa-triangle-exclamation"></i>
+<strong>Medical disclaimer:</strong>
+MULTI provides machine-learning-based risk estimates for educational purposes only.
+Results are not a substitute for professional medical advice, diagnosis or treatment.
+</p>
 </section>
 
 {% endblock %}

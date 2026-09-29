@@ -10,8 +10,7 @@
     <aside class="sidebar">
 
         <div class="logo">
-            <span>DR</span>
-            <h2>MULTI</h2>
+            <h2>Health Care</h2>
         </div>
 
         <nav class="sidebar-nav">
@@ -21,39 +20,27 @@
                 Dashboard
             </a>
 
-            <!-- NEW DISEASE PREDICTION -->
             <a href="{{ url_for('prediction') }}">
                 <span>🩺</span>
                 Disease Prediction
             </a>
 
-            <!-- MY PATIENTS -->
             <a href="{{ url_for('patients') }}">
                 <span>👤</span>
                 My Patients
             </a>
 
-            <!-- PREDICTION HISTORY -->
             <a href="{{ url_for('prediction_history') }}">
                 <span>📊</span>
                 Prediction History
-            </a>
-
-            <a href="{{ url_for('about') }}">
-                <span>ℹ️</span>
-                About
             </a>
 
         </nav>
 
         <div class="sidebar-bottom">
 
-            <button
-                type="button"
-                onclick="logoutUser()"
-                class="logout-btn"
-            >
-                🚪 Logout
+            <button type="button" onclick="logoutUser()" class="logout-btn">
+                Logout
             </button>
 
         </div>
@@ -69,9 +56,7 @@
 
             <div>
 
-                <p class="dashboard-label">
-                    HEALTH DASHBOARD
-                </p>
+                <p class="dashboard-label">HEALTH DASHBOARD</p>
 
                 <h1>
                     Welcome,
@@ -86,27 +71,14 @@
 
             </div>
 
-
             <!-- USER PROFILE -->
             <div class="user-profile">
 
-                <div
-                    class="profile-avatar"
-                    id="userInitial"
-                >
-                    U
-                </div>
+                <div class="profile-avatar" id="userInitial">U</div>
 
                 <div>
-
-                    <strong id="profileName">
-                        User
-                    </strong>
-
-                    <small id="profileEmail">
-                        user@example.com
-                    </small>
-
+                    <strong id="profileName">User</strong>
+                    <small id="profileEmail">user@example.com</small>
                 </div>
 
             </div>
@@ -118,65 +90,27 @@
         <section class="dashboard-stats">
 
             <div class="stat-card">
-
-                <div class="stat-icon">
-                    🩺
-                </div>
-
+                <div class="stat-icon">🩺</div>
                 <div>
-
-                    <span>
-                        Total Predictions
-                    </span>
-
-                    <h2 id="totalPredictions">
-                        0
-                    </h2>
-
+                    <span>Total Predictions</span>
+                    <h2 id="totalPredictions">0</h2>
                 </div>
-
             </div>
 
-
             <div class="stat-card">
-
-                <div class="stat-icon">
-                    👤
-                </div>
-
+                <div class="stat-icon">👤</div>
                 <div>
-
-                    <span>
-                        My Patients
-                    </span>
-
-                    <h2 id="totalPatients">
-                        0
-                    </h2>
-
+                    <span>My Patients</span>
+                    <h2 id="totalPatients">0</h2>
                 </div>
-
             </div>
 
-
             <div class="stat-card">
-
-                <div class="stat-icon">
-                    🧬
-                </div>
-
+                <div class="stat-icon">🧬</div>
                 <div>
-
-                    <span>
-                        Diseases Covered
-                    </span>
-
-                    <h2>
-                        6
-                    </h2>
-
+                    <span>Diseases Covered</span>
+                    <h2>6</h2>
                 </div>
-
             </div>
 
         </section>
@@ -188,13 +122,9 @@
             <!-- START PREDICTION -->
             <div class="dashboard-card prediction-card">
 
-                <div class="card-icon">
-                    🧠
-                </div>
+                <div class="card-icon">🧠</div>
 
-                <h2>
-                    Start a Health Prediction
-                </h2>
+                <h2>Start a Health Prediction</h2>
 
                 <p>
                     Enter your health information and generate
@@ -202,10 +132,7 @@
                     machine learning models.
                 </p>
 
-                <a
-                    href="{{ url_for('prediction') }}"
-                    class="btn-primary"
-                >
+                <a href="{{ url_for('prediction') }}" class="btn-primary">
                     Start Prediction →
                 </a>
 
@@ -216,99 +143,42 @@
             <div class="dashboard-card">
 
                 <div class="card-header">
-
                     <div>
-
-                        <h2>
-                            Disease Modules
-                        </h2>
-
-                        <p>
-                            Six prediction modules are currently available
-                        </p>
-
+                        <h2>Disease Modules</h2>
+                        <p>Six prediction modules are currently available</p>
                     </div>
-
                 </div>
-
 
                 <div class="disease-list">
 
                     <div class="disease-item">
-
-                        <span>
-                            🩸 Diabetes
-                        </span>
-
-                        <span class="status available">
-                            Available
-                        </span>
-
+                        <span>🩸 Diabetes</span>
+                        <span class="status available">Available</span>
                     </div>
 
-
                     <div class="disease-item">
-
-                        <span>
-                            ❤️ Heart Disease
-                        </span>
-
-                        <span class="status available">
-                            Available
-                        </span>
-
+                        <span>❤️ Heart Disease</span>
+                        <span class="status available">Available</span>
                     </div>
 
-
                     <div class="disease-item">
-
-                        <span>
-                            🫘 Kidney Disease
-                        </span>
-
-                        <span class="status available">
-                            Available
-                        </span>
-
+                        <span>🫘 Kidney Disease</span>
+                        <span class="status available">Available</span>
                     </div>
 
-
                     <div class="disease-item">
-
-                        <span>
-                            🧬 Liver Disease
-                        </span>
-
-                        <span class="status available">
-                            Available
-                        </span>
-
+                        <span>🧬 Liver Disease</span>
+                        <span class="status available">Available</span>
                     </div>
 
-
                     <div class="disease-item">
-
-                        <span>
-                            🧠 Parkinson's Disease
-                        </span>
-
-                        <span class="status available">
-                            Available
-                        </span>
-
+                        <span>🧠 Parkinson's Disease</span>
+                        <span class="status available">Available</span>
                     </div>
 
-
                     <div class="disease-item">
-
-                        <span>
-                            🩺 Stroke
-                        </span>
-
-                        <span class="status available">
-                            Available
-                        </span>
-
+                        <span>🩺 Stroke</span>
+                        <span class="status available">Available</span>
                     </div>
 
                 </div>
@@ -323,9 +193,7 @@
 
             <div class="info-card">
 
-                <h2>
-                    About Risk Prediction
-                </h2>
+                <h2>About Risk Prediction</h2>
 
                 <p>
                     MULTI provides machine-learning-based health
@@ -349,94 +217,153 @@
         <section class="dashboard-analytics">
 
             <div class="analytics-header">
-
                 <div>
-
-                    <p class="dashboard-label">
-                        HEALTH ANALYTICS
-                    </p>
-
-                    <h2>
-                        Prediction Overview
-                    </h2>
-
-                    <p>
-                        Visual summary of your prediction activity
-                        and risk results.
-                    </p>
-
+                    <p class="dashboard-label">HEALTH ANALYTICS</p>
+                    <h2>Prediction Overview</h2>
+                    <p>Visual summary of your prediction activity and risk results.</p>
                 </div>
-
             </div>
 
 
             <div class="chart-grid">
 
-                <!-- PREDICTION CHART -->
+                <!-- PREDICTION DISTRIBUTION : horizontal bar -->
                 <div class="chart-card">
 
                     <div class="chart-card-header">
-
                         <div class="chart-card-icon">
                             <i class="fa-solid fa-chart-column"></i>
                         </div>
-
                         <div>
-
-                            <h3>
-                                Prediction Distribution
-                            </h3>
-
-                            <p>
-                                Predictions by disease
-                            </p>
-
+                            <h3>Prediction Distribution</h3>
+                            <p>Your predictions by disease</p>
                         </div>
-
                     </div>
 
-                    <div class="chart-wrapper">
+                    <div class="dc-box">
 
-                        <canvas
-                            id="predictionChart"
-                        ></canvas>
+                        <div class="dc-bar-wrap" id="barWrap" hidden>
+                            <canvas id="predictionChart"></canvas>
+                        </div>
+
+                        <div class="dc-empty" id="barEmpty">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <h4>No predictions yet</h4>
+                            <p>Run your first prediction to see the breakdown by disease.</p>
+                            <a href="{{ url_for('prediction') }}" class="dc-btn">Start Prediction →</a>
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <!-- RISK CHART -->
+                <!-- RISK DISTRIBUTION : pie -->
                 <div class="chart-card">
 
                     <div class="chart-card-header">
-
                         <div class="chart-card-icon">
                             <i class="fa-solid fa-heart-pulse"></i>
                         </div>
-
                         <div>
+                            <h3>Risk Distribution</h3>
+                            <p>Risk levels of your predictions</p>
+                        </div>
+                    </div>
 
-                            <h3>
-                                Risk Distribution
-                            </h3>
+                    <div class="dc-box">
 
-                            <p>
-                                Overall prediction results
-                            </p>
+                        <div class="dc-donut-layout" id="pieWrap" hidden>
+                            <div class="dc-donut-canvas">
+                                <canvas id="riskChart"></canvas>
+                            </div>
+                            <ul class="dc-legend" id="riskLegend"></ul>
+                        </div>
 
+                        <div class="dc-empty" id="pieEmpty">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <h4>No risk data yet</h4>
+                            <p>Your Low, Moderate and High risk results will appear here.</p>
+                            <a href="{{ url_for('prediction') }}" class="dc-btn">Start Prediction →</a>
                         </div>
 
                     </div>
 
-                    <div class="chart-wrapper">
+                </div>
 
-                        <canvas
-                            id="riskChart"
-                        ></canvas>
+            </div>
 
+        <div class="chart-card dc-recent-card">
+
+                <div class="chart-card-header">
+                    <div class="chart-card-icon">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div>
+                        <h3>My Recent Predictions</h3>
+                        <p>Predictions made from your account</p>
+                    </div>
+                </div>
+
+                <div class="dc-table-wrap" id="recentWrap" hidden>
+                    <table class="dc-table">
+                        <thead>
+                            <tr>
+                                <th>Disease</th>
+                                <th>Patient</th>
+                                <th>Risk</th>
+                                <th>Probability</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBody"></tbody>
+                    </table>
+
+                    <a href="{{ url_for('prediction_history') }}" class="dc-viewall">
+                        View full history →
+                    </a>
+                </div>
+
+                <div class="dc-empty dc-empty-wide" id="recentEmpty">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <h4>You have not made any prediction yet</h4>
+                    <p>Your predictions will be listed here after you run one.</p>
+                    <a href="{{ url_for('prediction') }}" class="dc-btn">Start Prediction →</a>
+                </div>
+
+            </div>
+
+            <div class="chart-card dc-changes-card">
+
+                <div class="chart-card-header">
+                    <div class="chart-card-icon">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+                    <div>
+                        <h3>Recent Changes</h3>
+                        <p>Latest prediction compared with the previous one (same patient and disease)</p>
+                    </div>
+                </div>
+
+                <div id="deltaBox" hidden>
+
+                    <div class="dc-delta-wrap" id="deltaWrap">
+                        <canvas id="changesChart"></canvas>
                     </div>
 
+                    <div class="dc-delta-legend">
+                        <span><i style="background:#1fc78a"></i> Risk decreased</span>
+                        <span><i style="background:#ef5b5b"></i> Risk increased</span>
+                    </div>
+
+                </div>
+
+                <div id="changesList" class="dc-changes-list" hidden></div>
+
+                <div class="dc-empty dc-empty-wide" id="changesEmpty">
+                    <i class="fa-solid fa-code-compare"></i>
+                    <h4>No comparison yet</h4>
+                    <p>Predict the same disease for the same patient at least twice to see how the risk changed.</p>
                 </div>
 
             </div>
@@ -450,49 +377,28 @@
             <!-- PATIENTS -->
             <div class="dashboard-card">
 
-                <div class="card-icon">
-                    👥
-                </div>
+                <div class="card-icon">👥</div>
 
-                <h2>
-                    My Patients
-                </h2>
+                <h2>My Patients</h2>
 
-                <p>
-                    View and manage patients registered under
-                    your account.
-                </p>
+                <p>View and manage patients registered under your account.</p>
 
-                <a
-                    href="{{ url_for('patients') }}"
-                    class="btn-secondary"
-                >
+                <a href="{{ url_for('patients') }}" class="btn-secondary">
                     View Patients →
                 </a>
 
             </div>
 
-
             <!-- PREDICTION HISTORY -->
             <div class="dashboard-card">
 
-                <div class="card-icon">
-                    📋
-                </div>
+                <div class="card-icon">📋</div>
 
-                <h2>
-                    Prediction History
-                </h2>
+                <h2>Prediction History</h2>
 
-                <p>
-                    View your previous disease risk predictions
-                    and results.
-                </p>
+                <p>View your previous disease risk predictions and results.</p>
 
-                <a
-                    href="{{ url_for('prediction_history') }}"
-                    class="btn-secondary"
-                >
+                <a href="{{ url_for('prediction_history') }}" class="btn-secondary">
                     View Predictions →
                 </a>
 
@@ -506,109 +412,495 @@
 
 
 <!-- DASHBOARD USER SCRIPT -->
-
 <script>
 
     // Load logged-in user information
-
-    const storedUser =
-        localStorage.getItem("user");
-
+    const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
 
         try {
 
-            const user =
-                JSON.parse(storedUser);
+            const user = JSON.parse(storedUser);
 
-            const name =
-                user.name || "User";
+            const name = user.name || "User";
+            const email = user.email || "user@example.com";
 
-            const email =
-                user.email || "user@example.com";
+            const userName = document.getElementById("userName");
+            const profileName = document.getElementById("profileName");
+            const profileEmail = document.getElementById("profileEmail");
+            const userInitial = document.getElementById("userInitial");
 
-
-            const userName =
-                document.getElementById("userName");
-
-            const profileName =
-                document.getElementById("profileName");
-
-            const profileEmail =
-                document.getElementById("profileEmail");
-
-            const userInitial =
-                document.getElementById("userInitial");
-
-
-            if (userName) {
-
-                userName.textContent =
-                    name;
-
-            }
-
-
-            if (profileName) {
-
-                profileName.textContent =
-                    name;
-
-            }
-
-
-            if (profileEmail) {
-
-                profileEmail.textContent =
-                    email;
-
-            }
-
-
-            if (userInitial) {
-
-                userInitial.textContent =
-                    name
-                        .charAt(0)
-                        .toUpperCase();
-
-            }
-
+            if (userName) userName.textContent = name;
+            if (profileName) profileName.textContent = name;
+            if (profileEmail) profileEmail.textContent = email;
+            if (userInitial) userInitial.textContent = name.charAt(0).toUpperCase();
 
         } catch (error) {
 
-            console.error(
-                "Unable to load user information:",
-                error
-            );
+            console.error("Unable to load user information:", error);
 
         }
 
     }
 
-
     // Logout user
-
     function logoutUser() {
 
-        localStorage.removeItem(
-            "access_token"
-        );
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("user_role");
 
-        localStorage.removeItem(
-            "user"
-        );
-
-        localStorage.removeItem(
-            "user_role"
-        );
-
-        window.location.href =
-            "{{ url_for('login') }}";
+        window.location.href = "{{ url_for('login') }}";
 
     }
 
+</script>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<script>
+(function () {
+
+    const API_URL = "/api/dashboard-stats";   // returns ONLY the logged-in user's data
+
+    const RISK_COLORS = {
+        Low: "#1fc78a",
+        Moderate: "#f5b942",
+        High: "#ef5b5b"
+    };
+
+    const MUTED = "#94a3b8";
+
+    Chart.defaults.font.family = "inherit";
+    Chart.defaults.color = MUTED;
+
+
+    /* ---------- Horizontal bar chart ---------- */
+    function drawBar(data) {
+
+        document.getElementById("barEmpty").hidden = true;
+        document.getElementById("barWrap").hidden = false;
+
+        new Chart(document.getElementById("predictionChart"), {
+            type: "bar",
+            data: {
+                labels: Object.keys(data),
+                datasets: [{
+                    data: Object.values(data),
+                    backgroundColor: "rgba(31,199,138,0.75)",
+                    hoverBackgroundColor: "#1fc78a",
+                    borderRadius: 6,
+                    borderSkipped: false,
+                    barThickness: 16
+                }]
+            },
+            options: {
+                indexAxis: "y",
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: { precision: 0, color: MUTED },
+                        grid: { color: "rgba(255,255,255,0.06)" },
+                        border: { display: false }
+                    },
+                    y: {
+                        ticks: { color: "#cbd5e1" },
+                        grid: { display: false },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+
+    /* ---------- Pie chart ---------- */
+    function drawPie(data) {
+
+        document.getElementById("pieEmpty").hidden = true;
+        document.getElementById("pieWrap").hidden = false;
+
+        const PALETTE = ["#38bdf8", "#a78bfa", "#f472b6", "#94a3b8"];
+
+        const entries = Object.entries(data).filter(([, v]) => v > 0);
+
+        if (entries.length === 0) {
+            document.getElementById("pieEmpty").hidden = false;
+            document.getElementById("pieWrap").hidden = true;
+            return;
+        }
+
+        let extra = 0;
+        const labels = entries.map(([l]) => l);
+        const values = entries.map(([, v]) => v);
+        const colors = labels.map(l => RISK_COLORS[l] || PALETTE[extra++ % PALETTE.length]);
+        const total = values.reduce((a, b) => a + b, 0);
+
+        new Chart(document.getElementById("riskChart"), {
+            type: "pie",
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors,
+                    borderColor: "#111a28",
+                    borderWidth: 3,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        document.getElementById("riskLegend").innerHTML = labels.map((l, i) => `
+            <li>
+                <span class="dc-dot" style="background:${colors[i]}"></span>
+                <span class="dc-legend-label">${RISK_COLORS[l] ? l + " risk" : l}</span>
+                <span class="dc-legend-val">${values[i]}
+                    <em>${Math.round(values[i] / total * 100)}%</em>
+                </span>
+            </li>
+        `).join("");
+    }
+
+
+    /* ---------- Helpers: clean names saved in the database ---------- */
+    const DISEASES = [
+        ["diabetes",  "Diabetes"],
+        ["heart",     "Heart Disease"],
+        ["kidney",    "Kidney Disease"],
+        ["liver",     "Liver Disease"],
+        ["parkinson", "Parkinson's Disease"],
+        ["stroke",    "Stroke"]
+    ];
+
+    function cleanDisease(value) {
+        const t = String(value || "").toLowerCase();
+        for (const [key, label] of DISEASES) {
+            if (t.includes(key)) return label;
+        }
+        return null;
+    }
+
+    // label used for the pie: Low / Moderate / High, or whatever is saved
+    function riskLabel(p) {
+        const r = cleanRisk(p.risk_level);
+        if (r) return r;
+
+        const raw = String(p.risk_level || "").trim();
+        if (raw) return raw;
+
+        if (p.prediction === 1 || p.prediction === "1") return "At risk";
+        if (p.prediction === 0 || p.prediction === "0") return "Not at risk";
+
+        return null;
+    }
+
+    function cleanRisk(value) {
+        const t = String(value || "").toLowerCase();
+        if (t.includes("low")) return "Low";
+        if (t.includes("mod") || t.includes("medium")) return "Moderate";
+        if (t.includes("high")) return "High";
+        return null;
+    }
+
+
+    /* ---------- List of this user's own recent predictions ---------- */
+    function drawRecent(predictions) {
+
+        if (predictions.length === 0) return;
+
+        document.getElementById("recentBody").innerHTML = predictions.slice(0, 8).map(p => {
+
+            const d = cleanDisease(p.disease) || p.disease;
+            const r = riskLabel(p);
+            const pct = toPercent(p.probability);
+
+            const date = p.created_at
+                ? new Date(p.created_at).toLocaleDateString() : "-";
+
+            return `
+                <tr>
+                    <td><strong>${esc(d)}</strong></td>
+                    <td>${esc(p.patient_name)}</td>
+                    <td>${riskPill(r)}</td>
+                    <td>${pct !== null ? pct.toFixed(1) + "%" : "-"}</td>
+                    <td>${date}</td>
+                </tr>`;
+        }).join("");
+
+        document.getElementById("recentEmpty").hidden = true;
+        document.getElementById("recentWrap").hidden = false;
+    }
+
+
+    /* ---------- Increase / decrease chart ---------- */
+    function drawDelta(rows) {
+
+        const items = rows.filter(r => r.delta !== null);
+
+        if (items.length === 0) return;
+
+        const wrap = document.getElementById("deltaWrap");
+        wrap.style.height = (items.length * 46 + 80) + "px";
+
+        document.getElementById("deltaBox").hidden = false;
+
+        const labels = items.map(r => r.latest.patient_name + " · " + r.latest.disease);
+        const values = items.map(r => Number(r.delta.toFixed(1)));
+
+        const colors = values.map(v =>
+            v < 0 ? "#1fc78a" : (v > 0 ? "#ef5b5b" : "#64748b"));
+
+        new Chart(document.getElementById("changesChart"), {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors,
+                    borderRadius: 6,
+                    borderSkipped: false,
+                    barThickness: 18
+                }]
+            },
+            options: {
+                indexAxis: "y",
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: c => {
+                                const r = items[c.dataIndex];
+                                const v = values[c.dataIndex];
+                                return " " + r.pp.toFixed(1) + "% → " + r.lp.toFixed(1) +
+                                       "% (" + (v > 0 ? "+" : "") + v + " pts)";
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Change in risk probability (percentage points)",
+                            color: MUTED
+                        },
+                        ticks: { color: MUTED },
+                        grid: {
+                            color: ctx => ctx.tick.value === 0
+                                ? "rgba(255,255,255,0.35)"
+                                : "rgba(255,255,255,0.06)"
+                        },
+                        border: { display: false }
+                    },
+                    y: {
+                        ticks: { color: "#cbd5e1" },
+                        grid: { display: false },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+
+    /* ---------- Compare latest vs previous prediction ---------- */
+    const RISK_RANK = { Low: 1, Moderate: 2, High: 3 };
+
+    function esc(s) {
+        return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function toPercent(p) {
+        const n = Number(p);
+        if (isNaN(n)) return null;
+        return n <= 1 ? n * 100 : n;
+    }
+
+    function riskPill(r) {
+        const cls = { Low: "low", Moderate: "mid", High: "high" }[r] || "none";
+        return `<span class="dc-rp dc-rp-${cls}">${esc(r || "N/A")}</span>`;
+    }
+
+    function drawChanges(predictions) {
+
+        // history is newest first, so the first item of a group is the latest
+        const groups = {};
+
+        predictions.forEach(p => {
+            const key = p.patient_id + "|" + p.disease;
+            (groups[key] = groups[key] || []).push(p);
+        });
+
+        const rows = [];
+
+        Object.values(groups).forEach(list => {
+
+            if (list.length < 2) return;
+
+            const latest = list[0];
+            const prev = list[1];
+
+            const lr = cleanRisk(latest.risk_level);
+            const pr = cleanRisk(prev.risk_level);
+
+            const lp = toPercent(latest.probability);
+            const pp = toPercent(prev.probability);
+
+            let delta = null;
+            if (lp !== null && pp !== null) delta = lp - pp;
+
+            // decide: improved / increased / same
+            let trend = "same";
+
+            if (lr && pr && RISK_RANK[lr] !== RISK_RANK[pr]) {
+                trend = RISK_RANK[lr] < RISK_RANK[pr] ? "better" : "worse";
+            } else if (delta !== null && Math.abs(delta) >= 0.5) {
+                trend = delta < 0 ? "better" : "worse";
+            }
+
+            rows.push({ latest, prev, lr, pr, lp, pp, delta, trend });
+        });
+
+        if (rows.length === 0) return;
+
+        rows.sort((a, b) =>
+            new Date(b.latest.created_at || 0) - new Date(a.latest.created_at || 0));
+
+        const label = {
+            better: '<i class="fa-solid fa-arrow-trend-down"></i> Risk decreased',
+            worse:  '<i class="fa-solid fa-arrow-trend-up"></i> Risk increased',
+            same:   '<i class="fa-solid fa-minus"></i> No change'
+        };
+
+        document.getElementById("changesList").innerHTML = rows.slice(0, 6).map(r => {
+
+            const date = r.latest.created_at
+                ? new Date(r.latest.created_at).toLocaleDateString() : "";
+
+            const pct = (r.pp !== null && r.lp !== null)
+                ? `${r.pp.toFixed(1)}% → ${r.lp.toFixed(1)}%
+                   <em>(${r.delta > 0 ? "+" : ""}${r.delta.toFixed(1)} pts)</em>`
+                : "";
+
+            return `
+                <div class="dc-change-row">
+                    <div class="dc-change-main">
+                        <strong>${esc(r.latest.patient_name)}</strong>
+                        <span>${esc(r.latest.disease)}${date ? " · " + date : ""}</span>
+                    </div>
+                    <div class="dc-change-risk">
+                        ${riskPill(r.pr)} <i class="fa-solid fa-arrow-right"></i> ${riskPill(r.lr)}
+                        <small>${pct}</small>
+                    </div>
+                    <div class="dc-trend dc-trend-${r.trend}">${label[r.trend]}</div>
+                </div>`;
+        }).join("");
+
+        document.getElementById("changesEmpty").hidden = true;
+        document.getElementById("changesList").hidden = false;
+
+        drawDelta(rows.slice(0, 6));
+    }
+
+
+    /* ---------- Load ONLY this logged-in user's predictions ---------- */
+    async function start() {
+
+        const token = localStorage.getItem("access_token");
+
+        try {
+
+            // existing route: returns only the logged-in user's predictions
+            const res = await fetch("/api/predict/history", {
+                headers: token ? { "Authorization": "Bearer " + token } : {}
+            });
+
+            if (res.status === 401) {
+                window.location.href = "{{ url_for('login') }}";
+                return;
+            }
+
+            if (!res.ok) throw new Error("HTTP " + res.status);
+
+            const data = await res.json();
+            const predictions = data.predictions || [];
+
+            // count by disease and by risk level
+            const byDisease = {};
+            const risk = { Low: 0, Moderate: 0, High: 0 };   // standard first, others added below
+
+            predictions.forEach(p => {
+
+                const d = cleanDisease(p.disease);
+                if (d) byDisease[d] = (byDisease[d] || 0) + 1;
+
+                const r = riskLabel(p);
+                if (r) risk[r] = (risk[r] || 0) + 1;
+
+            });
+
+            // top card: total predictions
+            const tp = document.getElementById("totalPredictions");
+            if (tp) tp.textContent = predictions.length;
+
+            drawRecent(predictions);
+            drawChanges(predictions);
+
+            // charts (only if this user has predictions)
+            if (predictions.length > 0) {
+
+                drawBar(byDisease);
+
+                drawPie(risk);
+            }
+
+        } catch (err) {
+
+            console.warn("Could not load predictions:", err);
+
+        }
+
+        // top card: patients (optional, works when app.py has /api/dashboard-stats)
+        try {
+
+            const res = await fetch("/api/dashboard-stats", {
+                headers: token ? { "Authorization": "Bearer " + token } : {}
+            });
+
+            if (res.ok) {
+
+                const d = await res.json();
+                const tpat = document.getElementById("totalPatients");
+
+                if (tpat && d.total_patients !== undefined) {
+                    tpat.textContent = d.total_patients;
+                }
+            }
+
+        } catch (e) { /* ignore */ }
+    }
+
+    start();
+
+})();
 </script>
 
 {% endblock %}
