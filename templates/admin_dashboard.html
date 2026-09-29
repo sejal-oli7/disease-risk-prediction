@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +13,20 @@
 
     <title>Admin Dashboard — MDRP</title>
 
+
+    <!-- MAIN CSS -->
+
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='style.css') }}"
     >
+
+
+    <!-- CHART.JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
 
 </head>
 
@@ -48,6 +59,7 @@
             Admin
         </span>
 
+
         <button
             type="button"
             id="adminLogoutBtn"
@@ -61,6 +73,7 @@
 </header>
 
 
+
 <!-- ========================================
      MAIN DASHBOARD
 ======================================== -->
@@ -68,7 +81,9 @@
 <main class="admin-container">
 
 
-    <!-- HEADER -->
+    <!-- ========================================
+         DASHBOARD HEADER
+    ========================================= -->
 
     <div class="admin-header">
 
@@ -100,12 +115,15 @@
     </div>
 
 
+
     <!-- ========================================
          STATISTICS
     ========================================= -->
 
     <section class="admin-stats-grid">
 
+
+        <!-- TOTAL USERS -->
 
         <div class="admin-stat-card">
 
@@ -128,6 +146,8 @@
         </div>
 
 
+        <!-- TOTAL PATIENTS -->
+
         <div class="admin-stat-card">
 
             <div class="admin-stat-icon">
@@ -148,6 +168,8 @@
 
         </div>
 
+
+        <!-- TOTAL PREDICTIONS -->
 
         <div class="admin-stat-card">
 
@@ -170,6 +192,8 @@
         </div>
 
 
+        <!-- HIGH RISK -->
+
         <div class="admin-stat-card">
 
             <div class="admin-stat-icon">
@@ -191,6 +215,7 @@
         </div>
 
     </section>
+
 
 
     <!-- ========================================
@@ -219,6 +244,8 @@
         <div class="risk-summary-grid">
 
 
+            <!-- LOW -->
+
             <div class="risk-card risk-low">
 
                 <span class="risk-card-icon">
@@ -240,6 +267,8 @@
             </div>
 
 
+            <!-- MEDIUM -->
+
             <div class="risk-card risk-medium">
 
                 <span class="risk-card-icon">
@@ -260,6 +289,8 @@
 
             </div>
 
+
+            <!-- HIGH -->
 
             <div class="risk-card risk-high">
 
@@ -284,6 +315,111 @@
         </div>
 
     </section>
+
+
+
+    <!-- ========================================
+         ANALYTICS CHARTS
+    ========================================= -->
+
+    <section class="admin-section">
+
+        <div class="admin-section-header">
+
+            <div>
+
+                <p class="admin-label">
+                    ANALYTICS
+                </p>
+
+                <h2>
+                    Prediction Statistics
+                </h2>
+
+                <p class="admin-subtitle">
+                    Visual overview of prediction activity and risk distribution.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-chart-grid">
+
+
+            <!-- ========================================
+                 RISK BAR CHART
+            ========================================= -->
+
+            <div class="admin-chart-card">
+
+                <div class="chart-card-header">
+
+                    <div>
+
+                        <span class="chart-label">
+                            RISK DISTRIBUTION
+                        </span>
+
+                        <h3>
+                            Prediction Risk Overview
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="riskBarChart"
+                    ></canvas>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ========================================
+                 DISEASE BAR CHART
+            ========================================= -->
+
+            <div class="admin-chart-card">
+
+                <div class="chart-card-header">
+
+                    <div>
+
+                        <span class="chart-label">
+                            DISEASE ANALYTICS
+                        </span>
+
+                        <h3>
+                            Disease Predictions
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="diseaseBarChart"
+                    ></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
 
 
     <!-- ========================================
@@ -312,6 +448,8 @@
         <div class="risk-summary-grid">
 
 
+            <!-- DISEASE COUNT -->
+
             <div class="risk-card">
 
                 <span class="risk-card-icon">
@@ -333,6 +471,8 @@
             </div>
 
 
+            <!-- TOP DISEASE -->
+
             <div class="risk-card">
 
                 <span class="risk-card-icon">
@@ -353,6 +493,8 @@
 
             </div>
 
+
+            <!-- LATEST -->
 
             <div class="risk-card">
 
@@ -377,12 +519,15 @@
         </div>
 
 
+        <!-- DISEASE MONITORING -->
+
         <div
             id="diseaseMonitoring"
             class="admin-monitoring-list"
         ></div>
 
     </section>
+
 
 
     <!-- ========================================
@@ -417,12 +562,30 @@
                     <tr>
 
                         <th>ID</th>
-                        <th>Patient ID</th>
-                        <th>Disease</th>
-                        <th>Prediction</th>
-                        <th>Probability</th>
-                        <th>Risk Level</th>
-                        <th>Date</th>
+
+                        <th>
+                            Patient ID
+                        </th>
+
+                        <th>
+                            Disease
+                        </th>
+
+                        <th>
+                            Prediction
+                        </th>
+
+                        <th>
+                            Probability
+                        </th>
+
+                        <th>
+                            Risk Level
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
 
                     </tr>
 
@@ -451,6 +614,7 @@
     </section>
 
 
+
     <!-- ========================================
          USERS
     ========================================= -->
@@ -474,7 +638,7 @@
         </div>
 
 
-        <!-- USER SEARCH -->
+        <!-- SEARCH -->
 
         <div class="admin-filter-bar">
 
@@ -488,6 +652,8 @@
         </div>
 
 
+        <!-- TABLE -->
+
         <div class="admin-table-wrapper">
 
             <table class="admin-table">
@@ -496,11 +662,25 @@
 
                     <tr>
 
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Action</th>
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Role
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
 
                     </tr>
 
@@ -529,6 +709,7 @@
     </section>
 
 
+
     <!-- ========================================
          PATIENTS
     ========================================= -->
@@ -552,7 +733,7 @@
         </div>
 
 
-        <!-- PATIENT SEARCH -->
+        <!-- SEARCH -->
 
         <div class="admin-filter-bar">
 
@@ -566,6 +747,8 @@
         </div>
 
 
+        <!-- TABLE -->
+
         <div class="admin-table-wrapper">
 
             <table class="admin-table">
@@ -574,13 +757,33 @@
 
                     <tr>
 
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Created</th>
-                        <th>Action</th>
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            User ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Age
+                        </th>
+
+                        <th>
+                            Gender
+                        </th>
+
+                        <th>
+                            Created
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
 
                     </tr>
 
@@ -609,6 +812,7 @@
     </section>
 
 
+
     <!-- ========================================
          ALL PREDICTIONS
     ========================================= -->
@@ -632,10 +836,12 @@
         </div>
 
 
-        <!-- PREDICTION FILTERS -->
+        <!-- FILTERS -->
 
         <div class="admin-filter-grid">
 
+
+            <!-- SEARCH -->
 
             <input
                 type="text"
@@ -644,6 +850,8 @@
                 placeholder="Search by ID, user ID, patient ID or disease..."
             >
 
+
+            <!-- DISEASE -->
 
             <select
                 id="diseaseFilter"
@@ -656,6 +864,8 @@
 
             </select>
 
+
+            <!-- RISK -->
 
             <select
                 id="riskFilter"
@@ -681,6 +891,8 @@
             </select>
 
 
+            <!-- DATE -->
+
             <input
                 type="date"
                 id="dateFilter"
@@ -690,6 +902,8 @@
         </div>
 
 
+        <!-- TABLE -->
+
         <div class="admin-table-wrapper">
 
             <table class="admin-table">
@@ -698,15 +912,41 @@
 
                     <tr>
 
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Patient ID</th>
-                        <th>Disease</th>
-                        <th>Prediction</th>
-                        <th>Probability</th>
-                        <th>Risk</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            User ID
+                        </th>
+
+                        <th>
+                            Patient ID
+                        </th>
+
+                        <th>
+                            Disease
+                        </th>
+
+                        <th>
+                            Prediction
+                        </th>
+
+                        <th>
+                            Probability
+                        </th>
+
+                        <th>
+                            Risk
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
 
                     </tr>
 
@@ -735,6 +975,7 @@
     </section>
 
 
+
     <!-- ========================================
          ERROR
     ========================================= -->
@@ -749,6 +990,11 @@
 </main>
 
 
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
 <script>
 
 
@@ -761,6 +1007,15 @@ let allUsers = [];
 let allPatients = [];
 
 let allPredictions = [];
+
+
+// ========================================
+// CHART INSTANCES
+// ========================================
+
+let riskBarChart = null;
+
+let diseaseBarChart = null;
 
 
 // ========================================
@@ -780,7 +1035,10 @@ function getAdminToken() {
 // ADMIN REQUEST
 // ========================================
 
-async function adminRequest(url, options = {}) {
+async function adminRequest(
+    url,
+    options = {}
+) {
 
     const token =
         getAdminToken();
@@ -792,6 +1050,7 @@ async function adminRequest(url, options = {}) {
             "/auth";
 
         return null;
+
     }
 
 
@@ -810,15 +1069,29 @@ async function adminRequest(url, options = {}) {
                         `Bearer ${token}`
 
                 }
+
             }
         );
 
 
-    const data =
-        await response.json();
+    let data = {};
 
 
-    if (response.status === 401) {
+    try {
+
+        data =
+            await response.json();
+
+    } catch (error) {
+
+        data = {};
+
+    }
+
+
+    if (
+        response.status === 401
+    ) {
 
         localStorage.removeItem(
             "access_token"
@@ -836,14 +1109,18 @@ async function adminRequest(url, options = {}) {
             "/auth";
 
         return null;
+
     }
 
 
-    if (response.status === 403) {
+    if (
+        response.status === 403
+    ) {
 
         throw new Error(
             "You do not have admin access."
         );
+
     }
 
 
@@ -854,6 +1131,7 @@ async function adminRequest(url, options = {}) {
             data.message ||
             "Request failed."
         );
+
     }
 
 
@@ -862,11 +1140,14 @@ async function adminRequest(url, options = {}) {
 }
 
 
+
 // ========================================
 // FORMAT DISEASE
 // ========================================
 
-function formatDiseaseName(disease) {
+function formatDiseaseName(
+    disease
+) {
 
     if (!disease) {
 
@@ -877,20 +1158,28 @@ function formatDiseaseName(disease) {
 
     return disease
 
-        .replaceAll("_", " ")
+        .replaceAll(
+            "_",
+            " "
+        )
 
-        .replace(/\b\w/g, letter =>
-            letter.toUpperCase()
+        .replace(
+            /\b\w/g,
+            letter =>
+                letter.toUpperCase()
         );
 
 }
+
 
 
 // ========================================
 // FORMAT PROBABILITY
 // ========================================
 
-function formatProbability(value) {
+function formatProbability(
+    value
+) {
 
     if (
         value === null ||
@@ -922,11 +1211,14 @@ function formatProbability(value) {
 }
 
 
+
 // ========================================
 // FORMAT DATE
 // ========================================
 
-function formatDate(value) {
+function formatDate(
+    value
+) {
 
     if (!value) {
 
@@ -955,11 +1247,14 @@ function formatDate(value) {
 }
 
 
+
 // ========================================
 // DATE ONLY
 // ========================================
 
-function getDateOnly(value) {
+function getDateOnly(
+    value
+) {
 
     if (!value) {
 
@@ -990,11 +1285,14 @@ function getDateOnly(value) {
 }
 
 
+
 // ========================================
 // RISK CLASS
 // ========================================
 
-function riskClass(risk) {
+function riskClass(
+    risk
+) {
 
     if (!risk) {
 
@@ -1003,16 +1301,21 @@ function riskClass(risk) {
     }
 
 
-    return `risk-${risk.toLowerCase()}`;
+    return `risk-${String(
+        risk
+    ).toLowerCase()}`;
 
 }
+
 
 
 // ========================================
 // ERROR
 // ========================================
 
-function displayError(message) {
+function displayError(
+    message
+) {
 
     const element =
         document.getElementById(
@@ -1028,6 +1331,7 @@ function displayError(message) {
         "block";
 
 }
+
 
 
 // ========================================
@@ -1050,6 +1354,381 @@ function clearError() {
         "none";
 
 }
+
+
+
+// ========================================
+// RISK BAR CHART
+// ========================================
+
+function updateRiskBarChart(
+    statistics
+) {
+
+    const canvas =
+        document.getElementById(
+            "riskBarChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    if (riskBarChart) {
+
+        riskBarChart.destroy();
+
+    }
+
+
+    riskBarChart =
+        new Chart(
+            ctx,
+            {
+
+                type: "bar",
+
+
+                data: {
+
+                    labels: [
+
+                        "Total Predictions",
+
+                        "Low Risk",
+
+                        "Medium Risk",
+
+                        "High Risk"
+
+                    ],
+
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Predictions",
+
+
+                            data: [
+
+                                statistics.total_predictions ?? 0,
+
+                                statistics.low_risk ?? 0,
+
+                                statistics.medium_risk ?? 0,
+
+                                statistics.high_risk ?? 0
+
+                            ],
+
+
+                            backgroundColor: [
+
+                                "rgba(32, 197, 138, 0.75)",
+
+                                "rgba(32, 197, 138, 0.75)",
+
+                                "rgba(245, 184, 72, 0.75)",
+
+                                "rgba(255, 92, 92, 0.75)"
+
+                            ],
+
+
+                            borderRadius: 8,
+
+
+                            borderWidth: 0
+
+                        }
+
+                    ]
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+
+                    plugins: {
+
+                        legend: {
+
+                            display: false
+
+                        }
+
+                    },
+
+
+                    scales: {
+
+                        x: {
+
+                            grid: {
+
+                                display: false
+
+                            },
+
+
+                            ticks: {
+
+                                color:
+                                    "#8994a6"
+
+                            }
+
+                        },
+
+
+                        y: {
+
+                            beginAtZero: true,
+
+
+                            ticks: {
+
+                                color:
+                                    "#8994a6",
+
+                                precision: 0
+
+                            },
+
+
+                            grid: {
+
+                                color:
+                                    "rgba(255,255,255,0.06)"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+
+// ========================================
+// DISEASE BAR CHART
+// ========================================
+
+function updateDiseaseBarChart(
+    predictions
+) {
+
+    const canvas =
+        document.getElementById(
+            "diseaseBarChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+
+    }
+
+
+    const diseaseCounts = {};
+
+
+    predictions.forEach(
+        item => {
+
+            const disease =
+                item.disease ||
+                "Unknown";
+
+
+            diseaseCounts[disease] =
+                (
+                    diseaseCounts[disease] ||
+                    0
+                ) + 1;
+
+        }
+    );
+
+
+    const sortedDiseases =
+        Object.entries(
+            diseaseCounts
+        )
+        .sort(
+            (a, b) =>
+                b[1] - a[1]
+        );
+
+
+    const labels =
+        sortedDiseases.map(
+            item =>
+                formatDiseaseName(
+                    item[0]
+                )
+        );
+
+
+    const values =
+        sortedDiseases.map(
+            item =>
+                item[1]
+        );
+
+
+    if (diseaseBarChart) {
+
+        diseaseBarChart.destroy();
+
+    }
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    diseaseBarChart =
+        new Chart(
+            ctx,
+            {
+
+                type: "bar",
+
+
+                data: {
+
+                    labels: labels,
+
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Predictions",
+
+
+                            data: values,
+
+
+                            backgroundColor:
+                                "rgba(32, 197, 138, 0.72)",
+
+
+                            borderRadius: 8,
+
+
+                            borderWidth: 0
+
+                        }
+
+                    ]
+
+                },
+
+
+                options: {
+
+                    indexAxis: "y",
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+
+                    plugins: {
+
+                        legend: {
+
+                            display: false
+
+                        }
+
+                    },
+
+
+                    scales: {
+
+                        x: {
+
+                            beginAtZero: true,
+
+
+                            ticks: {
+
+                                color:
+                                    "#8994a6",
+
+                                precision: 0
+
+                            },
+
+
+                            grid: {
+
+                                color:
+                                    "rgba(255,255,255,0.06)"
+
+                            }
+
+                        },
+
+
+                        y: {
+
+                            ticks: {
+
+                                color:
+                                    "#8994a6"
+
+                            },
+
+
+                            grid: {
+
+                                display: false
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
 
 
 // ========================================
@@ -1117,6 +1796,15 @@ async function loadAdminDashboard() {
         statistics.high_risk ?? 0;
 
 
+    // UPDATE RISK CHART
+
+    updateRiskBarChart(
+        statistics
+    );
+
+
+    // RECENT PREDICTIONS
+
     renderRecentPredictions(
         data.recent_predictions || []
     );
@@ -1124,11 +1812,14 @@ async function loadAdminDashboard() {
 }
 
 
+
 // ========================================
 // RECENT PREDICTIONS
 // ========================================
 
-function renderRecentPredictions(predictions) {
+function renderRecentPredictions(
+    predictions
+) {
 
     const tbody =
         document.getElementById(
@@ -1159,7 +1850,8 @@ function renderRecentPredictions(predictions) {
 
 
     tbody.innerHTML =
-        predictions.map(item => `
+        predictions.map(
+            item => `
 
             <tr>
 
@@ -1168,7 +1860,7 @@ function renderRecentPredictions(predictions) {
                 </td>
 
                 <td>
-                    ${item.patient_id}
+                    ${item.patient_id ?? "N/A"}
                 </td>
 
                 <td>
@@ -1178,7 +1870,7 @@ function renderRecentPredictions(predictions) {
                 </td>
 
                 <td>
-                    ${item.prediction}
+                    ${item.prediction ?? "N/A"}
                 </td>
 
                 <td>
@@ -1194,7 +1886,9 @@ function renderRecentPredictions(predictions) {
                             item.risk_level
                         )}"
                     >
+
                         ${item.risk_level || "N/A"}
+
                     </span>
 
                 </td>
@@ -1207,9 +1901,12 @@ function renderRecentPredictions(predictions) {
 
             </tr>
 
-        `).join("");
+        `
+        )
+        .join("");
 
 }
+
 
 
 // ========================================
@@ -1242,11 +1939,14 @@ async function loadUsers() {
 }
 
 
+
 // ========================================
 // RENDER USERS
 // ========================================
 
-function renderUsers(users) {
+function renderUsers(
+    users
+) {
 
     const tbody =
         document.getElementById(
@@ -1277,7 +1977,8 @@ function renderUsers(users) {
 
 
     tbody.innerHTML =
-        users.map(user => `
+        users.map(
+            user => `
 
             <tr>
 
@@ -1286,17 +1987,17 @@ function renderUsers(users) {
                 </td>
 
                 <td>
-                    ${user.name}
+                    ${user.name ?? "N/A"}
                 </td>
 
                 <td>
-                    ${user.email}
+                    ${user.email ?? "N/A"}
                 </td>
 
                 <td>
 
                     <span class="role-badge">
-                        ${user.role}
+                        ${user.role ?? "user"}
                     </span>
 
                 </td>
@@ -1306,25 +2007,32 @@ function renderUsers(users) {
                     ${
                         user.role === "admin"
 
-                        ? `<span class="admin-protected">
-                            Protected
-                           </span>`
+                        ? `
+                            <span class="admin-protected">
+                                Protected
+                            </span>
+                        `
 
-                        : `<button
-                            class="admin-delete-btn"
-                            onclick="deleteUser(${user.id})"
-                           >
-                            Delete
-                           </button>`
+                        : `
+                            <button
+                                class="admin-delete-btn"
+                                onclick="deleteUser(${user.id})"
+                            >
+                                Delete
+                            </button>
+                        `
                     }
 
                 </td>
 
             </tr>
 
-        `).join("");
+        `
+        )
+        .join("");
 
 }
+
 
 
 // ========================================
@@ -1332,7 +2040,9 @@ function renderUsers(users) {
 // ========================================
 
 document
-    .getElementById("userSearch")
+    .getElementById(
+        "userSearch"
+    )
     .addEventListener(
         "input",
         function () {
@@ -1344,21 +2054,27 @@ document
 
 
             const filtered =
-                allUsers.filter(user =>
+                allUsers.filter(
+                    user =>
 
-                    String(
-                        user.id
-                    ).includes(search)
+                        String(
+                            user.id
+                        )
+                        .includes(search)
 
-                    ||
+                        ||
 
-                    user.name
+                        String(
+                            user.name || ""
+                        )
                         .toLowerCase()
                         .includes(search)
 
-                    ||
+                        ||
 
-                    user.email
+                        String(
+                            user.email || ""
+                        )
                         .toLowerCase()
                         .includes(search)
 
@@ -1373,11 +2089,14 @@ document
     );
 
 
+
 // ========================================
 // DELETE USER
 // ========================================
 
-async function deleteUser(userId) {
+async function deleteUser(
+    userId
+) {
 
     const confirmed =
         confirm(
@@ -1409,7 +2128,6 @@ async function deleteUser(userId) {
 
         await refreshAllData();
 
-
     } catch (error) {
 
         displayError(
@@ -1419,6 +2137,7 @@ async function deleteUser(userId) {
     }
 
 }
+
 
 
 // ========================================
@@ -1451,11 +2170,14 @@ async function loadPatients() {
 }
 
 
+
 // ========================================
 // RENDER PATIENTS
 // ========================================
 
-function renderPatients(patients) {
+function renderPatients(
+    patients
+) {
 
     const tbody =
         document.getElementById(
@@ -1486,7 +2208,8 @@ function renderPatients(patients) {
 
 
     tbody.innerHTML =
-        patients.map(patient => `
+        patients.map(
+            patient => `
 
             <tr>
 
@@ -1495,11 +2218,11 @@ function renderPatients(patients) {
                 </td>
 
                 <td>
-                    ${patient.user_id}
+                    ${patient.user_id ?? "N/A"}
                 </td>
 
                 <td>
-                    ${patient.name}
+                    ${patient.name ?? "N/A"}
                 </td>
 
                 <td>
@@ -1529,9 +2252,12 @@ function renderPatients(patients) {
 
             </tr>
 
-        `).join("");
+        `
+        )
+        .join("");
 
 }
+
 
 
 // ========================================
@@ -1539,7 +2265,9 @@ function renderPatients(patients) {
 // ========================================
 
 document
-    .getElementById("patientSearch")
+    .getElementById(
+        "patientSearch"
+    )
     .addEventListener(
         "input",
         function () {
@@ -1556,19 +2284,23 @@ document
 
                         String(
                             patient.id
-                        ).includes(search)
+                        )
+                        .includes(search)
 
                         ||
 
                         String(
                             patient.user_id
-                        ).includes(search)
+                        )
+                        .includes(search)
 
                         ||
 
-                        patient.name
-                            .toLowerCase()
-                            .includes(search)
+                        String(
+                            patient.name || ""
+                        )
+                        .toLowerCase()
+                        .includes(search)
 
                 );
 
@@ -1579,6 +2311,7 @@ document
 
         }
     );
+
 
 
 // ========================================
@@ -1619,7 +2352,6 @@ async function deletePatient(
 
         await refreshAllData();
 
-
     } catch (error) {
 
         displayError(
@@ -1631,8 +2363,9 @@ async function deletePatient(
 }
 
 
+
 // ========================================
-// LOAD PREDICTIONS
+// LOAD ALL PREDICTIONS
 // ========================================
 
 async function loadAllPredictions() {
@@ -1668,7 +2401,13 @@ async function loadAllPredictions() {
         allPredictions
     );
 
+
+    updateDiseaseBarChart(
+        allPredictions
+    );
+
 }
+
 
 
 // ========================================
@@ -1692,11 +2431,15 @@ function populateDiseaseFilter(
     const diseases =
         [
             ...new Set(
-                predictions.map(
-                    item => item.disease
-                )
+                predictions
+                    .map(
+                        item =>
+                            item.disease
+                    )
+                    .filter(Boolean)
             )
-        ].sort();
+        ]
+        .sort();
 
 
     select.innerHTML = `
@@ -1741,8 +2484,9 @@ function populateDiseaseFilter(
 }
 
 
+
 // ========================================
-// RENDER PREDICTIONS
+// RENDER ALL PREDICTIONS
 // ========================================
 
 function renderPredictions(
@@ -1778,7 +2522,8 @@ function renderPredictions(
 
 
     tbody.innerHTML =
-        predictions.map(item => `
+        predictions.map(
+            item => `
 
             <tr>
 
@@ -1787,11 +2532,11 @@ function renderPredictions(
                 </td>
 
                 <td>
-                    ${item.user_id}
+                    ${item.user_id ?? "N/A"}
                 </td>
 
                 <td>
-                    ${item.patient_id}
+                    ${item.patient_id ?? "N/A"}
                 </td>
 
                 <td>
@@ -1801,7 +2546,7 @@ function renderPredictions(
                 </td>
 
                 <td>
-                    ${item.prediction}
+                    ${item.prediction ?? "N/A"}
                 </td>
 
                 <td>
@@ -1841,9 +2586,12 @@ function renderPredictions(
 
             </tr>
 
-        `).join("");
+        `
+        )
+        .join("");
 
 }
+
 
 
 // ========================================
@@ -1911,7 +2659,7 @@ function applyPredictionFilters() {
                     ||
 
                     String(
-                        item.disease
+                        item.disease || ""
                     )
                     .toLowerCase()
                     .includes(search);
@@ -1950,6 +2698,7 @@ function applyPredictionFilters() {
     );
 
 }
+
 
 
 // ========================================
@@ -1996,6 +2745,7 @@ document
     );
 
 
+
 // ========================================
 // DELETE PREDICTION
 // ========================================
@@ -2034,7 +2784,6 @@ async function deletePrediction(
 
         await refreshAllData();
 
-
     } catch (error) {
 
         displayError(
@@ -2044,6 +2793,7 @@ async function deletePrediction(
     }
 
 }
+
 
 
 // ========================================
@@ -2097,7 +2847,8 @@ function updateMonitoring(
     } else {
 
         const top =
-            diseases.sort(
+            [...diseases]
+            .sort(
                 (a, b) =>
                     diseaseCounts[b] -
                     diseaseCounts[a]
@@ -2107,18 +2858,34 @@ function updateMonitoring(
         document.getElementById(
             "topDisease"
         ).textContent =
-            formatDiseaseName(top);
+            formatDiseaseName(
+                top
+            );
 
     }
 
 
     if (predictions.length) {
 
+        const sortedPredictions =
+            [...predictions]
+            .sort(
+                (a, b) =>
+                    new Date(
+                        b.created_at
+                    ) -
+                    new Date(
+                        a.created_at
+                    )
+            );
+
+
         document.getElementById(
             "latestActivity"
         ).textContent =
             formatDate(
-                predictions[0].created_at
+                sortedPredictions[0]
+                    .created_at
             );
 
     } else {
@@ -2140,9 +2907,11 @@ function updateMonitoring(
     if (!diseases.length) {
 
         monitoring.innerHTML = `
+
             <p class="admin-empty">
                 No prediction data available.
             </p>
+
         `;
 
         return;
@@ -2151,7 +2920,7 @@ function updateMonitoring(
 
 
     monitoring.innerHTML =
-        diseases
+        [...diseases]
 
             .sort(
                 (a, b) =>
@@ -2183,6 +2952,7 @@ function updateMonitoring(
             .join("");
 
 }
+
 
 
 // ========================================
@@ -2233,6 +3003,7 @@ function loadAdminUser() {
 }
 
 
+
 // ========================================
 // REFRESH EVERYTHING
 // ========================================
@@ -2246,16 +3017,21 @@ async function refreshAllData() {
 
         await loadAdminDashboard();
 
+
         await loadUsers();
 
+
         await loadPatients();
+
 
         await loadAllPredictions();
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
         displayError(
@@ -2265,6 +3041,7 @@ async function refreshAllData() {
     }
 
 }
+
 
 
 // ========================================
@@ -2277,10 +3054,12 @@ document.addEventListener(
 
         loadAdminUser();
 
+
         await refreshAllData();
 
     }
 );
+
 
 
 // ========================================
@@ -2295,6 +3074,7 @@ document
         "click",
         refreshAllData
     );
+
 
 
 // ========================================
@@ -2313,9 +3093,11 @@ document
                 "access_token"
             );
 
+
             localStorage.removeItem(
                 "user"
             );
+
 
             localStorage.removeItem(
                 "user_role"

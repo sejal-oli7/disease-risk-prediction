@@ -4037,54 +4037,99 @@ img {
     }
 
 }
-
-/* ========================================
+/* =========================================================
    PATIENTS PAGE
-======================================== */
+========================================================= */
 
 .patients-container {
-    margin-top: 24px;
+    width: min(1280px, 94%);
+    margin: 24px auto 60px;
     padding: 30px;
     overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 27, 45, 0.96),
+            rgba(10, 18, 31, 0.98)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.18);
 }
+
+
+/* =========================================================
+   PATIENT HEADER
+========================================================= */
 
 .patients-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    margin-bottom: 28px;
+
+    margin-bottom: 30px;
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .patients-header h2 {
     margin: 6px 0 8px;
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: -0.4px;
+
+    color: #f4f7fa;
+
+    font-size: 27px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
 }
 
 .patients-header p:not(.dashboard-label) {
     margin: 0;
-    color: #8d9aae;
+
+    max-width: 650px;
+
+    color: #8997aa;
+
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 
-/* ========================================
-   PATIENT SEARCH
-======================================== */
+/* Optional small label above heading */
+
+.dashboard-label {
+    margin: 0 0 7px;
+
+    color: #20c58a;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+}
+
+
+/* =========================================================
+   PATIENT SEARCH / TOOLS
+========================================================= */
 
 .patient-tools {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 22px;
+    gap: 18px;
+
+    margin-bottom: 20px;
 }
 
 .patient-search {
-    width: 100%;
-    max-width: 420px;
+    width: min(100%, 430px);
     height: 48px;
 
     display: flex;
@@ -4093,88 +4138,175 @@ img {
 
     padding: 0 16px;
 
-    background: #111b2d;
-    border: 1px solid #24334a;
+    background: #0d1727;
+
+    border: 1px solid #26364d;
     border-radius: 12px;
 
-    transition: 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.patient-search:hover {
+    background: #101c2e;
+    border-color: #30435d;
 }
 
 .patient-search:focus-within {
+    background: #0f1a2b;
+
     border-color: #20c58a;
-    box-shadow: 0 0 0 3px rgba(32, 197, 138, 0.10);
+
+    box-shadow:
+        0 0 0 3px rgba(32, 197, 138, 0.09),
+        0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .patient-search span {
-    font-size: 16px;
-    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #718096;
+
+    font-size: 15px;
 }
 
 .patient-search input {
     width: 100%;
+
     border: none;
     outline: none;
+
     background: transparent;
 
-    color: #ffffff;
+    color: #f1f5f9;
+
+    font-family: inherit;
     font-size: 14px;
 }
 
 .patient-search input::placeholder {
-    color: #66758a;
+    color: #64748b;
 }
 
 
-/* ========================================
-   PATIENT TABLE
-======================================== */
+/* =========================================================
+   PATIENT TABLE CARD
+========================================================= */
 
 .patients-table-wrapper {
     width: 100%;
+
     overflow-x: auto;
-    border: 1px solid #202d42;
-    border-radius: 14px;
-    background: #0f1929;
+
+    background:
+        linear-gradient(
+            145deg,
+            #101b2c,
+            #0c1625
+        );
+
+    border: 1px solid #23334a;
+    border-radius: 16px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.14);
+
+    scrollbar-width: thin;
+    scrollbar-color: #30445e #101a2a;
+}
+
+.patients-table-wrapper::-webkit-scrollbar {
+    height: 7px;
+}
+
+.patients-table-wrapper::-webkit-scrollbar-track {
+    background: #101a2a;
+}
+
+.patients-table-wrapper::-webkit-scrollbar-thumb {
+    background: #30445e;
+    border-radius: 20px;
 }
 
 .patients-table {
     width: 100%;
-    border-collapse: collapse;
-    min-width: 760px;
+    min-width: 780px;
+
+    border-collapse: separate;
+    border-spacing: 0;
 }
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
 
 .patients-table thead {
     background: #121f33;
 }
 
 .patients-table th {
-    padding: 16px 18px;
+    padding: 15px 18px;
+
     text-align: left;
 
     color: #7f8da1;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
 
-    border-bottom: 1px solid #24334a;
+    font-size: 10px;
+    font-weight: 750;
+
+    text-transform: uppercase;
+    letter-spacing: 0.85px;
+
+    border-bottom: 1px solid #26364d;
+
+    white-space: nowrap;
 }
+
+.patients-table th:first-child {
+    border-top-left-radius: 15px;
+}
+
+.patients-table th:last-child {
+    border-top-right-radius: 15px;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
 
 .patients-table td {
     padding: 17px 18px;
 
     color: #c8d1dd;
+
     font-size: 14px;
 
-    border-bottom: 1px solid #1d2a3d;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+    vertical-align: middle;
 }
 
 .patients-table tbody tr {
-    transition: background 0.2s ease;
+    background: transparent;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
 }
 
 .patients-table tbody tr:hover {
-    background: #131f32;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(32, 197, 138, 0.045),
+            rgba(32, 197, 138, 0.015)
+        );
 }
 
 .patients-table tbody tr:last-child td {
@@ -4182,193 +4314,288 @@ img {
 }
 
 
-/* ========================================
+/* =========================================================
    PATIENT NAME
-======================================== */
+========================================================= */
 
 .patient-name-cell {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
+
+    min-width: 190px;
 }
 
 .patient-avatar-small {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 11px;
+    border-radius: 12px;
 
-    background: rgba(32, 197, 138, 0.12);
-    border: 1px solid rgba(32, 197, 138, 0.20);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(32, 197, 138, 0.16),
+            rgba(32, 197, 138, 0.06)
+        );
+
+    border: 1px solid rgba(32, 197, 138, 0.22);
 
     color: #20c58a;
-    font-size: 15px;
-    font-weight: 700;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    box-shadow:
+        inset 0 0 15px rgba(32, 197, 138, 0.04);
 }
 
 .patient-name-cell div:last-child {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
+
+    min-width: 0;
 }
 
 .patient-name-cell strong {
-    color: #f2f5f8;
+    display: block;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #edf2f7;
+
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 650;
 }
 
 .patient-name-cell small {
-    color: #66758a;
+    color: #64748b;
+
     font-size: 11px;
+
+    white-space: nowrap;
 }
 
 
-/* ========================================
+/* =========================================================
    STATUS
-======================================== */
+========================================================= */
 
 .patient-status {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
 
-    padding: 6px 10px;
+    padding: 6px 11px;
 
-    border-radius: 20px;
+    border: 1px solid rgba(32, 197, 138, 0.16);
+    border-radius: 999px;
 
-    background: rgba(32, 197, 138, 0.10);
+    background: rgba(32, 197, 138, 0.08);
+
     color: #20c58a;
 
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 650;
+
+    white-space: nowrap;
 }
 
 .patient-status::before {
     content: "";
+
     width: 6px;
     height: 6px;
+
+    flex: 0 0 6px;
+
     border-radius: 50%;
+
     background: #20c58a;
+
+    box-shadow:
+        0 0 0 3px rgba(32, 197, 138, 0.08);
 }
 
 
-/* ========================================
+/* =========================================================
    VIEW BUTTON
-======================================== */
+========================================================= */
 
 .patient-view-btn {
-    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-width: 76px;
+
+    padding: 8px 13px;
 
     border: 1px solid #2a3b52;
-    border-radius: 8px;
+    border-radius: 9px;
 
-    background: transparent;
+    background: #111e31;
+
     color: #20c58a;
 
+    font-family: inherit;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 650;
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    transition:
+        all 0.2s ease;
 }
 
 .patient-view-btn:hover {
-    background: rgba(32, 197, 138, 0.10);
-    border-color: #20c58a;
+    background: rgba(32, 197, 138, 0.09);
+
+    border-color: rgba(32, 197, 138, 0.55);
+
+    color: #35d99b;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 18px rgba(32, 197, 138, 0.08);
+}
+
+.patient-view-btn:active {
+    transform: translateY(0);
 }
 
 
-/* ========================================
+/* =========================================================
    EMPTY / LOADING / ERROR
-======================================== */
+========================================================= */
 
 .patients-message {
-    min-height: 300px;
+    min-height: 310px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
+    padding: 55px 25px;
+
     text-align: center;
 
-    padding: 50px 20px;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(32, 197, 138, 0.035),
+            transparent 60%
+        ),
+        #0d1727;
 
-    border: 1px dashed #29384e;
-    border-radius: 14px;
-
-    background: #0f1929;
+    border: 1px dashed #2b3b52;
+    border-radius: 16px;
 }
 
 .patients-message h3 {
-    margin: 15px 0 7px;
+    margin: 17px 0 8px;
 
     color: #eef3f8;
-    font-size: 18px;
+
+    font-size: 19px;
+    font-weight: 700;
 }
 
 .patients-message p {
-    max-width: 400px;
-    margin: 0 0 20px;
+    max-width: 430px;
+
+    margin: 0 0 22px;
 
     color: #77869a;
+
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .message-icon {
-    width: 58px;
-    height: 58px;
+    width: 62px;
+    height: 62px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 16px;
+    border-radius: 17px;
 
-    background: #152237;
-    border: 1px solid #26374e;
+    background:
+        linear-gradient(
+            145deg,
+            #17263b,
+            #111d30
+        );
 
-    font-size: 24px;
+    border: 1px solid #2a3b53;
+
+    color: #718198;
+
+    font-size: 23px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.16);
 }
 
 .error-message {
-    border-color: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.28);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(239, 68, 68, 0.04),
+            transparent 60%
+        ),
+        #0d1727;
 }
 
 
-/* ========================================
+/* =========================================================
    LOADING SPINNER
-======================================== */
+========================================================= */
 
 .loading-spinner {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
 
     border: 3px solid #26374e;
     border-top-color: #20c58a;
 
     border-radius: 50%;
 
-    animation: patientSpin 0.8s linear infinite;
+    animation:
+        patientSpin 0.8s linear infinite;
+
+    box-shadow:
+        0 0 20px rgba(32, 197, 138, 0.08);
 }
 
 @keyframes patientSpin {
+
     to {
         transform: rotate(360deg);
     }
+
 }
 
 
-/* ========================================
+/* =========================================================
    PATIENT MODAL
-======================================== */
+========================================================= */
 
 .patient-modal {
     position: fixed;
@@ -4380,15 +4607,32 @@ img {
     align-items: center;
     justify-content: center;
 
-    padding: 20px;
+    padding: 24px;
+
+    animation:
+        patientModalFade 0.18s ease;
+}
+
+@keyframes patientModalFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
 }
 
 .patient-modal-overlay {
     position: absolute;
     inset: 0;
 
-    background: rgba(2, 8, 18, 0.78);
-    backdrop-filter: blur(7px);
+    background: rgba(2, 8, 18, 0.80);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .patient-modal-content {
@@ -4396,109 +4640,287 @@ img {
     z-index: 2;
 
     width: 100%;
-    max-width: 600px;
+    max-width: 620px;
+
+    max-height: calc(100vh - 48px);
+
+    overflow-y: auto;
 
     padding: 30px;
 
-    background: #101b2c;
-    border: 1px solid #29394f;
+    background:
+        linear-gradient(
+            145deg,
+            #111d2f,
+            #0d1727
+        );
+
+    border: 1px solid #293a52;
+
     border-radius: 20px;
 
-    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.50);
+
+    scrollbar-width: thin;
+    scrollbar-color: #30445e transparent;
+}
+
+.patient-modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.patient-modal-content::-webkit-scrollbar-thumb {
+    background: #30445e;
+    border-radius: 10px;
 }
 
 .patient-modal-close {
     position: absolute;
-    top: 16px;
-    right: 18px;
 
-    width: 34px;
-    height: 34px;
+    top: 17px;
+    right: 17px;
 
-    border: 1px solid #29394f;
-    border-radius: 9px;
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #293a52;
+    border-radius: 10px;
 
     background: #162337;
+
     color: #9aa8b9;
 
-    font-size: 21px;
+    font-family: inherit;
+    font-size: 19px;
+
     cursor: pointer;
+
+    transition:
+        all 0.2s ease;
 }
 
 .patient-modal-close:hover {
+    background: rgba(239, 91, 91, 0.08);
+
+    border-color: rgba(239, 91, 91, 0.45);
+
     color: #ffffff;
-    border-color: #20c58a;
+
+    transform: rotate(3deg);
 }
+
+
+/* =========================================================
+   PATIENT MODAL HEADER
+========================================================= */
 
 .patient-modal-header {
     display: flex;
     align-items: center;
     gap: 16px;
 
-    padding-bottom: 25px;
-    border-bottom: 1px solid #24334a;
+    padding: 0 45px 25px 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .patient-large-avatar {
-    width: 58px;
-    height: 58px;
+    width: 60px;
+    height: 60px;
+
+    flex: 0 0 60px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    background: rgba(32, 197, 138, 0.12);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(32, 197, 138, 0.16),
+            rgba(32, 197, 138, 0.05)
+        );
+
     border: 1px solid rgba(32, 197, 138, 0.25);
 
     color: #20c58a;
+
     font-size: 21px;
-    font-weight: 700;
+    font-weight: 750;
+
+    box-shadow:
+        0 8px 25px rgba(32, 197, 138, 0.05);
 }
 
 .patient-modal-header h2 {
     margin: 4px 0 0;
 
     color: #f3f6f9;
+
     font-size: 22px;
+    font-weight: 700;
+
+    letter-spacing: -0.3px;
 }
 
 
-/* ========================================
+/* =========================================================
    PATIENT DETAILS
-======================================== */
+========================================================= */
 
 .patient-details-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
 
     margin-top: 24px;
 }
 
 .patient-detail-card {
+    position: relative;
+
     padding: 17px;
 
-    background: #0d1727;
+    background:
+        linear-gradient(
+            145deg,
+            #0e1929,
+            #0b1524
+        );
+
     border: 1px solid #223249;
-    border-radius: 12px;
+    border-radius: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.patient-detail-card:hover {
+    background: #101c2d;
+
+    border-color: #2c4059;
+
+    transform: translateY(-1px);
 }
 
 .patient-detail-card span {
     display: block;
 
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 
     color: #6f7f93;
-    font-size: 11px;
+
+    font-size: 10px;
+    font-weight: 700;
+
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.65px;
 }
 
 .patient-detail-card strong {
+    display: block;
+
     color: #e9eef4;
+
     font-size: 14px;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .patients-container {
+        width: 94%;
+        padding: 24px;
+    }
+
+    .patients-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .patient-tools {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .patient-search {
+        max-width: 100%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .patients-container {
+        width: 96%;
+        margin-top: 15px;
+        padding: 18px;
+
+        border-radius: 16px;
+    }
+
+    .patients-header {
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+    }
+
+    .patients-header h2 {
+        font-size: 23px;
+    }
+
+    .patients-header p:not(.dashboard-label) {
+        font-size: 13px;
+    }
+
+    .patients-table th,
+    .patients-table td {
+        padding: 13px 14px;
+    }
+
+    .patient-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-modal {
+        padding: 12px;
+    }
+
+    .patient-modal-content {
+        padding: 23px;
+
+        max-height: calc(100vh - 24px);
+
+        border-radius: 17px;
+    }
+
+    .patient-modal-header h2 {
+        font-size: 19px;
+    }
+
+    .patient-large-avatar {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+    }
+
 }
 
 
@@ -6034,4 +6456,943 @@ img {
   height: 10px;
   border-radius: 3px;
   margin-right: 6px;
+}
+
+/* ========================================
+   ADMIN DASHBOARD
+   MAIN CONTAINER
+======================================== */
+
+.admin-container {
+    width: min(1400px, 94%);
+    margin: 0 auto;
+    padding: 45px 0 80px;
+}
+
+
+/* ========================================
+   ADMIN NAVBAR
+======================================== */
+
+.admin-navbar {
+    width: 100%;
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 4%;
+
+    background: rgba(8, 14, 25, 0.96);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.07);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    backdrop-filter: blur(14px);
+}
+
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: rgba(32, 197, 138, 0.14);
+
+    color: #20c58a;
+
+    font-size: 22px;
+}
+
+
+.admin-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    color: #d8dee9;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.admin-logout-btn {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    background: rgba(255, 255, 255, 0.04);
+
+    color: #ffffff;
+
+    padding: 9px 17px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.admin-logout-btn:hover {
+    background: rgba(255, 80, 80, 0.12);
+
+    border-color: rgba(255, 80, 80, 0.3);
+
+    color: #ff7b7b;
+}
+
+
+/* ========================================
+   ADMIN HEADER
+======================================== */
+
+.admin-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 32px;
+}
+
+
+.admin-label {
+    margin: 0 0 8px;
+
+    color: #20c58a;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+
+.admin-header h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(30px, 4vw, 44px);
+
+    line-height: 1.1;
+}
+
+
+.admin-subtitle {
+    margin-top: 10px;
+
+    color: #8994a6;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+.admin-refresh-btn {
+    border: 1px solid rgba(32, 197, 138, 0.25);
+
+    background: rgba(32, 197, 138, 0.08);
+
+    color: #20c58a;
+
+    padding: 11px 19px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.admin-refresh-btn:hover {
+    background: #20c58a;
+
+    color: #07120e;
+
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   STATISTICS GRID
+======================================== */
+
+.admin-stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+
+.admin-stat-card {
+    min-height: 130px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 31, 48, 0.95),
+            rgba(12, 20, 33, 0.95)
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.07);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.admin-stat-card:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(32, 197, 138, 0.22);
+}
+
+
+.admin-stat-icon {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(32, 197, 138, 0.10);
+
+    font-size: 23px;
+}
+
+
+.admin-stat-card p {
+    margin: 0 0 7px;
+
+    color: #8994a6;
+
+    font-size: 13px;
+}
+
+
+.admin-stat-card h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    line-height: 1;
+}
+
+
+/* ========================================
+   SECTIONS
+======================================== */
+
+.admin-section {
+    margin-top: 28px;
+
+    padding: 26px;
+
+    background:
+        rgba(13, 22, 36, 0.82);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.14);
+}
+
+
+.admin-section-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+
+.admin-section-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+/* ========================================
+   RISK SUMMARY
+======================================== */
+
+.risk-summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+.risk-card {
+    min-height: 95px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 14px;
+
+    transition: 0.25s ease;
+}
+
+
+.risk-card:hover {
+    transform: translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, 0.04);
+}
+
+
+.risk-card-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+.risk-card div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.risk-card span:not(.risk-card-icon) {
+    color: #8994a6;
+
+    font-size: 13px;
+}
+
+
+.risk-card strong {
+    color: #ffffff;
+
+    font-size: 24px;
+}
+
+
+/* LOW */
+
+.risk-low {
+    border-color:
+        rgba(32, 197, 138, 0.16);
+}
+
+
+.risk-low .risk-card-icon {
+    background: rgba(32, 197, 138, 0.12);
+
+    color: #20c58a;
+}
+
+
+/* MEDIUM */
+
+.risk-medium {
+    border-color:
+        rgba(245, 184, 72, 0.16);
+}
+
+
+.risk-medium .risk-card-icon {
+    background: rgba(245, 184, 72, 0.12);
+
+    color: #f5b848;
+}
+
+
+/* HIGH */
+
+.risk-high {
+    border-color:
+        rgba(255, 92, 92, 0.16);
+}
+
+
+.risk-high .risk-card-icon {
+    background: rgba(255, 92, 92, 0.12);
+
+    color: #ff6b6b;
+}
+
+
+/* ========================================
+   CHART GRID
+======================================== */
+
+.admin-chart-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.admin-chart-card {
+    min-width: 0;
+
+    padding: 22px;
+
+    background:
+        rgba(7, 14, 25, 0.58);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 15px;
+}
+
+
+.chart-card-header {
+    margin-bottom: 18px;
+}
+
+
+.chart-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #20c58a;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+}
+
+
+.chart-card-header h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 17px;
+}
+
+
+.chart-container {
+    position: relative;
+
+    width: 100%;
+
+    height: 310px;
+}
+
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* ========================================
+   MONITORING
+======================================== */
+
+.admin-monitoring-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-top: 20px;
+}
+
+
+.monitoring-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 17px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.05);
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border-radius: 10px;
+}
+
+
+.monitoring-row span {
+    color: #d8dee9;
+
+    font-size: 14px;
+}
+
+
+.monitoring-row strong {
+    color: #20c58a;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   FILTERS
+======================================== */
+
+.admin-filter-bar {
+    margin-bottom: 18px;
+}
+
+
+.admin-filter-grid {
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+
+.admin-filter-input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+
+.admin-filter-input::placeholder {
+    color: #667386;
+}
+
+
+.admin-filter-input:focus {
+    border-color:
+        rgba(32, 197, 138, 0.5);
+
+    background:
+        rgba(32, 197, 138, 0.035);
+}
+
+
+.admin-filter-input option {
+    background: #101a2a;
+
+    color: #ffffff;
+}
+
+
+/* ========================================
+   TABLE
+======================================== */
+
+.admin-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 13px;
+}
+
+
+.admin-table {
+    width: 100%;
+
+    min-width: 850px;
+
+    border-collapse: collapse;
+}
+
+
+.admin-table th {
+    padding: 15px 16px;
+
+    text-align: left;
+
+    color: #78869b;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+
+    white-space: nowrap;
+}
+
+
+.admin-table td {
+    padding: 15px 16px;
+
+    color: #d5dce7;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.045);
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+
+.admin-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+.admin-table tbody tr:hover {
+    background:
+        rgba(32, 197, 138, 0.025);
+}
+
+
+/* ========================================
+   BADGES
+======================================== */
+
+.risk-badge,
+.role-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.risk-badge.risk-low {
+    background:
+        rgba(32, 197, 138, 0.12);
+
+    color: #20c58a;
+}
+
+
+.risk-badge.risk-medium {
+    background:
+        rgba(245, 184, 72, 0.12);
+
+    color: #f5b848;
+}
+
+
+.risk-badge.risk-high {
+    background:
+        rgba(255, 92, 92, 0.12);
+
+    color: #ff6b6b;
+}
+
+
+.role-badge {
+    background:
+        rgba(88, 140, 255, 0.12);
+
+    color: #7da5ff;
+}
+
+
+/* ========================================
+   DELETE BUTTON
+======================================== */
+
+.admin-delete-btn {
+    border: 1px solid rgba(255, 92, 92, 0.18);
+
+    background: rgba(255, 92, 92, 0.08);
+
+    color: #ff7777;
+
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.admin-delete-btn:hover {
+    background: #ff5c5c;
+
+    color: #ffffff;
+}
+
+
+.admin-protected {
+    color: #687589;
+
+    font-size: 11px;
+}
+
+
+/* ========================================
+   EMPTY / LOADING
+======================================== */
+
+.admin-loading,
+.admin-empty {
+    padding: 35px !important;
+
+    text-align: center;
+
+    color: #687589 !important;
+}
+
+
+/* ========================================
+   ERROR
+======================================== */
+
+.admin-error {
+    margin-top: 20px;
+
+    padding: 14px 16px;
+
+    border:
+        1px solid rgba(255, 92, 92, 0.25);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 92, 92, 0.08);
+
+    color: #ff8585;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1100px) {
+
+    .admin-stats-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-filter-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .admin-container {
+        width: 92%;
+
+        padding-top: 30px;
+    }
+
+
+    .admin-navbar {
+        padding: 0 4%;
+    }
+
+
+    .admin-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .risk-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-section {
+        padding: 18px;
+    }
+
+
+    .admin-nav-right {
+        gap: 8px;
+    }
+
+
+    .admin-nav-right span {
+        display: none;
+    }
+
+
+    .admin-chart-card {
+        padding: 15px;
+    }
+
+
+    .chart-container {
+        height: 270px;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .admin-header h1 {
+        font-size: 30px;
+    }
+
+
+    .admin-stat-card {
+        padding: 18px;
+    }
+
+
+    .admin-stat-card h2 {
+        font-size: 26px;
+    }
+
 }

@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from config import Config
 from extensions import db, jwt
 from routes.patient import patient_bp
@@ -7,60 +6,12 @@ from routes.admin import admin_bp
 from models.user import User
 from models.patient import Patient
 from models.prediction import Prediction
+from routes.dashboard import dashboard_bp
 
 from routes.auth import auth_bp
 from routes.prediction import prediction_bp
 
-
-# =====================================================================
-#  ADJUST THESE 4 NAMES to match your models (models/prediction.py and
-#  models/patient.py). Only change the text inside the quotes.
-# =====================================================================
-PREDICTION_USER_FIELD = "user_id"      # column: who made the prediction
-PREDICTION_DISEASE_FIELD = "disease"   # column: disease name
-PREDICTION_RISK_FIELD = "risk_level"   # column: Low / Moderate / High
-PATIENT_USER_FIELD = "user_id"         # column: patient's owner (user)
-# =====================================================================
-
-# Turns the text saved in your database into the names the chart uses
-DISEASE_LABELS = [
-    ("diabetes",  "Diabetes"),
-    ("heart",     "Heart Disease"),
-    ("kidney",    "Kidney Disease"),
-    ("liver",     "Liver Disease"),
-    ("parkinson", "Parkinson's Disease"),
-    ("stroke",    "Stroke"),
-]
-
-
-def clean_disease(value):
-    text = str(value or "").lower()
-    for key, label in DISEASE_LABELS:
-        if key in text:
-            return label
-    return None
-
-
-def clean_risk(value):
-    text = str(value or "").lower()
-    if "low" in text:
-        return "low"
-    if "mod" in text or "medium" in text:
-        return "moderate"
-    if "high" in text:
-        return "high"
-    return None
-
-
-def current_user_id():
-    identity = get_jwt_identity()
-    # identity may be a number, a string, or a dict like {"id": 1}
-    if isinstance(identity, dict):
-        identity = identity.get("id") or identity.get("user_id")
-    try:
-        return int(identity)
-    except (TypeError, ValueError):
-        return identity
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 def create_app():
@@ -71,15 +22,19 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
 
+    # Register blueprints
     app.register_blueprint(auth_bp)
     app.register_blueprint(prediction_bp)
     app.register_blueprint(patient_bp)
     app.register_blueprint(admin_bp)
 
+    # Create database tables
     with app.app_context():
         db.create_all()
 
-    # ---------------- PAGES ----------------
+    # -------------------------
+    # PUBLIC PAGES
+    # -------------------------
 
     @app.route("/")
     def home():
@@ -92,22 +47,6 @@ def create_app():
     @app.route("/register")
     def register():
         return render_template("auth/register.html")
-
-    @app.route("/dashboard")
-    def dashboard():
-        return render_template("dashboard.html")
-
-    @app.route("/prediction")
-    def prediction():
-        return render_template("prediction.html")
-
-    @app.route("/prediction-history")
-    def prediction_history():
-        return render_template("prediction_history.html")
-
-    @app.route("/admin")
-    def admin_dashboard():
-        return render_template("admin_dashboard.html")
 
     @app.route("/about")
     def about():
@@ -125,50 +64,105 @@ def create_app():
     def how_it_works():
         return render_template("how_it_works.html")
 
+    # -------------------------
+    # USER PAGES
+    # -------------------------
+
+    @app.route("/dashboard")
+    def dashboard():
+        return render_template("dashboard.html")
+
+    @app.route("/prediction")
+    def prediction():
+        return render_template("prediction.html")
+
+    @app.route("/prediction-history")
+    def prediction_history():
+        return render_template("prediction_history.html")
+
     @app.route("/patients")
     def patients():
         return render_template("patients.html")
 
-    # ---------------- DASHBOARD DATA (NEW) ----------------
-    # Returns ONLY the logged-in user's predictions and patients.
+    # -------------------------
+    # ADMIN PAGE
+    # -------------------------
 
-    @app.route("/api/dashboard-stats")
+    @app.route("/admin")
+    def admin_dashboard():
+        return render_template("admin_dashboard.html")
+
+    # -------------------------
+    # USER DASHBOARD API
+    # -------------------------
+
+    @app.route("/api/dashboard-stats", methods=["GET"])
     @jwt_required()
     def dashboard_stats():
-        user_id = current_user_id()
 
         try:
-            predictions = Prediction.query.filter(
-                getattr(Prediction, PREDICTION_USER_FIELD) == user_id
-            ).all()
+            # Get the currently logged-in user's ID from JWT
+            user_id = int(get_jwt_identity())
 
-            patient_count = Patient.query.filter(
-                getattr(Patient, PATIENT_USER_FIELD) == user_id
+            # Get ONLY this user's patients
+            total_patients = Patient.query.filter_by(
+                user_id=user_id
             ).count()
 
-        except AttributeError as e:
+            # Get ONLY this user's predictions
+            predictions = Prediction.query.filter_by(
+                user_id=user_id
+            ).order_by(
+                Prediction.id.desc()
+            ).all()
+
+            prediction_list = []
+
+            for p in predictions:
+
+                patient_name = "Unknown Patient"
+
+                # Make sure the patient also belongs to
+                # the currently logged-in user
+                if p.patient_id:
+
+                    patient = Patient.query.filter_by(
+                        id=p.patient_id,
+                        user_id=user_id
+                    ).first()
+
+                    if patient:
+                        patient_name = patient.name
+
+                prediction_list.append({
+                    "id": p.id,
+                    "patient_id": p.patient_id,
+                    "patient_name": patient_name,
+                    "disease": p.disease,
+                    "prediction": p.prediction,
+                    "probability": p.probability,
+                    "risk_level": p.risk_level,
+                    "created_at": (
+                        p.created_at.isoformat()
+                        if p.created_at
+                        else None
+                    )
+                })
+
+            # Return ONLY logged-in user's data
             return jsonify({
-                "error": "Column name mismatch - edit the 4 names at the top of app.py",
-                "detail": str(e)
+                "total_patients": total_patients,
+                "total_predictions": len(prediction_list),
+                "predictions": prediction_list
+            }), 200
+
+        except Exception as e:
+
+            print("Dashboard stats error:", e)
+
+            return jsonify({
+                "error": str(e)
             }), 500
-
-        by_disease = {}
-        risk = {"low": 0, "moderate": 0, "high": 0}
-
-        for p in predictions:
-            disease = clean_disease(getattr(p, PREDICTION_DISEASE_FIELD, None))
-            if disease:
-                by_disease[disease] = by_disease.get(disease, 0) + 1
-
-            level = clean_risk(getattr(p, PREDICTION_RISK_FIELD, None))
-            if level:
-                risk[level] += 1
-
-        return jsonify({
-            "total_patients": patient_count,
-            "by_disease": by_disease,
-            "risk": risk
-        })
 
     return app
 

@@ -1,3 +1,4 @@
+
 /* ========================================
    GLOBAL HELPERS
 ======================================== */
@@ -37,7 +38,11 @@ async function parseResponse(response) {
     try {
         return JSON.parse(text);
     } catch (error) {
-        console.error("Invalid JSON response:", text);
+
+        console.error(
+            "Invalid JSON response:",
+            text
+        );
 
         return {
             _invalidJson: true,
@@ -61,13 +66,17 @@ async function apiRequest(url, options = {}) {
     };
 
     if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
+        headers["Authorization"] =
+            `Bearer ${token}`;
     }
 
-    return fetch(url, {
-        ...options,
-        headers
-    });
+    return fetch(
+        url,
+        {
+            ...options,
+            headers
+        }
+    );
 }
 
 
@@ -78,7 +87,9 @@ async function apiRequest(url, options = {}) {
 function initializeRegister() {
 
     const registerForm =
-        document.getElementById("registerForm");
+        document.getElementById(
+            "registerForm"
+        );
 
     if (!registerForm) {
         return;
@@ -114,7 +125,11 @@ function initializeRegister() {
                     ? passwordElement.value
                     : "";
 
-            if (!name || !email || !password) {
+            if (
+                !name ||
+                !email ||
+                !password
+            ) {
 
                 alert(
                     "Please fill in all required fields."
@@ -125,25 +140,30 @@ function initializeRegister() {
 
             try {
 
-                const response = await fetch(
-                    "/api/auth/register",
-                    {
-                        method: "POST",
+                const response =
+                    await fetch(
+                        "/api/auth/register",
+                        {
+                            method: "POST",
 
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
 
-                        body: JSON.stringify({
-                            name: name,
-                            email: email,
-                            password: password
-                        })
-                    }
-                );
+                            body:
+                                JSON.stringify({
+                                    name: name,
+                                    email: email,
+                                    password: password
+                                })
+                        }
+                    );
 
                 const data =
-                    await parseResponse(response);
+                    await parseResponse(
+                        response
+                    );
 
                 if (data._invalidJson) {
 
@@ -170,7 +190,8 @@ function initializeRegister() {
                     "Registration successful."
                 );
 
-                window.location.href = "/auth";
+                window.location.href =
+                    "/auth";
 
             } catch (error) {
 
@@ -195,13 +216,17 @@ function initializeRegister() {
 function initializeLogin() {
 
     const loginForm =
-        document.getElementById("loginForm");
+        document.getElementById(
+            "loginForm"
+        );
 
     if (!loginForm) {
         return;
     }
 
-    console.log("Login form initialized.");
+    console.log(
+        "Login form initialized."
+    );
 
     loginForm.addEventListener(
         "submit",
@@ -211,10 +236,14 @@ function initializeLogin() {
             event.stopPropagation();
 
             const emailElement =
-                document.getElementById("email");
+                document.getElementById(
+                    "email"
+                );
 
             const passwordElement =
-                document.getElementById("password");
+                document.getElementById(
+                    "password"
+                );
 
             const email =
                 emailElement
@@ -241,24 +270,29 @@ function initializeLogin() {
                     "Sending login request..."
                 );
 
-                const response = await fetch(
-                    "/api/auth/login",
-                    {
-                        method: "POST",
+                const response =
+                    await fetch(
+                        "/api/auth/login",
+                        {
+                            method: "POST",
 
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
 
-                        body: JSON.stringify({
-                            email: email,
-                            password: password
-                        })
-                    }
-                );
+                            body:
+                                JSON.stringify({
+                                    email: email,
+                                    password: password
+                                })
+                        }
+                    );
 
                 const data =
-                    await parseResponse(response);
+                    await parseResponse(
+                        response
+                    );
 
                 console.log(
                     "Login response:",
@@ -304,40 +338,34 @@ function initializeLogin() {
                     return;
                 }
 
-                /*
-                 * Save JWT token
-                 */
                 saveToken(token);
 
-                /*
-                 * Get actual user information
-                 * from the backend response.
-                 */
                 const userRole =
-                    data.user?.role || "user";
+                    data.user?.role ||
+                    "user";
 
                 const userData = {
-                    id: data.user?.id,
+
+                    id:
+                        data.user?.id,
+
                     name:
                         data.user?.name ||
                         email.split("@")[0],
+
                     email:
                         data.user?.email ||
                         email,
-                    role: userRole
+
+                    role:
+                        userRole
                 };
 
-                /*
-                 * Save user information
-                 */
                 localStorage.setItem(
                     "user",
                     JSON.stringify(userData)
                 );
 
-                /*
-                 * Save actual backend role
-                 */
                 localStorage.setItem(
                     "user_role",
                     userRole
@@ -357,11 +385,9 @@ function initializeLogin() {
                     userRole
                 );
 
-                /*
-                 * Redirect according to the
-                 * actual role returned by backend.
-                 */
-                if (userRole === "admin") {
+                if (
+                    userRole === "admin"
+                ) {
 
                     window.location.href =
                         "/admin";
@@ -387,6 +413,7 @@ function initializeLogin() {
     );
 }
 
+
 /* ========================================
    LOGOUT
 ======================================== */
@@ -398,18 +425,20 @@ function initializeLogout() {
             '[href*="logout"]'
         );
 
-    logoutLinks.forEach(function (link) {
+    logoutLinks.forEach(
+        function (link) {
 
-        link.addEventListener(
-            "click",
-            function () {
+            link.addEventListener(
+                "click",
+                function () {
 
-                removeToken();
+                    removeToken();
 
-            }
-        );
+                }
+            );
 
-    });
+        }
+    );
 }
 
 
@@ -429,35 +458,40 @@ const diseaseFields = {
             name: "Pregnancies",
             label: "Pregnancies",
             type: "number",
-            placeholder: "Enter pregnancies"
+            placeholder:
+                "Enter pregnancies"
         },
 
         {
             name: "Glucose",
             label: "Glucose",
             type: "number",
-            placeholder: "Enter glucose level"
+            placeholder:
+                "Enter glucose level"
         },
 
         {
             name: "BloodPressure",
             label: "Blood Pressure",
             type: "number",
-            placeholder: "Enter blood pressure"
+            placeholder:
+                "Enter blood pressure"
         },
 
         {
             name: "SkinThickness",
             label: "Skin Thickness",
             type: "number",
-            placeholder: "Enter skin thickness"
+            placeholder:
+                "Enter skin thickness"
         },
 
         {
             name: "Insulin",
             label: "Insulin",
             type: "number",
-            placeholder: "Enter insulin level"
+            placeholder:
+                "Enter insulin level"
         },
 
         {
@@ -465,56 +499,74 @@ const diseaseFields = {
             label: "BMI",
             type: "number",
             step: "any",
-            placeholder: "Enter BMI"
+            placeholder:
+                "Enter BMI"
         },
 
         {
-            name: "DiabetesPedigreeFunction",
-            label: "Diabetes Pedigree Function",
+            name:
+                "DiabetesPedigreeFunction",
+
+            label:
+                "Diabetes Pedigree Function",
+
             type: "number",
+
             step: "any",
-            placeholder: "Enter pedigree value"
+
+            placeholder:
+                "Enter pedigree value"
         },
 
         {
             name: "Age",
             label: "Age",
             type: "number",
-            placeholder: "Enter age"
+            placeholder:
+                "Enter age"
         }
 
     ],
 
+/* ====================================
+   HEART DISEASE
+==================================== */
 
-    /* ====================================
-       HEART DISEASE
-    ==================================== */
+heart: [
 
-    heart: [
     {
         name: "Age",
         label: "Age",
         type: "number",
         placeholder: "Enter age"
     },
+
     {
         name: "Gender",
         label: "Gender",
         type: "select",
-        options: ["Male", "Female"]
+        options: [
+            "Male",
+            "Female"
+        ]
     },
+
     {
         name: "Weight",
         label: "Weight (kg)",
         type: "number",
+        step: "0.1",
         placeholder: "Enter weight"
     },
+
     {
         name: "Height",
         label: "Height (cm)",
         type: "number",
+        step: "0.1",
         placeholder: "Enter height"
     },
+
     {
         name: "BMI",
         label: "BMI",
@@ -522,291 +574,378 @@ const diseaseFields = {
         step: "0.1",
         placeholder: "Enter BMI"
     },
+
     {
         name: "Smoking",
         label: "Smoking",
         type: "select",
-        options: ["Never", "Current", "Former"]
+        options: [
+            "Never",
+            "Current",
+            "Former"
+        ]
     },
+
     {
         name: "Alcohol_Intake",
         label: "Alcohol Intake",
         type: "select",
-        options: ["None", "Low", "Moderate", "High"]
+        options: [
+            "None",
+            "Low",
+            "Moderate",
+            "High"
+        ]
     },
+
     {
         name: "Physical_Activity",
         label: "Physical Activity",
         type: "select",
-        options: ["Sedentary", "Active", "Moderate"]
+        options: [
+            "Sedentary",
+            "Moderate",
+            "Active"
+        ]
     },
+
     {
         name: "Diet",
         label: "Diet",
         type: "select",
-        options: ["Healthy", "Average", "Unhealthy"]
+        options: [
+            "Healthy",
+            "Average",
+            "Unhealthy"
+        ]
     },
+
     {
         name: "Stress_Level",
         label: "Stress Level",
         type: "select",
-        options: ["Low", "Medium", "High"]
+        options: [
+            "Low",
+            "Medium",
+            "High"
+        ]
     },
+
     {
         name: "Hypertension",
         label: "Hypertension",
-        type: "number",
-        min: "0",
-        max: "1",
-        placeholder: "0 or 1"
+        type: "select",
+        options: [
+            "Yes",
+            "No"
+        ],
+        binary: true
     },
+
     {
         name: "Diabetes",
         label: "Diabetes",
-        type: "number",
-        min: "0",
-        max: "1",
-        placeholder: "0 or 1"
+        type: "select",
+        options: [
+            "Yes",
+            "No"
+        ],
+        binary: true
     },
+
     {
         name: "Hyperlipidemia",
         label: "Hyperlipidemia",
-        type: "number",
-        min: "0",
-        max: "1",
-        placeholder: "0 or 1"
+        type: "select",
+        options: [
+            "Yes",
+            "No"
+        ],
+        binary: true
     },
+
     {
         name: "Family_History",
         label: "Family History",
-        type: "number",
-        min: "0",
-        max: "1",
-        placeholder: "0 or 1"
+        type: "select",
+        options: [
+            "Yes",
+            "No"
+        ],
+        binary: true
     },
+
     {
         name: "Previous_Heart_Attack",
         label: "Previous Heart Attack",
-        type: "number",
-        min: "0",
-        max: "1",
-        placeholder: "0 or 1"
+        type: "select",
+        options: [
+            "Yes",
+            "No"
+        ],
+        binary: true
     },
+
     {
         name: "Systolic_BP",
         label: "Systolic Blood Pressure",
         type: "number",
         placeholder: "e.g. 120"
     },
+
     {
         name: "Diastolic_BP",
         label: "Diastolic Blood Pressure",
         type: "number",
         placeholder: "e.g. 80"
     },
+
     {
         name: "Heart_Rate",
         label: "Heart Rate",
         type: "number",
         placeholder: "e.g. 72"
     },
+
     {
         name: "Blood_Sugar_Fasting",
         label: "Fasting Blood Sugar",
         type: "number",
+        step: "0.1",
         placeholder: "e.g. 90"
     },
+
     {
         name: "Cholesterol_Total",
         label: "Total Cholesterol",
         type: "number",
+        step: "0.1",
         placeholder: "e.g. 180"
     }
+
 ],
 
-    /* ====================================
-       KIDNEY DISEASE
-    ==================================== */
+// kidney disease
+kidney: [
 
-    kidney: [
+    {
+        name: "age",
+        label: "Age",
+        type: "number",
+        placeholder: "Enter age"
+    },
 
-        {
-            name: "age",
-            label: "Age",
-            type: "number",
-            placeholder: "Enter age"
-        },
+    {
+        name: "gender",
+        label: "Gender",
+        type: "select",
+        options: [
+            "Male",
+            "Female"
+        ]
+    },
 
-        {
-            name: "bp",
-            label: "Blood Pressure",
-            type: "number",
-            placeholder: "Enter blood pressure"
-        },
+    {
+        name: "bp",
+        label: "Blood Pressure",
+        type: "number",
+        placeholder: "Enter blood pressure"
+    },
 
-        {
-            name: "sg",
-            label: "Specific Gravity",
-            type: "number",
-            step: "any",
-            placeholder: "Example: 1.020"
-        },
+    {
+        name: "sg",
+        label: "Specific Gravity",
+        type: "number",
+        step: "any",
+        placeholder: "Example: 1.020"
+    },
 
-        {
-            name: "al",
-            label: "Albumin",
-            type: "number",
-            placeholder: "Enter albumin"
-        },
+    {
+        name: "al",
+        label: "Albumin",
+        type: "number",
+        placeholder: "Enter albumin"
+    },
 
-        {
-            name: "su",
-            label: "Sugar",
-            type: "number",
-            placeholder: "Enter sugar"
-        },
+    {
+        name: "su",
+        label: "Sugar",
+        type: "number",
+        placeholder: "Enter sugar"
+    },
 
-        {
-            name: "rbc",
-            label: "Red Blood Cells",
-            type: "text",
-            placeholder: "normal / abnormal"
-        },
+    {
+        name: "rbc",
+        label: "Red Blood Cells",
+        type: "select",
+        options: [
+            "normal",
+            "abnormal"
+        ]
+    },
 
-        {
-            name: "pc",
-            label: "Pus Cell",
-            type: "text",
-            placeholder: "normal / abnormal"
-        },
+    {
+        name: "pc",
+        label: "Pus Cell",
+        type: "select",
+        options: [
+            "normal",
+            "abnormal"
+        ]
+    },
 
-        {
-            name: "pcc",
-            label: "Pus Cell Clumps",
-            type: "text",
-            placeholder: "present / notpresent"
-        },
+    {
+        name: "pcc",
+        label: "Pus Cell Clumps",
+        type: "select",
+        options: [
+            "present",
+            "notpresent"
+        ]
+    },
 
-        {
-            name: "ba",
-            label: "Bacteria",
-            type: "text",
-            placeholder: "present / notpresent"
-        },
+    {
+        name: "ba",
+        label: "Bacteria",
+        type: "select",
+        options: [
+            "present",
+            "notpresent"
+        ]
+    },
 
-        {
-            name: "bgr",
-            label: "Blood Glucose Random",
-            type: "number",
-            placeholder: "Enter glucose"
-        },
+    {
+        name: "bgr",
+        label: "Blood Glucose Random",
+        type: "number",
+        step: "any",
+        placeholder: "Enter glucose level"
+    },
 
-        {
-            name: "bu",
-            label: "Blood Urea",
-            type: "number",
-            step: "any",
-            placeholder: "Enter blood urea"
-        },
+    {
+        name: "bu",
+        label: "Blood Urea",
+        type: "number",
+        step: "any",
+        placeholder: "Enter blood urea"
+    },
 
-        {
-            name: "sc",
-            label: "Serum Creatinine",
-            type: "number",
-            step: "any",
-            placeholder: "Enter serum creatinine"
-        },
+    {
+        name: "sc",
+        label: "Serum Creatinine",
+        type: "number",
+        step: "any",
+        placeholder: "Enter serum creatinine"
+    },
 
-        {
-            name: "sod",
-            label: "Sodium",
-            type: "number",
-            step: "any",
-            placeholder: "Enter sodium"
-        },
+    {
+        name: "sod",
+        label: "Sodium",
+        type: "number",
+        step: "any",
+        placeholder: "Enter sodium"
+    },
 
-        {
-            name: "pot",
-            label: "Potassium",
-            type: "number",
-            step: "any",
-            placeholder: "Enter potassium"
-        },
+    {
+        name: "pot",
+        label: "Potassium",
+        type: "number",
+        step: "any",
+        placeholder: "Enter potassium"
+    },
 
-        {
-            name: "hemo",
-            label: "Hemoglobin",
-            type: "number",
-            step: "any",
-            placeholder: "Enter hemoglobin"
-        },
+    {
+        name: "hemo",
+        label: "Hemoglobin",
+        type: "number",
+        step: "any",
+        placeholder: "Enter hemoglobin"
+    },
 
-        {
-            name: "pcv",
-            label: "Packed Cell Volume",
-            type: "number",
-            step: "any",
-            placeholder: "Enter PCV"
-        },
+    {
+        name: "pcv",
+        label: "Packed Cell Volume",
+        type: "number",
+        step: "any",
+        placeholder: "Enter PCV"
+    },
 
-        {
-            name: "wc",
-            label: "White Blood Cell Count",
-            type: "number",
-            placeholder: "Enter WBC count"
-        },
+    {
+        name: "wc",
+        label: "White Blood Cell Count",
+        type: "number",
+        placeholder: "Enter White Blood Cell Count"
+    },
 
-        {
-            name: "rc",
-            label: "Red Blood Cell Count",
-            type: "number",
-            step: "any",
-            placeholder: "Enter RBC count"
-        },
+    {
+        name: "rc",
+        label: "Red Blood Cell Count",
+        type: "number",
+        step: "any",
+        placeholder: "Enter Red Blood Cell Count"
+    },
 
-        {
-            name: "htn",
-            label: "Hypertension",
-            type: "text",
-            placeholder: "yes / no"
-        },
+    {
+        name: "htn",
+        label: "Hypertension",
+        type: "select",
+        options: [
+            "yes",
+            "no"
+        ]
+    },
 
-        {
-            name: "dm",
-            label: "Diabetes Mellitus",
-            type: "text",
-            placeholder: "yes / no"
-        },
+    {
+        name: "dm",
+        label: "Diabetes Mellitus",
+        type: "select",
+        options: [
+            "yes",
+            "no"
+        ]
+    },
 
-        {
-            name: "cad",
-            label: "Coronary Artery Disease",
-            type: "text",
-            placeholder: "yes / no"
-        },
+    {
+        name: "cad",
+        label: "Coronary Artery Disease",
+        type: "select",
+        options: [
+            "yes",
+            "no"
+        ]
+    },
 
-        {
-            name: "appet",
-            label: "Appetite",
-            type: "text",
-            placeholder: "good / poor"
-        },
+    {
+        name: "appet",
+        label: "Appetite",
+        type: "select",
+        options: [
+            "good",
+            "poor"
+        ]
+    },
 
-        {
-            name: "pe",
-            label: "Pedal Edema",
-            type: "text",
-            placeholder: "yes / no"
-        },
+    {
+        name: "pe",
+        label: "Pedal Edema",
+        type: "select",
+        options: [
+            "yes",
+            "no"
+        ]
+    },
 
-        {
-            name: "ane",
-            label: "Anemia",
-            type: "text",
-            placeholder: "yes / no"
-        }
+    {
+        name: "ane",
+        label: "Anemia",
+        type: "select",
+        options: [
+            "yes",
+            "no"
+        ]
+    }
 
-    ],
+],
 
 
     /* ====================================
@@ -819,59 +958,76 @@ const diseaseFields = {
             name: "Age",
             label: "Age",
             type: "number",
-            placeholder: "Enter age"
+            placeholder:
+                "Enter age"
         },
 
         {
-            name: "Gender",
-            label: "Gender",
-            type: "text",
-            placeholder: "Male / Female"
+
+             name: "Gender",
+             label: "Gender",
+             type: "select",
+             options: [
+                   "Male",
+                    "Female"
+    ]
+
+
         },
 
         {
             name: "Total_Bilirubin",
-            label: "Total Bilirubin",
+            label:
+                "Total Bilirubin",
             type: "number",
             step: "any",
-            placeholder: "Enter total bilirubin"
+            placeholder:
+                "Enter total bilirubin"
         },
 
         {
             name: "Direct_Bilirubin",
-            label: "Direct Bilirubin",
+            label:
+                "Direct Bilirubin",
             type: "number",
             step: "any",
-            placeholder: "Enter direct bilirubin"
+            placeholder:
+                "Enter direct bilirubin"
         },
 
         {
             name: "Alkphos",
-            label: "Alkaline Phosphotase",
+            label:
+                "Alkaline Phosphotase",
             type: "number",
-            placeholder: "Enter Alkphos"
+            placeholder:
+                "Enter Alkphos"
         },
 
         {
             name: "Sgpt",
             label: "SGPT",
             type: "number",
-            placeholder: "Enter SGPT"
+            placeholder:
+                "Enter SGPT"
         },
 
         {
             name: "Sgot",
             label: "SGOT",
             type: "number",
-            placeholder: "Enter SGOT"
+            placeholder:
+                "Enter SGOT"
         },
 
         {
             name: "Total_Proteins",
-            label: "Total Proteins",
+            label:
+                "Total Proteins",
             type: "number",
             step: "any",
-            placeholder: "Enter total proteins"
+            placeholder:
+                "Enter total proteins"
         },
 
         {
@@ -879,15 +1035,18 @@ const diseaseFields = {
             label: "Albumin",
             type: "number",
             step: "any",
-            placeholder: "Enter albumin"
+            placeholder:
+                "Enter albumin"
         },
 
         {
             name: "AG_Ratio",
-            label: "Albumin / Globulin Ratio",
+            label:
+                "Albumin / Globulin Ratio",
             type: "number",
             step: "any",
-            placeholder: "Enter A/G ratio"
+            placeholder:
+                "Enter A/G ratio"
         }
 
     ],
@@ -901,114 +1060,142 @@ const diseaseFields = {
 
         {
             name: "MDVP:Fo(Hz)",
-            label: "MDVP:Fo (Hz)",
+            label:
+                "MDVP:Fo (Hz)",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:Fhi(Hz)",
-            label: "MDVP:Fhi (Hz)",
+            label:
+                "MDVP:Fhi (Hz)",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:Flo(Hz)",
-            label: "MDVP:Flo (Hz)",
+            label:
+                "MDVP:Flo (Hz)",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:Jitter(%)",
-            label: "MDVP:Jitter (%)",
+            label:
+                "MDVP:Jitter (%)",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:Jitter(Abs)",
-            label: "MDVP:Jitter (Abs)",
+            label:
+                "MDVP:Jitter (Abs)",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:RAP",
-            label: "MDVP:RAP",
+            label:
+                "MDVP:RAP",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:PPQ",
-            label: "MDVP:PPQ",
+            label:
+                "MDVP:PPQ",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "Jitter:DDP",
-            label: "Jitter:DDP",
+            label:
+                "Jitter:DDP",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:Shimmer",
-            label: "MDVP:Shimmer",
+            label:
+                "MDVP:Shimmer",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:Shimmer(dB)",
-            label: "MDVP:Shimmer (dB)",
+            label:
+                "MDVP:Shimmer (dB)",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "Shimmer:APQ3",
-            label: "Shimmer:APQ3",
+            label:
+                "Shimmer:APQ3",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "Shimmer:APQ5",
-            label: "Shimmer:APQ5",
+            label:
+                "Shimmer:APQ5",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "MDVP:APQ",
-            label: "MDVP:APQ",
+            label:
+                "MDVP:APQ",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
             name: "Shimmer:DDA",
-            label: "Shimmer:DDA",
+            label:
+                "Shimmer:DDA",
             type: "number",
             step: "any",
-            placeholder: "Enter value"
+            placeholder:
+                "Enter value"
         },
 
         {
@@ -1016,7 +1203,8 @@ const diseaseFields = {
             label: "NHR",
             type: "number",
             step: "any",
-            placeholder: "Enter NHR"
+            placeholder:
+                "Enter NHR"
         },
 
         {
@@ -1024,7 +1212,8 @@ const diseaseFields = {
             label: "HNR",
             type: "number",
             step: "any",
-            placeholder: "Enter HNR"
+            placeholder:
+                "Enter HNR"
         },
 
         {
@@ -1032,7 +1221,8 @@ const diseaseFields = {
             label: "RPDE",
             type: "number",
             step: "any",
-            placeholder: "Enter RPDE"
+            placeholder:
+                "Enter RPDE"
         },
 
         {
@@ -1040,7 +1230,8 @@ const diseaseFields = {
             label: "DFA",
             type: "number",
             step: "any",
-            placeholder: "Enter DFA"
+            placeholder:
+                "Enter DFA"
         },
 
         {
@@ -1048,7 +1239,8 @@ const diseaseFields = {
             label: "Spread 1",
             type: "number",
             step: "any",
-            placeholder: "Enter spread1"
+            placeholder:
+                "Enter spread1"
         },
 
         {
@@ -1056,7 +1248,8 @@ const diseaseFields = {
             label: "Spread 2",
             type: "number",
             step: "any",
-            placeholder: "Enter spread2"
+            placeholder:
+                "Enter spread2"
         },
 
         {
@@ -1064,7 +1257,8 @@ const diseaseFields = {
             label: "D2",
             type: "number",
             step: "any",
-            placeholder: "Enter D2"
+            placeholder:
+                "Enter D2"
         },
 
         {
@@ -1072,7 +1266,8 @@ const diseaseFields = {
             label: "PPE",
             type: "number",
             step: "any",
-            placeholder: "Enter PPE"
+            placeholder:
+                "Enter PPE"
         }
 
     ],
@@ -1099,21 +1294,35 @@ const diseaseFields = {
             name: "age",
             label: "Age",
             type: "number",
-            placeholder: "Enter age"
+            placeholder:
+                "Enter age"
         },
+
+        /*
+         * UI shows Yes / No.
+         * Backend receives 1 / 0.
+         */
 
         {
             name: "hypertension",
             label: "Hypertension",
-            type: "number",
-            placeholder: "0 = No, 1 = Yes"
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
         },
 
         {
             name: "heart_disease",
             label: "Heart Disease",
-            type: "number",
-            placeholder: "0 = No, 1 = Yes"
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
         },
 
         {
@@ -1151,10 +1360,12 @@ const diseaseFields = {
 
         {
             name: "avg_glucose_level",
-            label: "Average Glucose Level",
+            label:
+                "Average Glucose Level",
             type: "number",
             step: "any",
-            placeholder: "Enter glucose level"
+            placeholder:
+                "Enter glucose level"
         },
 
         {
@@ -1162,7 +1373,8 @@ const diseaseFields = {
             label: "BMI",
             type: "number",
             step: "any",
-            placeholder: "Enter BMI"
+            placeholder:
+                "Enter BMI"
         },
 
         {
@@ -1205,7 +1417,6 @@ const predictionEndpoints = {
 
     stroke:
         "/api/predict/stroke"
-
 };
 
 
@@ -1218,7 +1429,8 @@ function createInputField(field) {
     const wrapper =
         document.createElement("div");
 
-    wrapper.className = "form-group";
+    wrapper.className =
+        "form-group";
 
 
     const label =
@@ -1273,13 +1485,45 @@ function createInputField(field) {
             function (optionValue) {
 
                 const option =
-                    document.createElement("option");
+                    document.createElement(
+                        "option"
+                    );
 
-                option.value =
-                    optionValue;
+
+                /*
+                 * Stroke binary fields:
+                 *
+                 * Yes -> 1
+                 * No  -> 0
+                 *
+                 * The user sees Yes/No,
+                 * but the backend receives
+                 * numeric values.
+                 */
+
+                if (
+                    field.binary === true &&
+                    (
+                        optionValue === "Yes" ||
+                        optionValue === "No"
+                    )
+                ) {
+
+                    option.value =
+                        optionValue === "Yes"
+                            ? "1"
+                            : "0";
+
+                } else {
+
+                    option.value =
+                        optionValue;
+                }
+
 
                 option.textContent =
                     optionValue;
+
 
                 input.appendChild(
                     option
@@ -1297,7 +1541,9 @@ function createInputField(field) {
     else {
 
         input =
-            document.createElement("input");
+            document.createElement(
+                "input"
+            );
 
         input.type =
             field.type || "text";
@@ -1313,9 +1559,29 @@ function createInputField(field) {
 
         input.required = true;
 
+
         if (field.step) {
+
             input.step =
                 field.step;
+        }
+
+
+        if (
+            field.min !== undefined
+        ) {
+
+            input.min =
+                field.min;
+        }
+
+
+        if (
+            field.max !== undefined
+        ) {
+
+            input.max =
+                field.max;
         }
     }
 
@@ -1338,17 +1604,23 @@ function createDiseaseFields(
     diseaseFieldsContainer
 ) {
 
-    if (!fieldsContainer ||
-        !diseaseFieldsContainer) {
+    if (
+        !fieldsContainer ||
+        !diseaseFieldsContainer
+    ) {
 
         return;
     }
 
-    fieldsContainer.innerHTML = "";
+
+    fieldsContainer.innerHTML =
+        "";
 
 
-    if (!disease ||
-        !diseaseFields[disease]) {
+    if (
+        !disease ||
+        !diseaseFields[disease]
+    ) {
 
         diseaseFieldsContainer.style.display =
             "none";
@@ -1374,6 +1646,7 @@ function createDiseaseFields(
         "block";
 }
 
+
 /* ========================================
    GET FIELD VALUE
 ======================================== */
@@ -1388,6 +1661,7 @@ function getFieldValue(
 
 
     if (value === "") {
+
         return null;
     }
 
@@ -1398,7 +1672,11 @@ function getFieldValue(
             Number(value);
 
 
-        if (Number.isNaN(numberValue)) {
+        if (
+            Number.isNaN(
+                numberValue
+            )
+        ) {
 
             throw new Error(
                 `${field.label} must be a valid number.`
@@ -1410,6 +1688,7 @@ function getFieldValue(
             numberValue < 0 &&
             field.name !== "spread1"
         ) {
+
             throw new Error(
                 `${field.label} cannot be negative.`
             );
@@ -1419,6 +1698,15 @@ function getFieldValue(
         return numberValue;
     }
 
+
+    /*
+     * Select values are already
+     * prepared correctly.
+     *
+     * Stroke:
+     * Yes = "1"
+     * No  = "0"
+     */
 
     return value;
 }
@@ -1439,7 +1727,9 @@ function displayPredictionResult(
             "predictionResult"
         );
 
+
     if (!predictionResult) {
+
         return;
     }
 
@@ -1530,7 +1820,9 @@ function displayPredictionResult(
                 .toLowerCase();
 
 
-        if (riskText.includes("high")) {
+        if (
+            riskText.includes("high")
+        ) {
 
             resultRisk.classList.add(
                 "risk-high"
@@ -1596,16 +1888,25 @@ function displayPredictionResult(
 
     if (resultProbability) {
 
-        if (probability !== null &&
-            probability !== undefined) {
+        if (
+            probability !== null &&
+            probability !== undefined
+        ) {
 
             let percentage =
                 Number(probability);
 
 
-            if (!Number.isNaN(percentage)) {
+            if (
+                !Number.isNaN(
+                    percentage
+                )
+            ) {
 
-                if (percentage <= 1) {
+                if (
+                    percentage <= 1
+                ) {
+
                     percentage *= 100;
                 }
 
@@ -1666,6 +1967,7 @@ function initializePrediction() {
 
 
     if (!predictionForm) {
+
         return;
     }
 
@@ -1757,8 +2059,10 @@ function initializePrediction() {
 
     function showError(message) {
 
-        if (!errorBox ||
-            !errorMessage) {
+        if (
+            !errorBox ||
+            !errorMessage
+        ) {
 
             alert(message);
 
@@ -1886,7 +2190,6 @@ function initializePrediction() {
         async function (event) {
 
             event.preventDefault();
-
             event.stopPropagation();
 
 
@@ -2070,8 +2373,7 @@ function initializePrediction() {
 
 
             /* ====================================
-               IMPORTANT:
-               BACKEND EXPECTS DIRECT FIELDS
+               BACKEND PAYLOAD
             ==================================== */
 
             const payload = {
@@ -2185,11 +2487,14 @@ function initializePrediction() {
                 if (
                     response.status === 401
                 ) {
+
                     console.warn(
                         "Prediction request was rejected with HTTP 401."
                     );
 
+
                     removeToken();
+
 
                     throw new Error(
                         data.msg ||
@@ -2225,7 +2530,6 @@ function initializePrediction() {
                     disease
                 );
 
-
             } catch (error) {
 
                 console.error(
@@ -2238,7 +2542,6 @@ function initializePrediction() {
                     error.message ||
                     "Unable to connect to the prediction server."
                 );
-
 
             } finally {
 
@@ -2268,19 +2571,24 @@ function getRiskLevel(
             Number(probability);
 
 
-        if (!Number.isNaN(value)) {
+        if (
+            !Number.isNaN(value)
+        ) {
 
             if (value > 1) {
+
                 value /= 100;
             }
 
 
             if (value < 0.30) {
+
                 return "Low Risk";
             }
 
 
             if (value < 0.70) {
+
                 return "Medium Risk";
             }
 
@@ -2323,19 +2631,25 @@ function formatRisk(risk) {
             .toLowerCase();
 
 
-    if (value.includes("high")) {
+    if (
+        value.includes("high")
+    ) {
 
         return "High Risk";
     }
 
 
-    if (value.includes("medium")) {
+    if (
+        value.includes("medium")
+    ) {
 
         return "Medium Risk";
     }
 
 
-    if (value.includes("low")) {
+    if (
+        value.includes("low")
+    ) {
 
         return "Low Risk";
     }
@@ -2420,189 +2734,700 @@ document.addEventListener(
 
     }
 );
-// ========================================
-// DASHBOARD ANALYTICS CHARTS
-// ========================================
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const predictionCanvas =
-        document.getElementById("predictionChart");
-
-    const riskCanvas =
-        document.getElementById("riskChart");
 
 
-    // Stop if dashboard charts are not present
-    if (!predictionCanvas || !riskCanvas) {
+/* ========================================
+   ADMIN DASHBOARD ANALYTICS
+======================================== */
+
+let adminPredictionChart =
+    null;
+
+let adminRiskChart =
+    null;
+
+
+/* ========================================
+   ADMIN API REQUEST
+======================================== */
+
+async function adminRequest(
+    url,
+    options = {}
+) {
+
+    const token =
+        getToken();
+
+
+    if (!token) {
+
+        throw new Error(
+            "Admin login session not found."
+        );
+    }
+
+
+    const headers = {
+
+        "Content-Type":
+            "application/json",
+
+        ...(options.headers || {})
+    };
+
+
+    headers["Authorization"] =
+        `Bearer ${token}`;
+
+
+    const response =
+        await fetch(
+            url,
+            {
+                ...options,
+                headers
+            }
+        );
+
+
+    const data =
+        await parseResponse(
+            response
+        );
+
+
+    if (
+        response.status === 401
+    ) {
+
+        removeToken();
+
+        window.location.href =
+            "/auth";
+
+        throw new Error(
+            "Admin session expired. Please login again."
+        );
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            data.error ||
+            data.msg ||
+            `Request failed with status ${response.status}.`
+        );
+    }
+
+
+    return data;
+}
+
+
+/* ========================================
+   DESTROY EXISTING CHARTS
+======================================== */
+
+function destroyAdminCharts() {
+
+    if (
+        adminPredictionChart
+    ) {
+
+        adminPredictionChart.destroy();
+
+        adminPredictionChart =
+            null;
+    }
+
+
+    if (
+        adminRiskChart
+    ) {
+
+        adminRiskChart.destroy();
+
+        adminRiskChart =
+            null;
+    }
+}
+
+
+/* ========================================
+   CREATE PREDICTION BAR CHART
+======================================== */
+
+function createAdminPredictionChart(
+    predictions
+) {
+
+    const canvas =
+        document.getElementById(
+            "predictionChart"
+        );
+
+
+    if (!canvas) {
+
         return;
     }
 
 
-    // ========================================
-    // PREDICTION DISTRIBUTION DATA
-    // ========================================
+    if (
+        typeof Chart === "undefined"
+    ) {
 
-    const predictionData = {
+        console.warn(
+            "Chart.js is not loaded."
+        );
 
-        labels: [
-            "Diabetes",
-            "Heart Disease",
-            "Kidney Disease",
-            "Liver Disease",
-            "Parkinson's Disease",
-            "Stroke"
-        ],
+        return;
+    }
 
-        datasets: [
 
-            {
+    const diseaseCounts = {
 
-                label: "Predictions",
+        diabetes: 0,
 
-                data: [
-                    4,
-                    3,
-                    2,
-                    3,
-                    2,
-                    3
-                ],
+        heart: 0,
 
-                borderWidth: 1
+        kidney: 0,
 
-            }
+        liver: 0,
 
-        ]
+        parkinsons: 0,
 
+        stroke: 0
     };
 
 
-    // ========================================
-    // RISK DISTRIBUTION DATA
-    // ========================================
+    if (
+        Array.isArray(
+            predictions
+        )
+    ) {
 
-    const riskData = {
+        predictions.forEach(
+            function (prediction) {
 
-        labels: [
-            "Low Risk",
-            "Medium Risk",
-            "High Risk"
-        ],
+                const disease =
+                    String(
+                        prediction.disease ||
+                        ""
+                    )
+                        .toLowerCase()
+                        .trim();
 
-        datasets: [
 
-            {
+                if (
+                    disease.includes(
+                        "diabetes"
+                    )
+                ) {
 
-                label: "Risk Level",
+                    diseaseCounts.diabetes++;
 
-                data: [
-                    6,
-                    2,
-                    9
-                ],
+                } else if (
+                    disease.includes(
+                        "heart"
+                    )
+                ) {
 
-                borderWidth: 1
+                    diseaseCounts.heart++;
+
+                } else if (
+                    disease.includes(
+                        "kidney"
+                    )
+                ) {
+
+                    diseaseCounts.kidney++;
+
+                } else if (
+                    disease.includes(
+                        "liver"
+                    )
+                ) {
+
+                    diseaseCounts.liver++;
+
+                } else if (
+                    disease.includes(
+                        "parkinson"
+                    )
+                ) {
+
+                    diseaseCounts.parkinsons++;
+
+                } else if (
+                    disease.includes(
+                        "stroke"
+                    )
+                ) {
+
+                    diseaseCounts.stroke++;
+                }
 
             }
-
-        ]
-
-    };
+        );
+    }
 
 
-    // ========================================
-    // PREDICTION DISTRIBUTION
-    // BAR CHART
-    // ========================================
+    const labels = [
 
-    new Chart(
+        "Diabetes",
 
-        predictionCanvas,
+        "Heart Disease",
 
-        {
+        "Kidney Disease",
 
-            type: "bar",
+        "Liver Disease",
 
-            data: predictionData,
+        "Parkinson's Disease",
 
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
+        "Stroke"
+    ];
 
 
-                plugins: {
+    const values = [
 
-                    legend: {
+        diseaseCounts.diabetes,
 
-                        display: false
+        diseaseCounts.heart,
 
-                    }
+        diseaseCounts.kidney,
 
-                },
+        diseaseCounts.liver,
+
+        diseaseCounts.parkinsons,
+
+        diseaseCounts.stroke
+    ];
 
 
-                scales: {
+    adminPredictionChart =
+        new Chart(
+            canvas,
+            {
+                type: "bar",
 
-                    y: {
+                data: {
 
-                        beginAtZero: true,
+                    labels:
+                        labels,
 
-                        ticks: {
+                    datasets: [
 
-                            stepSize: 1
+                        {
+                            label:
+                                "Total Predictions",
 
+                            data:
+                                values,
+
+                            borderWidth:
+                                1,
+
+                            borderRadius:
+                                8
                         }
 
+                    ]
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+                            display:
+                                false
+                        },
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label:
+                                    function (
+                                        context
+                                    ) {
+
+                                        return (
+                                            " Predictions: " +
+                                            context.raw
+                                        );
+                                    }
+                            }
+                        }
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+
+                                precision:
+                                    0,
+
+                                stepSize:
+                                    1
+                            }
+                        },
+
+                        x: {
+
+                            ticks: {
+
+                                maxRotation:
+                                    0,
+
+                                minRotation:
+                                    0
+                            }
+                        }
                     }
-
                 }
-
             }
+        );
+}
 
+
+/* ========================================
+   CREATE RISK DOUGHNUT CHART
+======================================== */
+
+function createAdminRiskChart(
+    statistics
+) {
+
+    const canvas =
+        document.getElementById(
+            "riskChart"
+        );
+
+
+    if (!canvas) {
+
+        return;
+    }
+
+
+    if (
+        typeof Chart === "undefined"
+    ) {
+
+        console.warn(
+            "Chart.js is not loaded."
+        );
+
+        return;
+    }
+
+
+    const low =
+        Number(
+            statistics?.low_risk ||
+            0
+        );
+
+
+    const medium =
+        Number(
+            statistics?.medium_risk ||
+            0
+        );
+
+
+    const high =
+        Number(
+            statistics?.high_risk ||
+            0
+        );
+
+
+    adminRiskChart =
+        new Chart(
+            canvas,
+            {
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+
+                        "Low Risk",
+
+                        "Medium Risk",
+
+                        "High Risk"
+                    ],
+
+                    datasets: [
+
+                        {
+                            label:
+                                "Risk Distribution",
+
+                            data: [
+                                low,
+                                medium,
+                                high
+                            ],
+
+                            borderWidth:
+                                2,
+
+                            hoverOffset:
+                                8
+                        }
+
+                    ]
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    cutout:
+                        "65%",
+
+                    plugins: {
+
+                        legend: {
+
+                            position:
+                                "bottom",
+
+                            labels: {
+
+                                padding:
+                                    18,
+
+                                usePointStyle:
+                                    true
+                            }
+                        },
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label:
+                                    function (
+                                        context
+                                    ) {
+
+                                        const total =
+                                            context
+                                                .dataset
+                                                .data
+                                                .reduce(
+                                                    function (
+                                                        sum,
+                                                        value
+                                                    ) {
+
+                                                        return (
+                                                            sum +
+                                                            Number(
+                                                                value
+                                                            )
+                                                        );
+
+                                                    },
+                                                    0
+                                                );
+
+
+                                        const value =
+                                            Number(
+                                                context.raw
+                                            );
+
+
+                                        let percentage =
+                                            0;
+
+
+                                        if (
+                                            total > 0
+                                        ) {
+
+                                            percentage =
+                                                (
+                                                    value /
+                                                    total
+                                                ) *
+                                                100;
+                                        }
+
+
+                                        return (
+                                            " " +
+                                            context.label +
+                                            ": " +
+                                            value +
+                                            " (" +
+                                            percentage.toFixed(
+                                                1
+                                            ) +
+                                            "%)"
+                                        );
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+}
+
+
+/* ========================================
+   LOAD ADMIN DASHBOARD CHARTS
+======================================== */
+
+async function loadAdminDashboardCharts() {
+
+    /*
+     * Only run on admin page.
+     */
+
+    if (
+        window.location.pathname !==
+        "/admin"
+    ) {
+
+        return;
+    }
+
+
+    const predictionCanvas =
+        document.getElementById(
+            "predictionChart"
+        );
+
+
+    const riskCanvas =
+        document.getElementById(
+            "riskChart"
+        );
+
+
+    if (
+        !predictionCanvas &&
+        !riskCanvas
+    ) {
+
+        console.log(
+            "Admin chart containers not found."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const dashboardData =
+            await adminRequest(
+                "/api/admin/dashboard"
+            );
+
+
+        const predictionData =
+            await adminRequest(
+                "/api/admin/predictions"
+            );
+
+
+        const statistics =
+            dashboardData.statistics ||
+            dashboardData.data ||
+            {};
+
+
+        const predictions =
+            predictionData.predictions ||
+            [];
+
+
+        console.log(
+            "Admin dashboard statistics:",
+            statistics
+        );
+
+
+        console.log(
+            "Admin predictions:",
+            predictions
+        );
+
+
+        destroyAdminCharts();
+
+
+        createAdminPredictionChart(
+            predictions
+        );
+
+
+        createAdminRiskChart(
+            statistics
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin dashboard chart error:",
+            error
+        );
+    }
+}
+
+
+/* ========================================
+   ADMIN DASHBOARD INITIALIZATION
+======================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        if (
+            window.location.pathname !==
+            "/admin"
+        ) {
+
+            return;
         }
 
-    );
+
+        console.log(
+            "Admin dashboard initialized."
+        );
 
 
-    // ========================================
-    // RISK DISTRIBUTION
-    // DOUGHNUT CHART
-    // ========================================
+        loadAdminDashboardCharts();
 
-    new Chart(
-
-        riskCanvas,
-
-        {
-
-            type: "doughnut",
-
-            data: riskData,
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-
-                plugins: {
-
-                    legend: {
-
-                        position: "bottom"
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    );
-
-});
+    }
+);
