@@ -1,3118 +1,747 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Admin Dashboard — MDRP</title>
-
-
-    <!-- MAIN CSS -->
+    <title>Admin Dashboard | MDRP</title>
 
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='style.css') }}"
     >
 
-
-    <!-- CHART.JS -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/chart.js"
-    ></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
+<body class="admin-page-body">
 
-<body>
+<div class="admin-layout">
 
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
 
-<!-- ========================================
-     ADMIN NAVBAR
-======================================== -->
+        <div class="admin-sidebar-brand">
 
-<header class="admin-navbar">
-
-    <div class="admin-brand">
-
-        <span class="brand-icon">
-            ✚
-        </span>
-
-        <span>
-            Health Care
-        </span>
-
-    </div>
-
-
-    <div class="admin-nav-right">
-
-        <span id="adminName">
-            Admin
-        </span>
-
-
-        <button
-            type="button"
-            id="adminLogoutBtn"
-            class="admin-logout-btn"
-        >
-            Logout
-        </button>
-
-    </div>
-
-</header>
-
-
-
-<!-- ========================================
-     MAIN DASHBOARD
-======================================== -->
-
-<main class="admin-container">
-
-
-    <!-- ========================================
-         DASHBOARD HEADER
-    ========================================= -->
-
-    <div class="admin-header">
-
-        <div>
-
-            <p class="admin-label">
-                ADMIN PANEL
-            </p>
-
-            <h1>
-                Dashboard
-            </h1>
-
-            <p class="admin-subtitle">
-                Monitor users, patients, predictions and risk statistics.
-            </p>
-
-        </div>
-
-
-        <button
-            type="button"
-            id="refreshAdminBtn"
-            class="admin-refresh-btn"
-        >
-            ↻ Refresh
-        </button>
-
-    </div>
-
-
-
-    <!-- ========================================
-         STATISTICS
-    ========================================= -->
-
-    <section class="admin-stats-grid">
-
-
-        <!-- TOTAL USERS -->
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                👥
+            <div class="admin-brand-icon">
+                ✚
             </div>
 
             <div>
-
-                <p>
-                    Total Users
-                </p>
-
-                <h2 id="totalUsers">
-                    0
-                </h2>
-
+                <h2>Health Care</h2>
+                <span>Admin Panel</span>
             </div>
 
         </div>
 
-
-        <!-- TOTAL PATIENTS -->
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                🧑‍⚕️
-            </div>
-
-            <div>
-
-                <p>
-                    Total Patients
-                </p>
-
-                <h2 id="totalPatients">
-                    0
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <!-- TOTAL PREDICTIONS -->
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                🔬
-            </div>
-
-            <div>
-
-                <p>
-                    Total Predictions
-                </p>
-
-                <h2 id="totalPredictions">
-                    0
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <!-- HIGH RISK -->
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                ⚠️
-            </div>
-
-            <div>
-
-                <p>
-                    High Risk
-                </p>
-
-                <h2 id="highRisk">
-                    0
-                </h2>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         RISK SUMMARY
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    RISK SUMMARY
-                </p>
-
-                <h2>
-                    Prediction Risk Overview
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="risk-summary-grid">
-
-
-            <!-- LOW -->
-
-            <div class="risk-card risk-low">
-
-                <span class="risk-card-icon">
-                    ✓
-                </span>
-
-                <div>
-
-                    <span>
-                        Low Risk
-                    </span>
-
-                    <strong id="lowRisk">
-                        0
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- MEDIUM -->
-
-            <div class="risk-card risk-medium">
-
-                <span class="risk-card-icon">
-                    !
-                </span>
-
-                <div>
-
-                    <span>
-                        Medium Risk
-                    </span>
-
-                    <strong id="mediumRisk">
-                        0
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- HIGH -->
-
-            <div class="risk-card risk-high">
-
-                <span class="risk-card-icon">
-                    ⚠
-                </span>
-
-                <div>
-
-                    <span>
-                        High Risk
-                    </span>
-
-                    <strong id="highRiskSummary">
-                        0
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         ANALYTICS CHARTS
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    ANALYTICS
-                </p>
-
-                <h2>
-                    Prediction Statistics
-                </h2>
-
-                <p class="admin-subtitle">
-                    Visual overview of prediction activity and risk distribution.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="admin-chart-grid">
-
-
-            <!-- ========================================
-                 RISK BAR CHART
-            ========================================= -->
-
-            <div class="admin-chart-card">
-
-                <div class="chart-card-header">
-
-                    <div>
-
-                        <span class="chart-label">
-                            RISK DISTRIBUTION
-                        </span>
-
-                        <h3>
-                            Prediction Risk Overview
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div class="chart-container">
-
-                    <canvas
-                        id="riskBarChart"
-                    ></canvas>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ========================================
-                 DISEASE BAR CHART
-            ========================================= -->
-
-            <div class="admin-chart-card">
-
-                <div class="chart-card-header">
-
-                    <div>
-
-                        <span class="chart-label">
-                            DISEASE ANALYTICS
-                        </span>
-
-                        <h3>
-                            Disease Predictions
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div class="chart-container">
-
-                    <canvas
-                        id="diseaseBarChart"
-                    ></canvas>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         SYSTEM MONITORING
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    SYSTEM MONITORING
-                </p>
-
-                <h2>
-                    Prediction Analytics
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="risk-summary-grid">
-
-
-            <!-- DISEASE COUNT -->
-
-            <div class="risk-card">
-
-                <span class="risk-card-icon">
-                    📊
-                </span>
-
-                <div>
-
-                    <span>
-                        Diseases Predicted
-                    </span>
-
-                    <strong id="diseaseCount">
-                        0
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- TOP DISEASE -->
-
-            <div class="risk-card">
-
-                <span class="risk-card-icon">
-                    📈
-                </span>
-
-                <div>
-
-                    <span>
-                        Most Predicted Disease
-                    </span>
-
-                    <strong id="topDisease">
-                        N/A
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- LATEST -->
-
-            <div class="risk-card">
-
-                <span class="risk-card-icon">
-                    🕐
-                </span>
-
-                <div>
-
-                    <span>
-                        Latest Activity
-                    </span>
-
-                    <strong id="latestActivity">
-                        N/A
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- DISEASE MONITORING -->
-
-        <div
-            id="diseaseMonitoring"
-            class="admin-monitoring-list"
-        ></div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         RECENT PREDICTIONS
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    ACTIVITY
-                </p>
-
-                <h2>
-                    Recent Predictions
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="admin-table-wrapper">
-
-            <table class="admin-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>
-                            Patient ID
-                        </th>
-
-                        <th>
-                            Disease
-                        </th>
-
-                        <th>
-                            Prediction
-                        </th>
-
-                        <th>
-                            Probability
-                        </th>
-
-                        <th>
-                            Risk Level
-                        </th>
-
-                        <th>
-                            Date
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="recentPredictionsBody">
-
-                    <tr>
-
-                        <td
-                            colspan="7"
-                            class="admin-loading"
-                        >
-                            Loading predictions...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         USERS
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    USERS
-                </p>
-
-                <h2>
-                    Registered Users
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <!-- SEARCH -->
-
-        <div class="admin-filter-bar">
-
-            <input
-                type="text"
-                id="userSearch"
-                class="admin-filter-input"
-                placeholder="Search by name, email or ID..."
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="admin-sidebar-nav">
+
+            <button
+                type="button"
+                class="admin-nav-item active"
+                data-section="dashboard"
             >
+                <span class="admin-nav-icon">▦</span>
+                <span>Dashboard</span>
+            </button>
 
-        </div>
+            <button
+                type="button"
+                class="admin-nav-item"
+                data-section="users"
+            >
+                <span class="admin-nav-icon">◉</span>
+                <span>Users</span>
+            </button>
 
+            <button
+                type="button"
+                class="admin-nav-item"
+                data-section="patients"
+            >
+                <span class="admin-nav-icon">♙</span>
+                <span>Patients</span>
+            </button>
 
-        <!-- TABLE -->
+            <button
+                type="button"
+                class="admin-nav-item"
+                data-section="predictions"
+            >
+                <span class="admin-nav-icon">◫</span>
+                <span>Predictions</span>
+            </button>
 
-        <div class="admin-table-wrapper">
+        </nav>
 
-            <table class="admin-table">
+        <!-- SIDEBAR BOTTOM -->
+        <div class="admin-sidebar-bottom">
 
-                <thead>
+            <div class="admin-sidebar-user">
 
-                    <tr>
+                <div class="admin-user-avatar">
+                    A
+                </div>
 
-                        <th>
-                            ID
-                        </th>
-
-                        <th>
-                            Name
-                        </th>
-
-                        <th>
-                            Email
-                        </th>
-
-                        <th>
-                            Role
-                        </th>
-
-                        <th>
-                            Action
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="usersTableBody">
-
-                    <tr>
-
-                        <td
-                            colspan="5"
-                            class="admin-loading"
-                        >
-                            Loading users...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         PATIENTS
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    PATIENTS
-                </p>
-
-                <h2>
-                    Registered Patients
-                </h2>
+                <div class="admin-user-info">
+                    <strong id="sidebarAdminName">Admin</strong>
+                    <span>Administrator</span>
+                </div>
 
             </div>
 
-        </div>
-
-
-        <!-- SEARCH -->
-
-        <div class="admin-filter-bar">
-
-            <input
-                type="text"
-                id="patientSearch"
-                class="admin-filter-input"
-                placeholder="Search by patient name, ID or user ID..."
+            <button
+                type="button"
+                id="adminLogoutBtn"
+                class="admin-sidebar-logout"
             >
+                <span>↪</span>
+                Logout
+            </button>
 
         </div>
 
+    </aside>
 
-        <!-- TABLE -->
-
-        <div class="admin-table-wrapper">
-
-            <table class="admin-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            ID
-                        </th>
-
-                        <th>
-                            User ID
-                        </th>
-
-                        <th>
-                            Name
-                        </th>
-
-                        <th>
-                            Age
-                        </th>
-
-                        <th>
-                            Gender
-                        </th>
-
-                        <th>
-                            Created
-                        </th>
-
-                        <th>
-                            Action
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="patientsTableBody">
-
-                    <tr>
-
-                        <td
-                            colspan="7"
-                            class="admin-loading"
-                        >
-                            Loading patients...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         ALL PREDICTIONS
-    ========================================= -->
-
-    <section class="admin-section">
-
-        <div class="admin-section-header">
-
-            <div>
-
-                <p class="admin-label">
-                    PREDICTION HISTORY
-                </p>
-
-                <h2>
-                    All Predictions
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <!-- FILTERS -->
-
-        <div class="admin-filter-grid">
-
-
-            <!-- SEARCH -->
-
-            <input
-                type="text"
-                id="predictionSearch"
-                class="admin-filter-input"
-                placeholder="Search by ID, user ID, patient ID or disease..."
-            >
-
-
-            <!-- DISEASE -->
-
-            <select
-                id="diseaseFilter"
-                class="admin-filter-input"
-            >
-
-                <option value="">
-                    All Diseases
-                </option>
-
-            </select>
-
-
-            <!-- RISK -->
-
-            <select
-                id="riskFilter"
-                class="admin-filter-input"
-            >
-
-                <option value="">
-                    All Risk Levels
-                </option>
-
-                <option value="Low">
-                    Low
-                </option>
-
-                <option value="Medium">
-                    Medium
-                </option>
-
-                <option value="High">
-                    High
-                </option>
-
-            </select>
-
-
-            <!-- DATE -->
-
-            <input
-                type="date"
-                id="dateFilter"
-                class="admin-filter-input"
-            >
-
-        </div>
-
-
-        <!-- TABLE -->
-
-        <div class="admin-table-wrapper">
-
-            <table class="admin-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            ID
-                        </th>
-
-                        <th>
-                            User ID
-                        </th>
-
-                        <th>
-                            Patient ID
-                        </th>
-
-                        <th>
-                            Disease
-                        </th>
-
-                        <th>
-                            Prediction
-                        </th>
-
-                        <th>
-                            Probability
-                        </th>
-
-                        <th>
-                            Risk
-                        </th>
-
-                        <th>
-                            Date
-                        </th>
-
-                        <th>
-                            Action
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="allPredictionsBody">
-
-                    <tr>
-
-                        <td
-                            colspan="9"
-                            class="admin-loading"
-                        >
-                            Loading predictions...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ========================================
-         ERROR
-    ========================================= -->
-
+    <!-- MOBILE OVERLAY -->
     <div
-        id="adminError"
-        class="admin-error"
-        style="display: none;"
+        class="admin-sidebar-overlay"
+        id="adminSidebarOverlay"
     ></div>
 
+    <!-- MAIN AREA -->
+    <div class="admin-main">
 
-</main>
+        <!-- TOP BAR -->
+        <header class="admin-topbar">
 
+            <div class="admin-topbar-left">
 
-
-<!-- ========================================
-     JAVASCRIPT
-======================================== -->
-
-<script>
-
-
-// ========================================
-// GLOBAL DATA
-// ========================================
-
-let allUsers = [];
-
-let allPatients = [];
-
-let allPredictions = [];
-
-
-// ========================================
-// CHART INSTANCES
-// ========================================
-
-let riskBarChart = null;
-
-let diseaseBarChart = null;
-
-
-// ========================================
-// TOKEN
-// ========================================
-
-function getAdminToken() {
-
-    return localStorage.getItem(
-        "access_token"
-    );
-
-}
-
-
-// ========================================
-// ADMIN REQUEST
-// ========================================
-
-async function adminRequest(
-    url,
-    options = {}
-) {
-
-    const token =
-        getAdminToken();
-
-
-    if (!token) {
-
-        window.location.href =
-            "/auth";
-
-        return null;
-
-    }
-
-
-    const response =
-        await fetch(
-            url,
-            {
-                ...options,
-
-                headers: {
-
-                    "Content-Type":
-                        "application/json",
-
-                    "Authorization":
-                        `Bearer ${token}`
-
-                }
-
-            }
-        );
-
-
-    let data = {};
-
-
-    try {
-
-        data =
-            await response.json();
-
-    } catch (error) {
-
-        data = {};
-
-    }
-
-
-    if (
-        response.status === 401
-    ) {
-
-        localStorage.removeItem(
-            "access_token"
-        );
-
-        localStorage.removeItem(
-            "user"
-        );
-
-        localStorage.removeItem(
-            "user_role"
-        );
-
-        window.location.href =
-            "/auth";
-
-        return null;
-
-    }
-
-
-    if (
-        response.status === 403
-    ) {
-
-        throw new Error(
-            "You do not have admin access."
-        );
-
-    }
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.error ||
-            data.message ||
-            "Request failed."
-        );
-
-    }
-
-
-    return data;
-
-}
-
-
-
-// ========================================
-// FORMAT DISEASE
-// ========================================
-
-function formatDiseaseName(
-    disease
-) {
-
-    if (!disease) {
-
-        return "Unknown";
-
-    }
-
-
-    return disease
-
-        .replaceAll(
-            "_",
-            " "
-        )
-
-        .replace(
-            /\b\w/g,
-            letter =>
-                letter.toUpperCase()
-        );
-
-}
-
-
-
-// ========================================
-// FORMAT PROBABILITY
-// ========================================
-
-function formatProbability(
-    value
-) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "N/A";
-
-    }
-
-
-    const number =
-        Number(value);
-
-
-    if (
-        Number.isNaN(number)
-    ) {
-
-        return "N/A";
-
-    }
-
-
-    return `${(
-        number * 100
-    ).toFixed(2)}%`;
-
-}
-
-
-
-// ========================================
-// FORMAT DATE
-// ========================================
-
-function formatDate(
-    value
-) {
-
-    if (!value) {
-
-        return "N/A";
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return value;
-
-    }
-
-
-    return date.toLocaleString();
-
-}
-
-
-
-// ========================================
-// DATE ONLY
-// ========================================
-
-function getDateOnly(
-    value
-) {
-
-    if (!value) {
-
-        return "";
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return "";
-
-    }
-
-
-    return date
-        .toISOString()
-        .split("T")[0];
-
-}
-
-
-
-// ========================================
-// RISK CLASS
-// ========================================
-
-function riskClass(
-    risk
-) {
-
-    if (!risk) {
-
-        return "";
-
-    }
-
-
-    return `risk-${String(
-        risk
-    ).toLowerCase()}`;
-
-}
-
-
-
-// ========================================
-// ERROR
-// ========================================
-
-function displayError(
-    message
-) {
-
-    const element =
-        document.getElementById(
-            "adminError"
-        );
-
-
-    element.textContent =
-        message;
-
-
-    element.style.display =
-        "block";
-
-}
-
-
-
-// ========================================
-// CLEAR ERROR
-// ========================================
-
-function clearError() {
-
-    const element =
-        document.getElementById(
-            "adminError"
-        );
-
-
-    element.textContent =
-        "";
-
-
-    element.style.display =
-        "none";
-
-}
-
-
-
-// ========================================
-// RISK BAR CHART
-// ========================================
-
-function updateRiskBarChart(
-    statistics
-) {
-
-    const canvas =
-        document.getElementById(
-            "riskBarChart"
-        );
-
-
-    if (!canvas) {
-
-        return;
-
-    }
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    if (riskBarChart) {
-
-        riskBarChart.destroy();
-
-    }
-
-
-    riskBarChart =
-        new Chart(
-            ctx,
-            {
-
-                type: "bar",
-
-
-                data: {
-
-                    labels: [
-
-                        "Total Predictions",
-
-                        "Low Risk",
-
-                        "Medium Risk",
-
-                        "High Risk"
-
-                    ],
-
-
-                    datasets: [
-
-                        {
-
-                            label:
-                                "Predictions",
-
-
-                            data: [
-
-                                statistics.total_predictions ?? 0,
-
-                                statistics.low_risk ?? 0,
-
-                                statistics.medium_risk ?? 0,
-
-                                statistics.high_risk ?? 0
-
-                            ],
-
-
-                            backgroundColor: [
-
-                                "rgba(32, 197, 138, 0.75)",
-
-                                "rgba(32, 197, 138, 0.75)",
-
-                                "rgba(245, 184, 72, 0.75)",
-
-                                "rgba(255, 92, 92, 0.75)"
-
-                            ],
-
-
-                            borderRadius: 8,
-
-
-                            borderWidth: 0
-
-                        }
-
-                    ]
-
-                },
-
-
-                options: {
-
-                    responsive: true,
-
-                    maintainAspectRatio: false,
-
-
-                    plugins: {
-
-                        legend: {
-
-                            display: false
-
-                        }
-
-                    },
-
-
-                    scales: {
-
-                        x: {
-
-                            grid: {
-
-                                display: false
-
-                            },
-
-
-                            ticks: {
-
-                                color:
-                                    "#8994a6"
-
-                            }
-
-                        },
-
-
-                        y: {
-
-                            beginAtZero: true,
-
-
-                            ticks: {
-
-                                color:
-                                    "#8994a6",
-
-                                precision: 0
-
-                            },
-
-
-                            grid: {
-
-                                color:
-                                    "rgba(255,255,255,0.06)"
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-        );
-
-}
-
-
-
-// ========================================
-// DISEASE BAR CHART
-// ========================================
-
-function updateDiseaseBarChart(
-    predictions
-) {
-
-    const canvas =
-        document.getElementById(
-            "diseaseBarChart"
-        );
-
-
-    if (!canvas) {
-
-        return;
-
-    }
-
-
-    const diseaseCounts = {};
-
-
-    predictions.forEach(
-        item => {
-
-            const disease =
-                item.disease ||
-                "Unknown";
-
-
-            diseaseCounts[disease] =
-                (
-                    diseaseCounts[disease] ||
-                    0
-                ) + 1;
-
-        }
-    );
-
-
-    const sortedDiseases =
-        Object.entries(
-            diseaseCounts
-        )
-        .sort(
-            (a, b) =>
-                b[1] - a[1]
-        );
-
-
-    const labels =
-        sortedDiseases.map(
-            item =>
-                formatDiseaseName(
-                    item[0]
-                )
-        );
-
-
-    const values =
-        sortedDiseases.map(
-            item =>
-                item[1]
-        );
-
-
-    if (diseaseBarChart) {
-
-        diseaseBarChart.destroy();
-
-    }
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    diseaseBarChart =
-        new Chart(
-            ctx,
-            {
-
-                type: "bar",
-
-
-                data: {
-
-                    labels: labels,
-
-
-                    datasets: [
-
-                        {
-
-                            label:
-                                "Predictions",
-
-
-                            data: values,
-
-
-                            backgroundColor:
-                                "rgba(32, 197, 138, 0.72)",
-
-
-                            borderRadius: 8,
-
-
-                            borderWidth: 0
-
-                        }
-
-                    ]
-
-                },
-
-
-                options: {
-
-                    indexAxis: "y",
-
-                    responsive: true,
-
-                    maintainAspectRatio: false,
-
-
-                    plugins: {
-
-                        legend: {
-
-                            display: false
-
-                        }
-
-                    },
-
-
-                    scales: {
-
-                        x: {
-
-                            beginAtZero: true,
-
-
-                            ticks: {
-
-                                color:
-                                    "#8994a6",
-
-                                precision: 0
-
-                            },
-
-
-                            grid: {
-
-                                color:
-                                    "rgba(255,255,255,0.06)"
-
-                            }
-
-                        },
-
-
-                        y: {
-
-                            ticks: {
-
-                                color:
-                                    "#8994a6"
-
-                            },
-
-
-                            grid: {
-
-                                display: false
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-        );
-
-}
-
-
-
-// ========================================
-// LOAD DASHBOARD
-// ========================================
-
-async function loadAdminDashboard() {
-
-    const data =
-        await adminRequest(
-            "/api/admin/dashboard"
-        );
-
-
-    if (!data) {
-
-        return;
-
-    }
-
-
-    const statistics =
-        data.statistics || {};
-
-
-    document.getElementById(
-        "totalUsers"
-    ).textContent =
-        statistics.total_users ?? 0;
-
-
-    document.getElementById(
-        "totalPatients"
-    ).textContent =
-        statistics.total_patients ?? 0;
-
-
-    document.getElementById(
-        "totalPredictions"
-    ).textContent =
-        statistics.total_predictions ?? 0;
-
-
-    document.getElementById(
-        "highRisk"
-    ).textContent =
-        statistics.high_risk ?? 0;
-
-
-    document.getElementById(
-        "lowRisk"
-    ).textContent =
-        statistics.low_risk ?? 0;
-
-
-    document.getElementById(
-        "mediumRisk"
-    ).textContent =
-        statistics.medium_risk ?? 0;
-
-
-    document.getElementById(
-        "highRiskSummary"
-    ).textContent =
-        statistics.high_risk ?? 0;
-
-
-    // UPDATE RISK CHART
-
-    updateRiskBarChart(
-        statistics
-    );
-
-
-    // RECENT PREDICTIONS
-
-    renderRecentPredictions(
-        data.recent_predictions || []
-    );
-
-}
-
-
-
-// ========================================
-// RECENT PREDICTIONS
-// ========================================
-
-function renderRecentPredictions(
-    predictions
-) {
-
-    const tbody =
-        document.getElementById(
-            "recentPredictionsBody"
-        );
-
-
-    if (!predictions.length) {
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="7"
-                    class="admin-empty"
+                <button
+                    type="button"
+                    class="admin-menu-btn"
+                    id="adminMenuBtn"
                 >
-                    No predictions found.
-                </td>
+                    ☰
+                </button>
 
-            </tr>
+                <div>
+                    <p class="admin-topbar-label">
+                        ADMIN PANEL
+                    </p>
 
-        `;
+                    <h1 id="adminPageTitle">
+                        Dashboard
+                    </h1>
+                </div>
 
-        return;
+            </div>
 
-    }
+            <div class="admin-topbar-right">
 
+                <div class="admin-topbar-user">
 
-    tbody.innerHTML =
-        predictions.map(
-            item => `
+                    <div class="admin-user-avatar small">
+                        A
+                    </div>
 
-            <tr>
-
-                <td>
-                    #${item.id}
-                </td>
-
-                <td>
-                    ${item.patient_id ?? "N/A"}
-                </td>
-
-                <td>
-                    ${formatDiseaseName(
-                        item.disease
-                    )}
-                </td>
-
-                <td>
-                    ${item.prediction ?? "N/A"}
-                </td>
-
-                <td>
-                    ${formatProbability(
-                        item.probability
-                    )}
-                </td>
-
-                <td>
-
-                    <span
-                        class="risk-badge ${riskClass(
-                            item.risk_level
-                        )}"
-                    >
-
-                        ${item.risk_level || "N/A"}
-
-                    </span>
-
-                </td>
-
-                <td>
-                    ${formatDate(
-                        item.created_at
-                    )}
-                </td>
-
-            </tr>
-
-        `
-        )
-        .join("");
-
-}
-
-
-
-// ========================================
-// LOAD USERS
-// ========================================
-
-async function loadUsers() {
-
-    const data =
-        await adminRequest(
-            "/api/admin/users"
-        );
-
-
-    if (!data) {
-
-        return;
-
-    }
-
-
-    allUsers =
-        data.users || [];
-
-
-    renderUsers(
-        allUsers
-    );
-
-}
-
-
-
-// ========================================
-// RENDER USERS
-// ========================================
-
-function renderUsers(
-    users
-) {
-
-    const tbody =
-        document.getElementById(
-            "usersTableBody"
-        );
-
-
-    if (!users.length) {
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    class="admin-empty"
-                >
-                    No users found.
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        users.map(
-            user => `
-
-            <tr>
-
-                <td>
-                    #${user.id}
-                </td>
-
-                <td>
-                    ${user.name ?? "N/A"}
-                </td>
-
-                <td>
-                    ${user.email ?? "N/A"}
-                </td>
-
-                <td>
-
-                    <span class="role-badge">
-                        ${user.role ?? "user"}
-                    </span>
-
-                </td>
-
-                <td>
-
-                    ${
-                        user.role === "admin"
-
-                        ? `
-                            <span class="admin-protected">
-                                Protected
-                            </span>
-                        `
-
-                        : `
-                            <button
-                                class="admin-delete-btn"
-                                onclick="deleteUser(${user.id})"
-                            >
-                                Delete
-                            </button>
-                        `
-                    }
-
-                </td>
-
-            </tr>
-
-        `
-        )
-        .join("");
-
-}
-
-
-
-// ========================================
-// USER SEARCH
-// ========================================
-
-document
-    .getElementById(
-        "userSearch"
-    )
-    .addEventListener(
-        "input",
-        function () {
-
-            const search =
-                this.value
-                    .toLowerCase()
-                    .trim();
-
-
-            const filtered =
-                allUsers.filter(
-                    user =>
-
-                        String(
-                            user.id
-                        )
-                        .includes(search)
-
-                        ||
-
-                        String(
-                            user.name || ""
-                        )
-                        .toLowerCase()
-                        .includes(search)
-
-                        ||
-
-                        String(
-                            user.email || ""
-                        )
-                        .toLowerCase()
-                        .includes(search)
-
-                );
-
-
-            renderUsers(
-                filtered
-            );
-
-        }
-    );
-
-
-
-// ========================================
-// DELETE USER
-// ========================================
-
-async function deleteUser(
-    userId
-) {
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this user and all related records?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    try {
-
-        await adminRequest(
-            `/api/admin/users/${userId}`,
-            {
-                method: "DELETE"
-            }
-        );
-
-
-        alert(
-            "User deleted successfully."
-        );
-
-
-        await refreshAllData();
-
-    } catch (error) {
-
-        displayError(
-            error.message
-        );
-
-    }
-
-}
-
-
-
-// ========================================
-// LOAD PATIENTS
-// ========================================
-
-async function loadPatients() {
-
-    const data =
-        await adminRequest(
-            "/api/admin/patients"
-        );
-
-
-    if (!data) {
-
-        return;
-
-    }
-
-
-    allPatients =
-        data.patients || [];
-
-
-    renderPatients(
-        allPatients
-    );
-
-}
-
-
-
-// ========================================
-// RENDER PATIENTS
-// ========================================
-
-function renderPatients(
-    patients
-) {
-
-    const tbody =
-        document.getElementById(
-            "patientsTableBody"
-        );
-
-
-    if (!patients.length) {
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="7"
-                    class="admin-empty"
-                >
-                    No patients found.
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        patients.map(
-            patient => `
-
-            <tr>
-
-                <td>
-                    #${patient.id}
-                </td>
-
-                <td>
-                    ${patient.user_id ?? "N/A"}
-                </td>
-
-                <td>
-                    ${patient.name ?? "N/A"}
-                </td>
-
-                <td>
-                    ${patient.age ?? "N/A"}
-                </td>
-
-                <td>
-                    ${patient.gender ?? "N/A"}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        patient.created_at
-                    )}
-                </td>
-
-                <td>
-
-                    <button
-                        class="admin-delete-btn"
-                        onclick="deletePatient(${patient.id})"
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        )
-        .join("");
-
-}
-
-
-
-// ========================================
-// PATIENT SEARCH
-// ========================================
-
-document
-    .getElementById(
-        "patientSearch"
-    )
-    .addEventListener(
-        "input",
-        function () {
-
-            const search =
-                this.value
-                    .toLowerCase()
-                    .trim();
-
-
-            const filtered =
-                allPatients.filter(
-                    patient =>
-
-                        String(
-                            patient.id
-                        )
-                        .includes(search)
-
-                        ||
-
-                        String(
-                            patient.user_id
-                        )
-                        .includes(search)
-
-                        ||
-
-                        String(
-                            patient.name || ""
-                        )
-                        .toLowerCase()
-                        .includes(search)
-
-                );
-
-
-            renderPatients(
-                filtered
-            );
-
-        }
-    );
-
-
-
-// ========================================
-// DELETE PATIENT
-// ========================================
-
-async function deletePatient(
-    patientId
-) {
-
-    const confirmed =
-        confirm(
-            "Delete this patient and related predictions?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    try {
-
-        await adminRequest(
-            `/api/admin/patients/${patientId}`,
-            {
-                method: "DELETE"
-            }
-        );
-
-
-        alert(
-            "Patient deleted successfully."
-        );
-
-
-        await refreshAllData();
-
-    } catch (error) {
-
-        displayError(
-            error.message
-        );
-
-    }
-
-}
-
-
-
-// ========================================
-// LOAD ALL PREDICTIONS
-// ========================================
-
-async function loadAllPredictions() {
-
-    const data =
-        await adminRequest(
-            "/api/admin/predictions"
-        );
-
-
-    if (!data) {
-
-        return;
-
-    }
-
-
-    allPredictions =
-        data.predictions || [];
-
-
-    populateDiseaseFilter(
-        allPredictions
-    );
-
-
-    renderPredictions(
-        allPredictions
-    );
-
-
-    updateMonitoring(
-        allPredictions
-    );
-
-
-    updateDiseaseBarChart(
-        allPredictions
-    );
-
-}
-
-
-
-// ========================================
-// DISEASE FILTER OPTIONS
-// ========================================
-
-function populateDiseaseFilter(
-    predictions
-) {
-
-    const select =
-        document.getElementById(
-            "diseaseFilter"
-        );
-
-
-    const currentValue =
-        select.value;
-
-
-    const diseases =
-        [
-            ...new Set(
-                predictions
-                    .map(
-                        item =>
-                            item.disease
-                    )
-                    .filter(Boolean)
-            )
-        ]
-        .sort();
-
-
-    select.innerHTML = `
-
-        <option value="">
-            All Diseases
-        </option>
-
-    `;
-
-
-    diseases.forEach(
-        disease => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                disease;
-
-
-            option.textContent =
-                formatDiseaseName(
-                    disease
-                );
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    select.value =
-        currentValue;
-
-}
-
-
-
-// ========================================
-// RENDER ALL PREDICTIONS
-// ========================================
-
-function renderPredictions(
-    predictions
-) {
-
-    const tbody =
-        document.getElementById(
-            "allPredictionsBody"
-        );
-
-
-    if (!predictions.length) {
-
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="9"
-                    class="admin-empty"
-                >
-                    No predictions found.
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        predictions.map(
-            item => `
-
-            <tr>
-
-                <td>
-                    #${item.id}
-                </td>
-
-                <td>
-                    ${item.user_id ?? "N/A"}
-                </td>
-
-                <td>
-                    ${item.patient_id ?? "N/A"}
-                </td>
-
-                <td>
-                    ${formatDiseaseName(
-                        item.disease
-                    )}
-                </td>
-
-                <td>
-                    ${item.prediction ?? "N/A"}
-                </td>
-
-                <td>
-                    ${formatProbability(
-                        item.probability
-                    )}
-                </td>
-
-                <td>
-
-                    <span
-                        class="risk-badge ${riskClass(
-                            item.risk_level
-                        )}"
-                    >
-                        ${item.risk_level || "N/A"}
-                    </span>
-
-                </td>
-
-                <td>
-                    ${formatDate(
-                        item.created_at
-                    )}
-                </td>
-
-                <td>
-
-                    <button
-                        class="admin-delete-btn"
-                        onclick="deletePrediction(${item.id})"
-                    >
-                        Delete
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        )
-        .join("");
-
-}
-
-
-
-// ========================================
-// APPLY PREDICTION FILTERS
-// ========================================
-
-function applyPredictionFilters() {
-
-    const search =
-        document.getElementById(
-            "predictionSearch"
-        )
-        .value
-        .toLowerCase()
-        .trim();
-
-
-    const disease =
-        document.getElementById(
-            "diseaseFilter"
-        ).value;
-
-
-    const risk =
-        document.getElementById(
-            "riskFilter"
-        ).value;
-
-
-    const date =
-        document.getElementById(
-            "dateFilter"
-        ).value;
-
-
-    const filtered =
-        allPredictions.filter(
-            item => {
-
-                const searchMatch =
-
-                    !search
-
-                    ||
-
-                    String(
-                        item.id
-                    )
-                    .includes(search)
-
-                    ||
-
-                    String(
-                        item.user_id
-                    )
-                    .includes(search)
-
-                    ||
-
-                    String(
-                        item.patient_id
-                    )
-                    .includes(search)
-
-                    ||
-
-                    String(
-                        item.disease || ""
-                    )
-                    .toLowerCase()
-                    .includes(search);
-
-
-                const diseaseMatch =
-                    !disease ||
-                    item.disease === disease;
-
-
-                const riskMatch =
-                    !risk ||
-                    item.risk_level === risk;
-
-
-                const dateMatch =
-                    !date ||
-                    getDateOnly(
-                        item.created_at
-                    ) === date;
-
-
-                return (
-                    searchMatch &&
-                    diseaseMatch &&
-                    riskMatch &&
-                    dateMatch
-                );
-
-            }
-        );
-
-
-    renderPredictions(
-        filtered
-    );
-
-}
-
-
-
-// ========================================
-// FILTER EVENTS
-// ========================================
-
-document
-    .getElementById(
-        "predictionSearch"
-    )
-    .addEventListener(
-        "input",
-        applyPredictionFilters
-    );
-
-
-document
-    .getElementById(
-        "diseaseFilter"
-    )
-    .addEventListener(
-        "change",
-        applyPredictionFilters
-    );
-
-
-document
-    .getElementById(
-        "riskFilter"
-    )
-    .addEventListener(
-        "change",
-        applyPredictionFilters
-    );
-
-
-document
-    .getElementById(
-        "dateFilter"
-    )
-    .addEventListener(
-        "change",
-        applyPredictionFilters
-    );
-
-
-
-// ========================================
-// DELETE PREDICTION
-// ========================================
-
-async function deletePrediction(
-    predictionId
-) {
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this prediction?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    try {
-
-        await adminRequest(
-            `/api/admin/predictions/${predictionId}`,
-            {
-                method: "DELETE"
-            }
-        );
-
-
-        alert(
-            "Prediction deleted successfully."
-        );
-
-
-        await refreshAllData();
-
-    } catch (error) {
-
-        displayError(
-            error.message
-        );
-
-    }
-
-}
-
-
-
-// ========================================
-// SYSTEM MONITORING
-// ========================================
-
-function updateMonitoring(
-    predictions
-) {
-
-    const diseaseCounts = {};
-
-
-    predictions.forEach(
-        item => {
-
-            const disease =
-                item.disease ||
-                "Unknown";
-
-
-            diseaseCounts[disease] =
-                (
-                    diseaseCounts[disease] ||
-                    0
-                ) + 1;
-
-        }
-    );
-
-
-    const diseases =
-        Object.keys(
-            diseaseCounts
-        );
-
-
-    document.getElementById(
-        "diseaseCount"
-    ).textContent =
-        diseases.length;
-
-
-    if (!diseases.length) {
-
-        document.getElementById(
-            "topDisease"
-        ).textContent =
-            "N/A";
-
-    } else {
-
-        const top =
-            [...diseases]
-            .sort(
-                (a, b) =>
-                    diseaseCounts[b] -
-                    diseaseCounts[a]
-            )[0];
-
-
-        document.getElementById(
-            "topDisease"
-        ).textContent =
-            formatDiseaseName(
-                top
-            );
-
-    }
-
-
-    if (predictions.length) {
-
-        const sortedPredictions =
-            [...predictions]
-            .sort(
-                (a, b) =>
-                    new Date(
-                        b.created_at
-                    ) -
-                    new Date(
-                        a.created_at
-                    )
-            );
-
-
-        document.getElementById(
-            "latestActivity"
-        ).textContent =
-            formatDate(
-                sortedPredictions[0]
-                    .created_at
-            );
-
-    } else {
-
-        document.getElementById(
-            "latestActivity"
-        ).textContent =
-            "N/A";
-
-    }
-
-
-    const monitoring =
-        document.getElementById(
-            "diseaseMonitoring"
-        );
-
-
-    if (!diseases.length) {
-
-        monitoring.innerHTML = `
-
-            <p class="admin-empty">
-                No prediction data available.
-            </p>
-
-        `;
-
-        return;
-
-    }
-
-
-    monitoring.innerHTML =
-        [...diseases]
-
-            .sort(
-                (a, b) =>
-                    diseaseCounts[b] -
-                    diseaseCounts[a]
-            )
-
-            .map(
-                disease => `
-
-                    <div class="monitoring-row">
+                    <div>
+                        <strong id="adminName">
+                            Admin
+                        </strong>
 
                         <span>
-                            ${formatDiseaseName(
-                                disease
-                            )}
+                            Administrator
+                        </span>
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="refreshAdminBtn"
+                    class="admin-refresh-btn"
+                >
+                    ↻
+                    <span>Refresh</span>
+                </button>
+
+            </div>
+
+        </header>
+
+        <!-- CONTENT -->
+        <main class="admin-content">
+
+            <!-- DASHBOARD -->
+            <section
+                id="adminDashboardSection"
+                class="admin-page-section active"
+            >
+
+                <div class="admin-page-heading">
+
+                    <div>
+                        <span class="admin-label">
+                            OVERVIEW
                         </span>
 
-                        <strong>
-                            ${diseaseCounts[disease]}
-                            predictions
-                        </strong>
+                        <h2>
+                            Dashboard
+                        </h2>
+
+                        <p>
+                            Monitor users, patients, predictions and
+                            disease risk statistics.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- STATISTICS -->
+                <div class="admin-stats-grid">
+
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">◉</div>
+
+                        <div>
+                            <p>Total Users</p>
+                            <h3 id="totalUsers">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">♙</div>
+
+                        <div>
+                            <p>Total Patients</p>
+                            <h3 id="totalPatients">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">◫</div>
+
+                        <div>
+                            <p>Total Predictions</p>
+                            <h3 id="totalPredictions">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="admin-stat-card high-stat">
+                        <div class="admin-stat-icon">!</div>
+
+                        <div>
+                            <p>High Risk</p>
+                            <h3 id="highRisk">0</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RISK SUMMARY -->
+                <div class="admin-section">
+
+                    <div class="admin-section-header">
+                        <div>
+                            <span class="admin-label">
+                                RISK SUMMARY
+                            </span>
+
+                            <h3>
+                                Prediction Risk Overview
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="risk-summary-grid">
+
+                        <div class="risk-card risk-low">
+                            <div class="risk-card-icon">✓</div>
+
+                            <div>
+                                <span>Low Risk</span>
+                                <strong id="lowRisk">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="risk-card risk-medium">
+                            <div class="risk-card-icon">!</div>
+
+                            <div>
+                                <span>Medium Risk</span>
+                                <strong id="mediumRisk">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="risk-card risk-high">
+                            <div class="risk-card-icon">!</div>
+
+                            <div>
+                                <span>High Risk</span>
+                                <strong id="highRiskSummary">0</strong>
+                            </div>
+                        </div>
 
                     </div>
 
-                `
-            )
+                </div>
 
-            .join("");
+                <!-- CHARTS -->
+                <div class="admin-section">
 
-}
+                    <div class="admin-section-header">
 
+                        <div>
+                            <span class="admin-label">
+                                ANALYTICS
+                            </span>
 
+                            <h3>
+                                Prediction Analytics
+                            </h3>
+                        </div>
 
-// ========================================
-// LOAD ADMIN NAME
-// ========================================
+                    </div>
 
-function loadAdminUser() {
+                    <div class="admin-chart-grid">
 
-    try {
+                        <!-- RISK PIE CHART -->
+                        <div class="admin-chart-card">
 
-        const storedUser =
-            localStorage.getItem(
-                "user"
-            );
+                            <div class="chart-card-header">
+                                <div>
+                                    <span class="chart-label">
+                                        RISK DISTRIBUTION
+                                    </span>
 
+                                    <h4>
+                                        Risk Overview
+                                    </h4>
+                                </div>
+                            </div>
 
-        if (!storedUser) {
+                            <div class="chart-container pie-chart-container">
 
-            return;
+                                <canvas
+                                    id="riskPieChart"
+                                ></canvas>
 
-        }
+                            </div>
 
+                        </div>
 
-        const user =
-            JSON.parse(
-                storedUser
-            );
+                        <!-- DISEASE BAR CHART -->
+                        <div class="admin-chart-card">
 
+                            <div class="chart-card-header">
 
-        if (user.name) {
+                                <div>
+                                    <span class="chart-label">
+                                        DISEASE ANALYTICS
+                                    </span>
 
-            document.getElementById(
-                "adminName"
-            ).textContent =
-                user.name;
+                                    <h4>
+                                        Predictions by Disease
+                                    </h4>
+                                </div>
 
-        }
+                            </div>
 
-    } catch (error) {
+                            <div class="chart-container">
 
-        console.error(
-            "Unable to load admin user.",
-            error
-        );
+                                <canvas
+                                    id="diseaseBarChart"
+                                ></canvas>
 
-    }
+                            </div>
 
-}
+                        </div>
 
+                    </div>
 
+                </div>
 
-// ========================================
-// REFRESH EVERYTHING
-// ========================================
+                <!-- SYSTEM MONITORING -->
+                <div class="admin-section">
 
-async function refreshAllData() {
+                    <div class="admin-section-header">
 
-    try {
+                        <div>
+                            <span class="admin-label">
+                                SYSTEM MONITORING
+                            </span>
 
-        clearError();
+                            <h3>
+                                Prediction Activity
+                            </h3>
+                        </div>
 
+                    </div>
 
-        await loadAdminDashboard();
+                    <div class="monitoring-grid">
 
+                        <div class="monitoring-stat">
+                            <span>
+                                Diseases Covered
+                            </span>
 
-        await loadUsers();
+                            <strong id="diseaseCount">
+                                0
+                            </strong>
+                        </div>
 
+                        <div class="monitoring-stat">
+                            <span>
+                                Most Predicted Disease
+                            </span>
 
-        await loadPatients();
+                            <strong id="topDisease">
+                                —
+                            </strong>
+                        </div>
 
+                        <div class="monitoring-stat">
+                            <span>
+                                Latest Activity
+                            </span>
 
-        await loadAllPredictions();
+                            <strong id="latestActivity">
+                                —
+                            </strong>
+                        </div>
 
+                    </div>
 
-    } catch (error) {
+                    <div
+                        class="admin-monitoring-list"
+                        id="diseaseMonitoring"
+                    ></div>
 
-        console.error(
-            error
-        );
+                </div>
 
+                <!-- RECENT PREDICTIONS -->
+                <div class="admin-section">
 
-        displayError(
-            error.message
-        );
+                    <div class="admin-section-header">
 
-    }
+                        <div>
+                            <span class="admin-label">
+                                RECENT ACTIVITY
+                            </span>
 
-}
+                            <h3>
+                                Recent Predictions
+                            </h3>
+                        </div>
 
+                        <button
+                            type="button"
+                            class="admin-view-all-btn"
+                            data-section-target="predictions"
+                        >
+                            View All →
+                        </button>
+
+                    </div>
+
+                    <div class="admin-table-wrapper">
+
+                        <table class="admin-table">
 
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient</th>
+                                    <th>Disease</th>
+                                    <th>Prediction</th>
+                                    <th>Probability</th>
+                                    <th>Risk</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
 
-// ========================================
-// PAGE LOAD
-// ========================================
+                            <tbody id="recentPredictionsBody">
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
+                                <tr>
+                                    <td
+                                        colspan="7"
+                                        class="admin-loading"
+                                    >
+                                        Loading...
+                                    </td>
+                                </tr>
 
-        loadAdminUser();
+                            </tbody>
 
+                        </table>
 
-        await refreshAllData();
+                    </div>
 
-    }
-);
+                </div>
 
+            </section>
 
+            <!-- USERS -->
+            <section
+                id="adminUsersSection"
+                class="admin-page-section"
+            >
 
-// ========================================
-// REFRESH BUTTON
-// ========================================
+                <div class="admin-page-heading">
 
-document
-    .getElementById(
-        "refreshAdminBtn"
-    )
-    .addEventListener(
-        "click",
-        refreshAllData
-    );
+                    <div>
+                        <span class="admin-label">
+                            USER MANAGEMENT
+                        </span>
 
+                        <h2>Users</h2>
 
+                        <p>
+                            Manage registered users and administrator
+                            accounts.
+                        </p>
+                    </div>
 
-// ========================================
-// LOGOUT
-// ========================================
+                </div>
 
-document
-    .getElementById(
-        "adminLogoutBtn"
-    )
-    .addEventListener(
-        "click",
-        function () {
+                <div class="admin-section">
 
-            localStorage.removeItem(
-                "access_token"
-            );
+                    <div class="admin-filter-bar single-filter">
 
+                        <input
+                            type="text"
+                            id="userSearch"
+                            class="admin-filter-input"
+                            placeholder="Search by ID, name or email..."
+                        >
 
-            localStorage.removeItem(
-                "user"
-            );
+                    </div>
 
+                    <div class="admin-table-wrapper">
 
-            localStorage.removeItem(
-                "user_role"
-            );
+                        <table class="admin-table">
 
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-            window.location.href =
-                "/auth";
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td
+                                        colspan="5"
+                                        class="admin-loading"
+                                    >
+                                        Loading...
+                                    </td>
+                                </tr>
+                            </tbody>
 
-        }
-    );
+                        </table>
 
+                    </div>
 
-</script>
+                </div>
+
+            </section>
+
+            <!-- PATIENTS -->
+            <section
+                id="adminPatientsSection"
+                class="admin-page-section"
+            >
+
+                <div class="admin-page-heading">
+
+                    <div>
+                        <span class="admin-label">
+                            PATIENT MANAGEMENT
+                        </span>
+
+                        <h2>Patients</h2>
+
+                        <p>
+                            View and manage all registered patients.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="admin-section">
+
+                    <div class="admin-filter-bar single-filter">
+
+                        <input
+                            type="text"
+                            id="patientSearch"
+                            class="admin-filter-input"
+                            placeholder="Search by patient ID, user ID or name..."
+                        >
+
+                    </div>
+
+                    <div class="admin-table-wrapper">
+
+                        <table class="admin-table">
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="patientsTableBody">
+                                <tr>
+                                    <td
+                                        colspan="6"
+                                        class="admin-loading"
+                                    >
+                                        Loading...
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- PREDICTIONS -->
+            <section
+                id="adminPredictionsSection"
+                class="admin-page-section"
+            >
+
+                <div class="admin-page-heading">
+
+                    <div>
+                        <span class="admin-label">
+                            PREDICTION MANAGEMENT
+                        </span>
+
+                        <h2>Predictions</h2>
+
+                        <p>
+                            Search, filter and manage all prediction records.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="admin-section">
+
+                    <div class="admin-filter-grid">
+
+                        <input
+                            type="text"
+                            id="predictionSearch"
+                            class="admin-filter-input"
+                            placeholder="Search prediction..."
+                        >
+
+                        <select
+                            id="diseaseFilter"
+                            class="admin-filter-input"
+                        >
+                            <option value="">
+                                All Diseases
+                            </option>
+                        </select>
+
+                        <select
+                            id="riskFilter"
+                            class="admin-filter-input"
+                        >
+                            <option value="">
+                                All Risk Levels
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+                        </select>
+
+                        <input
+                            type="date"
+                            id="dateFilter"
+                            class="admin-filter-input"
+                        >
+
+                    </div>
+
+                    <div class="admin-table-wrapper">
+
+                        <table class="admin-table prediction-table">
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient</th>
+                                    <th>Disease</th>
+                                    <th>Prediction</th>
+                                    <th>Probability</th>
+                                    <th>Risk</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="allPredictionsBody">
+                                <tr>
+                                    <td
+                                        colspan="8"
+                                        class="admin-loading"
+                                    >
+                                        Loading...
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ERROR -->
+            <div
+                id="adminError"
+                class="admin-error"
+                style="display:none;"
+            ></div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
-
 </html>

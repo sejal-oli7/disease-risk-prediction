@@ -1,346 +1,939 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
 
-{% block title %}New Prediction | MULTI{% endblock %}
+<html lang="en">
 
-{% block content %}
+<head>
 
-<main class="prediction-page">
 
-<div class="prediction-container">
+<meta charset="UTF-8">
 
-    <!-- Header -->
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <div class="prediction-header">
+<title>New Prediction | MULTI</title>
 
-        <span class="section-badge">
-            HEALTH RISK ASSESSMENT
-        </span>
+<!-- Main CSS -->
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
 
-        <h1>
-            New Disease Prediction
-        </h1>
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
-        <p>
-            Enter the patient information and select a disease
-            to perform a machine-learning-based risk prediction.
-        </p>
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <h2>Health Care</h2>
 
     </div>
 
 
-    <!-- Notice -->
+    <nav class="sidebar-nav">
 
-    <div class="notice-box">
+        <a href="{{ url_for('dashboard') }}">
 
-        <strong>
-            Important:
-        </strong>
+            <span>🏠</span>
 
-        This system provides machine-learning-based risk
-        predictions for health awareness purposes only.
-        It is not a medical diagnosis or treatment recommendation.
+            Dashboard
+
+        </a>
+
+
+        <a
+            href="{{ url_for('prediction') }}"
+            class="active"
+        >
+
+            <span>🩺</span>
+
+            Disease Prediction
+
+        </a>
+
+
+        <a href="{{ url_for('patients') }}">
+
+            <span>👤</span>
+
+            My Patients
+
+        </a>
+
+
+        <a href="{{ url_for('prediction_history') }}">
+
+            <span>📊</span>
+
+            Prediction History
+
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            type="button"
+            onclick="logoutUser()"
+            class="logout-btn"
+        >
+            Logout
+        </button>
 
     </div>
 
-
-    <!-- Prediction Form -->
-
-    <section class="prediction-card">
-
-        <form id="predictionForm">
-
-            <!-- Patient Information -->
-
-            <div class="form-section">
-
-                <div class="form-section-title">
-
-                    <h2>
-                        Patient Information
-                    </h2>
-
-                    <p>
-                        Enter the basic information of the patient.
-                    </p>
-
-                </div>
+</aside>
 
 
-                <div class="form-grid">
 
-                    <!-- Patient ID -->
+<!-- ========================================
+     MAIN CONTENT
+======================================== -->
 
-                    <div class="form-group">
-
-                        <label for="patient_id">
-                            Patient ID
-                        </label>
-
-                        <input
-                            type="number"
-                            id="patient_id"
-                            name="patient_id"
-                            min="1"
-                            placeholder="Enter patient ID"
-                            required
-                        >
-
-                    </div>
+<main class="dashboard-main">
 
 
-                    <!-- Patient Name -->
+    <!-- ========================================
+         PAGE HEADER
+    ======================================== -->
 
-                    <div class="form-group">
+    <header class="dashboard-header">
 
-                        <label for="patient_name">
-                            Patient Name
-                        </label>
+        <div>
 
-                        <input
-                            type="text"
-                            id="patient_name"
-                            name="patient_name"
-                            placeholder="Enter patient name"
-                        >
-
-                    </div>
+            <p class="dashboard-label">
+                HEALTH RISK ASSESSMENT
+            </p>
 
 
-                    <!-- Disease -->
-
-                    <div class="form-group">
-
-                        <label for="disease">
-                            Select Disease
-                        </label>
-
-                        <select
-                            id="disease"
-                            name="disease"
-                            required
-                        >
-
-                            <option value="">
-                                Select a disease
-                            </option>
-
-                            <option value="diabetes">
-                                Diabetes
-                            </option>
-
-                            <option value="heart">
-                                Heart Disease
-                            </option>
-
-                            <option value="kidney">
-                                Kidney Disease
-                            </option>
-
-                            <option value="liver">
-                                Liver Disease
-                            </option>
-
-                            <option value="parkinsons">
-                                Parkinson's Disease
-                            </option>
-
-                            <option value="stroke">
-                                Stroke
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-            </div>
+            <h1>
+                New Disease Prediction
+            </h1>
 
 
-            <!-- Dynamic Model Fields -->
+            <p class="dashboard-subtitle">
+
+                Select a registered patient and choose a disease
+                to perform a machine-learning-based risk prediction.
+
+            </p>
+
+        </div>
+
+
+        <!-- USER PROFILE -->
+
+        <div class="user-profile">
 
             <div
-                id="diseaseFields"
-                class="form-section"
-                style="display: none;"
+                class="profile-avatar"
+                id="userInitial"
             >
-
-                <div class="form-section-title">
-
-                    <h2>
-                        Model Input Parameters
-                    </h2>
-
-                    <p>
-                        Enter the values required for the selected
-                        disease prediction model.
-                    </p>
-
-                </div>
-
-
-                <div
-                    id="fieldsContainer"
-                    class="form-grid"
-                >
-                </div>
-
+                U
             </div>
 
 
-            <!-- Form Actions -->
+            <div>
 
-            <div class="form-actions">
-
-                <button
-                    type="button"
-                    id="clearBtn"
-                    class="btn btn-secondary"
-                >
-                    <i class="fa-solid fa-rotate-left"></i>
-                    Clear
-                </button>
+                <strong id="profileName">
+                    User
+                </strong>
 
 
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                >
-                    <i class="fa-solid fa-chart-line"></i>
-                    Generate Prediction
-                </button>
-
-            </div>
-
-        </form>
-
-    </section>
-
-
-    <!-- Loading -->
-
-    <div
-        id="loadingBox"
-        class="loading-box"
-        style="display: none;"
-    >
-
-        <div class="loader"></div>
-
-        <p>
-            Processing prediction...
-        </p>
-
-    </div>
-
-
-    <!-- Error -->
-
-    <div
-        id="errorBox"
-        class="error-box"
-        style="display: none;"
-    >
-
-        <strong>
-            <i class="fa-solid fa-circle-exclamation"></i>
-            Error
-        </strong>
-
-        <p id="errorMessage"></p>
-
-    </div>
-
-
-    <!-- Prediction Result -->
-
-    <section
-        id="predictionResult"
-        class="prediction-result"
-        style="display: none;"
-    >
-
-        <div class="result-card">
-
-            <div class="result-main">
-
-                <span class="result-label">
-                    RISK LEVEL
-                </span>
-
-                <h2 id="resultRisk">
-                    -
-                </h2>
-
-                <p id="resultMessage">
-                    Prediction completed successfully.
-                </p>
-
-            </div>
-
-
-            <div class="result-details">
-
-                <div class="result-item">
-
-                    <span>
-                        Disease
-                    </span>
-
-                    <strong id="resultDisease">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="result-item">
-
-                    <span>
-                        Prediction
-                    </span>
-
-                    <strong id="resultPrediction">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="result-item">
-
-                    <span>
-                        Probability
-                    </span>
-
-                    <strong id="resultProbability">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="result-item">
-
-                    <span>
-                        Patient ID
-                    </span>
-
-                    <strong id="resultPatient">
-                        -
-                    </strong>
-
-                </div>
+                <small id="profileEmail">
+                    user@example.com
+                </small>
 
             </div>
 
         </div>
 
-    </section>
+    </header>
 
-</div>
 
+
+    <!-- ========================================
+         PREDICTION CONTENT
+    ======================================== -->
+
+    <div class="prediction-page">
+
+        <div class="prediction-container">
+
+
+            <!-- ========================================
+                 NOTICE
+            ======================================== -->
+
+            <div class="notice-box">
+
+                <strong>
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    Important:
+
+                </strong>
+
+
+                This system provides machine-learning-based risk
+                predictions for health awareness purposes only.
+                It is not a medical diagnosis or treatment recommendation.
+
+            </div>
+
+
+
+            <!-- ========================================
+                 PREDICTION FORM
+            ======================================== -->
+
+            <section class="prediction-card">
+
+                <form id="predictionForm">
+
+
+                    <!-- ========================================
+                         PATIENT INFORMATION
+                    ======================================== -->
+
+                    <div class="form-section">
+
+                        <div class="form-section-title">
+
+                            <h2>
+                                Patient Information
+                            </h2>
+
+
+                            <p>
+
+                                Select a patient from your registered
+                                patient records.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <!-- PATIENT -->
+
+                            <div class="form-group">
+
+                                <label for="patient_id">
+                                    Select Patient
+                                </label>
+
+
+                                <select
+                                    id="patient_id"
+                                    name="patient_id"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Loading patients...
+                                    </option>
+
+                                </select>
+
+
+                                <small class="form-help">
+
+                                    Only patients registered under your
+                                    account are available.
+
+                                </small>
+
+                            </div>
+
+
+
+                            <!-- PATIENT NAME -->
+
+                            <div class="form-group">
+
+                                <label for="patient_name">
+                                    Patient Name
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="patient_name"
+                                    name="patient_name"
+                                    placeholder="Patient name"
+                                    readonly
+                                >
+
+                            </div>
+
+
+
+                            <!-- DISEASE -->
+
+                            <div class="form-group">
+
+                                <label for="disease">
+                                    Select Disease
+                                </label>
+
+
+                                <select
+                                    id="disease"
+                                    name="disease"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select a disease
+                                    </option>
+
+
+                                    <option value="diabetes">
+                                        Diabetes
+                                    </option>
+
+
+                                    <option value="heart">
+                                        Heart Disease
+                                    </option>
+
+
+                                    <option value="kidney">
+                                        Kidney Disease
+                                    </option>
+
+
+                                    <option value="liver">
+                                        Liver Disease
+                                    </option>
+
+
+                                    <option value="parkinsons">
+                                        Parkinson's Disease
+                                    </option>
+
+
+                                    <option value="stroke">
+                                        Stroke
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ========================================
+                         DYNAMIC MODEL FIELDS
+                    ======================================== -->
+
+                    <div
+                        id="diseaseFields"
+                        class="form-section"
+                        style="display: none;"
+                    >
+
+                        <div class="form-section-title">
+
+                            <h2>
+                                Model Input Parameters
+                            </h2>
+
+
+                            <p>
+
+                                Enter the values required for the selected
+                                disease prediction model.
+
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="fieldsContainer"
+                            class="form-grid"
+                        >
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ========================================
+                         FORM ACTIONS
+                    ======================================== -->
+
+                    <div class="form-actions">
+
+
+                        <button
+                            type="button"
+                            id="clearBtn"
+                            class="btn btn-secondary"
+                        >
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            Generate Prediction
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- ========================================
+                 LOADING
+            ======================================== -->
+
+            <div
+                id="loadingBox"
+                class="loading-box"
+                style="display: none;"
+            >
+
+                <div class="loader"></div>
+
+
+                <p>
+                    Processing prediction...
+                </p>
+
+            </div>
+
+
+
+            <!-- ========================================
+                 ERROR
+            ======================================== -->
+
+            <div
+                id="errorBox"
+                class="error-box"
+                style="display: none;"
+            >
+
+                <strong>
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    Error
+
+                </strong>
+
+
+                <p id="errorMessage"></p>
+
+            </div>
+
+
+
+            <!-- ========================================
+                 PREDICTION RESULT
+            ======================================== -->
+
+            <section
+                id="predictionResult"
+                class="prediction-result"
+                style="display: none;"
+            >
+
+                <div class="result-card">
+
+
+                    <!-- MAIN RESULT -->
+
+                    <div class="result-main">
+
+                        <span class="result-label">
+                            RISK LEVEL
+                        </span>
+
+
+                        <h2 id="resultRisk">
+                            -
+                        </h2>
+
+
+                        <p id="resultMessage">
+
+                            Prediction completed successfully.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- RESULT DETAILS -->
+
+                    <div class="result-details">
+
+
+                        <!-- DISEASE -->
+
+                        <div class="result-item">
+
+                            <span>
+                                Disease
+                            </span>
+
+
+                            <strong id="resultDisease">
+                                -
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- PREDICTION -->
+
+                        <div class="result-item">
+
+                            <span>
+                                Prediction
+                            </span>
+
+
+                            <strong id="resultPrediction">
+                                -
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- PROBABILITY -->
+
+                        <div class="result-item">
+
+                            <span>
+                                Probability
+                            </span>
+
+
+                            <strong id="resultProbability">
+                                -
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- PATIENT -->
+
+                        <div class="result-item">
+
+                            <span>
+                                Patient ID
+                            </span>
+
+
+                            <strong id="resultPatient">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ========================================
+                 IMMEDIATE PREDICTION ANALYSIS
+            ======================================== -->
+
+            <section
+                id="predictionAnalysis"
+                class="prediction-analysis"
+                style="display: none;"
+            >
+
+
+                <!-- ANALYSIS HEADER -->
+
+                <div class="analysis-header">
+
+                    <span class="section-badge">
+                        PREDICTION ANALYSIS
+                    </span>
+
+
+                    <h2>
+                        Prediction Analysis
+                    </h2>
+
+
+                    <p>
+
+                        Visual summary of the generated prediction
+                        and estimated risk probability.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- ANALYSIS GRID -->
+
+                <div class="analysis-grid">
+
+
+                    <!-- ========================================
+                         PROBABILITY CHART
+                    ======================================== -->
+
+                    <div class="analysis-card chart-card">
+
+                        <div class="analysis-card-header">
+
+                            <div>
+
+                                <span class="analysis-label">
+                                    PROBABILITY
+                                </span>
+
+
+                                <h3>
+                                    Risk Probability
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="prediction-chart-wrapper">
+
+                            <canvas
+                                id="predictionProbabilityChart"
+                            ></canvas>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ========================================
+                         RISK SUMMARY
+                    ======================================== -->
+
+                    <div class="analysis-card">
+
+                        <div class="analysis-card-header">
+
+                            <div>
+
+                                <span class="analysis-label">
+                                    RISK SUMMARY
+                                </span>
+
+
+                                <h3>
+                                    Assessment Overview
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="analysis-summary">
+
+
+                            <!-- DISEASE -->
+
+                            <div class="analysis-stat">
+
+                                <span>
+                                    Disease
+                                </span>
+
+
+                                <strong id="analysisDisease">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- RISK -->
+
+                            <div class="analysis-stat">
+
+                                <span>
+                                    Risk Level
+                                </span>
+
+
+                                <strong
+                                    id="analysisRisk"
+                                    class="analysis-risk"
+                                >
+                                    -
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- PROBABILITY -->
+
+                            <div class="analysis-stat">
+
+                                <span>
+                                    Probability
+                                </span>
+
+
+                                <strong id="analysisProbability">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- PREDICTION -->
+
+                            <div class="analysis-stat">
+
+                                <span>
+                                    Prediction
+                                </span>
+
+
+                                <strong id="analysisPrediction">
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- INTERPRETATION -->
+
+                        <div
+                            id="analysisInterpretation"
+                            class="analysis-interpretation"
+                        >
+
+                            Prediction analysis will appear here.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ========================================
+                     DISCLAIMER
+                ======================================== -->
+
+                <div class="analysis-disclaimer">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+
+                    <span>
+
+                        This visualization represents the model's
+                        estimated prediction probability. It is
+                        intended for health awareness and does not
+                        constitute a medical diagnosis.
+
+                    </span>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </div>
 
 </main>
 
-{% endblock %}
+</div>
+
+<!-- ========================================
+     SHARED JAVASCRIPT
+======================================== -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- ========================================
+     LOAD USER PROFILE
+======================================== -->
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    const storedUser =
+        localStorage.getItem("user");
+
+
+    if (storedUser) {
+
+        try {
+
+            const user =
+                JSON.parse(storedUser);
+
+
+            const name =
+                user.name || "User";
+
+
+            const email =
+                user.email || "user@example.com";
+
+
+            const profileName =
+                document.getElementById(
+                    "profileName"
+                );
+
+
+            const profileEmail =
+                document.getElementById(
+                    "profileEmail"
+                );
+
+
+            const userInitial =
+                document.getElementById(
+                    "userInitial"
+                );
+
+
+            if (profileName) {
+
+                profileName.textContent =
+                    name;
+
+            }
+
+
+            if (profileEmail) {
+
+                profileEmail.textContent =
+                    email;
+
+            }
+
+
+            if (userInitial) {
+
+                userInitial.textContent =
+                    name
+                        .charAt(0)
+                        .toUpperCase();
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Unable to load user information:",
+                error
+            );
+
+        }
+
+    }
+
+
+    window.logoutUser = function () {
+
+        localStorage.removeItem(
+            "access_token"
+        );
+
+
+        localStorage.removeItem(
+            "user"
+        );
+
+
+        localStorage.removeItem(
+            "user_role"
+        );
+
+
+        window.location.href =
+            "{{ url_for('login') }}";
+
+    };
+
+})();
+
+</script>
+
+</body>
+
+</html>

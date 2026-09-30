@@ -1,44 +1,94 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
 
-{% block title %}My Patients | MULTI{% endblock %}
+<html lang="en">
 
-{% block content %}
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Patients | MULTI</title>
+
+<!-- Main CSS -->
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+
+</head>
+
+<body>
 
 <div class="dashboard-layout">
 
 
-<!-- SIDEBAR -->
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
 <aside class="sidebar">
 
     <div class="logo">
-        <h2> Health Care</h2>
+
+        <h2>Health Care</h2>
+
     </div>
+
 
     <nav class="sidebar-nav">
 
         <a href="{{ url_for('dashboard') }}">
+
             <span>🏠</span>
+
             Dashboard
+
         </a>
+
 
         <a href="{{ url_for('prediction') }}">
+
             <span>🩺</span>
+
             Disease Prediction
+
         </a>
 
-        <a href="{{ url_for('patients') }}" class="active">
+
+        <a
+            href="{{ url_for('patients') }}"
+            class="active"
+        >
+
             <span>👤</span>
+
             My Patients
+
         </a>
+
 
         <a href="{{ url_for('prediction_history') }}">
+
             <span>📊</span>
+
             Prediction History
+
         </a>
 
-        
-
     </nav>
+
 
     <div class="sidebar-bottom">
 
@@ -55,10 +105,18 @@
 </aside>
 
 
-<!-- MAIN CONTENT -->
+
+<!-- ========================================
+     MAIN CONTENT
+======================================== -->
+
 <main class="dashboard-main">
 
-    <!-- HEADER -->
+
+    <!-- ========================================
+         PAGE HEADER
+    ======================================== -->
+
     <header class="dashboard-header">
 
         <div>
@@ -67,18 +125,24 @@
                 PATIENT MANAGEMENT
             </p>
 
+
             <h1>
                 My Patients
             </h1>
 
+
             <p class="dashboard-subtitle">
+
                 Manage your patients and view their health
                 prediction information.
+
             </p>
 
         </div>
 
+
         <!-- USER PROFILE -->
+
         <div class="user-profile">
 
             <div
@@ -88,11 +152,13 @@
                 U
             </div>
 
+
             <div>
 
                 <strong id="profileName">
                     User
                 </strong>
+
 
                 <small id="profileEmail">
                     user@example.com
@@ -105,8 +171,15 @@
     </header>
 
 
-    <!-- PATIENT SUMMARY -->
+
+    <!-- ========================================
+         PATIENT SUMMARY
+    ======================================== -->
+
     <section class="dashboard-stats">
+
+
+        <!-- TOTAL PATIENTS -->
 
         <div class="stat-card">
 
@@ -114,11 +187,13 @@
                 👥
             </div>
 
+
             <div>
 
                 <span>
                     Total Patients
                 </span>
+
 
                 <h2 id="patientCount">
                     0
@@ -129,17 +204,22 @@
         </div>
 
 
+
+        <!-- PATIENT RECORDS -->
+
         <div class="stat-card">
 
             <div class="stat-icon">
                 🩺
             </div>
 
+
             <div>
 
                 <span>
                     Patient Records
                 </span>
+
 
                 <h2 id="recordCount">
                     0
@@ -150,17 +230,22 @@
         </div>
 
 
+
+        <!-- LATEST PATIENT -->
+
         <div class="stat-card">
 
             <div class="stat-icon">
                 📅
             </div>
 
+
             <div>
 
                 <span>
                     Latest Patient
                 </span>
+
 
                 <h2 id="latestPatient">
                     —
@@ -173,10 +258,16 @@
     </section>
 
 
-    <!-- PATIENTS SECTION -->
+
+    <!-- ========================================
+         PATIENTS SECTION
+    ======================================== -->
+
     <section class="dashboard-card patients-container">
 
+
         <!-- PATIENT HEADER -->
+
         <div class="patients-header">
 
             <div>
@@ -185,34 +276,54 @@
                     PATIENT RECORDS
                 </p>
 
+
                 <h2>
                     Patient List
                 </h2>
 
+
                 <p>
+
                     View and manage patients registered
                     under your account.
+
                 </p>
 
             </div>
 
-            <div class="patients-header-actions">
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="patient-actions">
+
 
                 <!-- ADD PATIENT -->
+
                 <button
                     type="button"
-                    class="btn-primary"
+                    class="add-patient-btn"
                     onclick="openAddPatientModal()"
                 >
-                    + Add Patient
+
+                    <span>+</span>
+
+                    Add Patient
+
                 </button>
 
+
+
                 <!-- NEW PREDICTION -->
+
                 <a
                     href="{{ url_for('prediction') }}"
-                    class="btn-primary"
+                    class="new-prediction-btn"
                 >
-                    + New Prediction
+
+                    <span>+</span>
+
+                    New Prediction
+
                 </a>
 
             </div>
@@ -220,7 +331,11 @@
         </div>
 
 
-        <!-- SEARCH -->
+
+        <!-- ========================================
+             SEARCH
+        ======================================== -->
+
         <div class="patient-tools">
 
             <div class="patient-search">
@@ -228,6 +343,7 @@
                 <span>
                     🔍
                 </span>
+
 
                 <input
                     type="text"
@@ -240,13 +356,18 @@
         </div>
 
 
-        <!-- LOADING -->
+
+        <!-- ========================================
+             LOADING
+        ======================================== -->
+
         <div
             id="patientsLoading"
             class="patients-message"
         >
 
             <div class="loading-spinner"></div>
+
 
             <p>
                 Loading patients...
@@ -255,7 +376,11 @@
         </div>
 
 
-        <!-- ERROR -->
+
+        <!-- ========================================
+             ERROR
+        ======================================== -->
+
         <div
             id="patientsError"
             class="patients-message error-message"
@@ -266,13 +391,16 @@
                 ⚠️
             </div>
 
+
             <h3>
                 Unable to load patients
             </h3>
 
+
             <p id="patientsErrorText">
                 Something went wrong.
             </p>
+
 
             <button
                 type="button"
@@ -285,7 +413,11 @@
         </div>
 
 
-        <!-- EMPTY -->
+
+        <!-- ========================================
+             EMPTY
+        ======================================== -->
+
         <div
             id="patientsEmpty"
             class="patients-message"
@@ -296,26 +428,35 @@
                 👤
             </div>
 
+
             <h3>
                 No Patients Found
             </h3>
 
+
             <p>
                 You have not added any patients yet.
             </p>
+
 
             <button
                 type="button"
                 onclick="openAddPatientModal()"
                 class="btn-primary"
             >
+
                 + Add Your First Patient
+
             </button>
 
         </div>
 
 
-        <!-- PATIENT TABLE -->
+
+        <!-- ========================================
+             PATIENT TABLE
+        ======================================== -->
+
         <div
             id="patientsTableWrapper"
             class="patients-table-wrapper"
@@ -356,7 +497,9 @@
 
                 </thead>
 
+
                 <tbody id="patientsTableBody">
+
                 </tbody>
 
             </table>
@@ -366,7 +509,11 @@
     </section>
 
 
-    <!-- ADD PATIENT MODAL -->
+
+    <!-- ========================================
+         ADD PATIENT MODAL
+    ======================================== -->
+
     <div
         id="addPatientModal"
         class="patient-modal"
@@ -378,7 +525,9 @@
             onclick="closeAddPatientModal()"
         ></div>
 
+
         <div class="patient-modal-content">
+
 
             <button
                 type="button"
@@ -388,17 +537,23 @@
                 ×
             </button>
 
+
+
+            <!-- MODAL HEADER -->
+
             <div class="patient-modal-header">
 
                 <div class="patient-large-avatar">
                     +
                 </div>
 
+
                 <div>
 
                     <p class="dashboard-label">
                         PATIENT MANAGEMENT
                     </p>
+
 
                     <h2>
                         Add New Patient
@@ -409,26 +564,37 @@
             </div>
 
 
+
             <!-- ADD PATIENT ERROR -->
+
             <div
                 id="addPatientError"
                 class="error-message"
                 style="display: none;"
             >
+
                 <p id="addPatientErrorText"></p>
+
             </div>
 
 
+
+            <!-- ADD PATIENT FORM -->
+
             <form id="addPatientForm">
+
 
                 <div class="patient-details-grid">
 
+
                     <!-- NAME -->
+
                     <div class="patient-detail-card">
 
                         <label for="newPatientName">
                             Patient Name
                         </label>
+
 
                         <input
                             type="text"
@@ -441,12 +607,15 @@
                     </div>
 
 
+
                     <!-- AGE -->
+
                     <div class="patient-detail-card">
 
                         <label for="newPatientAge">
                             Age
                         </label>
+
 
                         <input
                             type="number"
@@ -461,12 +630,15 @@
                     </div>
 
 
+
                     <!-- GENDER -->
+
                     <div class="patient-detail-card">
 
                         <label for="newPatientGender">
                             Gender
                         </label>
+
 
                         <select
                             id="newPatientGender"
@@ -478,13 +650,16 @@
                                 Select gender
                             </option>
 
+
                             <option value="Male">
                                 Male
                             </option>
 
+
                             <option value="Female">
                                 Female
                             </option>
+
 
                             <option value="Other">
                                 Other
@@ -497,8 +672,11 @@
                 </div>
 
 
+
                 <!-- FORM ACTIONS -->
+
                 <div class="patient-modal-actions">
+
 
                     <button
                         type="button"
@@ -507,6 +685,7 @@
                     >
                         Cancel
                     </button>
+
 
                     <button
                         type="submit"
@@ -525,7 +704,11 @@
     </div>
 
 
-    <!-- PATIENT DETAILS MODAL -->
+
+    <!-- ========================================
+         PATIENT DETAILS MODAL
+    ======================================== -->
+
     <div
         id="patientModal"
         class="patient-modal"
@@ -537,7 +720,9 @@
             onclick="closePatientModal()"
         ></div>
 
+
         <div class="patient-modal-content">
+
 
             <button
                 type="button"
@@ -547,7 +732,10 @@
                 ×
             </button>
 
+
+
             <!-- MODAL HEADER -->
+
             <div class="patient-modal-header">
 
                 <div
@@ -557,11 +745,13 @@
                     P
                 </div>
 
+
                 <div>
 
                     <p class="dashboard-label">
                         PATIENT PROFILE
                     </p>
+
 
                     <h2 id="modalPatientName">
                         Patient
@@ -572,14 +762,18 @@
             </div>
 
 
+
             <!-- PATIENT DETAILS -->
+
             <div class="patient-details-grid">
+
 
                 <div class="patient-detail-card">
 
                     <span>
                         Age
                     </span>
+
 
                     <strong id="modalPatientAge">
                         —
@@ -588,11 +782,13 @@
                 </div>
 
 
+
                 <div class="patient-detail-card">
 
                     <span>
                         Gender
                     </span>
+
 
                     <strong id="modalPatientGender">
                         —
@@ -601,11 +797,13 @@
                 </div>
 
 
+
                 <div class="patient-detail-card">
 
                     <span>
                         Patient ID
                     </span>
+
 
                     <strong id="modalPatientId">
                         —
@@ -614,11 +812,13 @@
                 </div>
 
 
+
                 <div class="patient-detail-card">
 
                     <span>
                         Added Date
                     </span>
+
 
                     <strong id="modalPatientDate">
                         —
@@ -629,8 +829,11 @@
             </div>
 
 
+
             <!-- MODAL ACTIONS -->
+
             <div class="patient-modal-actions">
+
 
                 <a
                     href="{{ url_for('prediction') }}"
@@ -638,6 +841,7 @@
                 >
                     🩺 New Prediction
                 </a>
+
 
                 <button
                     type="button"
@@ -653,13 +857,28 @@
 
     </div>
 
+
 </main>
 
 </div>
 
+<!-- ========================================
+     SHARED JAVASCRIPT
+======================================== -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- ========================================
+     PATIENT PAGE JAVASCRIPT
+======================================== -->
+
 <script>
 
+"use strict";
+
+
 let allPatients = [];
+
 
 
 // ========================================
@@ -671,42 +890,67 @@ function loadPatientPageUser() {
     const storedUser =
         localStorage.getItem("user");
 
+
     if (!storedUser) {
         return;
     }
+
 
     try {
 
         const user =
             JSON.parse(storedUser);
 
+
         const name =
             user.name || "User";
+
 
         const email =
             user.email || "user@example.com";
 
+
         const profileName =
-            document.getElementById("profileName");
+            document.getElementById(
+                "profileName"
+            );
+
 
         const profileEmail =
-            document.getElementById("profileEmail");
+            document.getElementById(
+                "profileEmail"
+            );
+
 
         const userInitial =
-            document.getElementById("userInitial");
+            document.getElementById(
+                "userInitial"
+            );
+
 
         if (profileName) {
-            profileName.textContent = name;
+
+            profileName.textContent =
+                name;
+
         }
+
 
         if (profileEmail) {
-            profileEmail.textContent = email;
+
+            profileEmail.textContent =
+                email;
+
         }
 
+
         if (userInitial) {
+
             userInitial.textContent =
                 name.charAt(0).toUpperCase();
+
         }
+
 
     } catch (error) {
 
@@ -718,6 +962,7 @@ function loadPatientPageUser() {
     }
 
 }
+
 
 
 // ========================================
@@ -733,6 +978,7 @@ function getAccessToken() {
 }
 
 
+
 // ========================================
 // LOAD PATIENTS
 // ========================================
@@ -744,28 +990,37 @@ async function loadPatients() {
             "patientsLoading"
         );
 
+
     const errorBox =
         document.getElementById(
             "patientsError"
         );
+
 
     const emptyBox =
         document.getElementById(
             "patientsEmpty"
         );
 
+
     const tableWrapper =
         document.getElementById(
             "patientsTableWrapper"
         );
 
+
     loading.style.display = "flex";
+
     errorBox.style.display = "none";
+
     emptyBox.style.display = "none";
+
     tableWrapper.style.display = "none";
+
 
     const token =
         getAccessToken();
+
 
     if (!token) {
 
@@ -773,7 +1028,9 @@ async function loadPatients() {
             "{{ url_for('login') }}";
 
         return;
+
     }
+
 
     try {
 
@@ -784,17 +1041,21 @@ async function loadPatients() {
                     method: "GET",
 
                     headers: {
+
                         "Authorization":
                             "Bearer " + token,
 
                         "Content-Type":
                             "application/json"
+
                     }
                 }
             );
 
+
         const data =
             await response.json();
+
 
         if (!response.ok) {
 
@@ -805,27 +1066,37 @@ async function loadPatients() {
 
         }
 
+
         allPatients =
             data.patients || [];
 
+
         loading.style.display = "none";
+
 
         updatePatientStats(
             allPatients
         );
 
+
         if (allPatients.length === 0) {
 
-            emptyBox.style.display = "flex";
+            emptyBox.style.display =
+                "flex";
 
             return;
+
         }
 
-        tableWrapper.style.display = "block";
+
+        tableWrapper.style.display =
+            "block";
+
 
         renderPatients(
             allPatients
         );
+
 
     } catch (error) {
 
@@ -834,9 +1105,13 @@ async function loadPatients() {
             error
         );
 
+
         loading.style.display = "none";
 
-        errorBox.style.display = "flex";
+
+        errorBox.style.display =
+            "flex";
+
 
         document.getElementById(
             "patientsErrorText"
@@ -847,6 +1122,7 @@ async function loadPatients() {
     }
 
 }
+
 
 
 // ========================================
@@ -860,29 +1136,41 @@ function openAddPatientModal() {
             "addPatientModal"
         );
 
+
     const form =
         document.getElementById(
             "addPatientForm"
         );
+
 
     const errorBox =
         document.getElementById(
             "addPatientError"
         );
 
+
     if (form) {
         form.reset();
     }
 
+
     if (errorBox) {
-        errorBox.style.display = "none";
+
+        errorBox.style.display =
+            "none";
+
     }
 
+
     if (modal) {
-        modal.style.display = "flex";
+
+        modal.style.display =
+            "flex";
+
     }
 
 }
+
 
 
 function closeAddPatientModal() {
@@ -892,11 +1180,16 @@ function closeAddPatientModal() {
             "addPatientModal"
         );
 
+
     if (modal) {
-        modal.style.display = "none";
+
+        modal.style.display =
+            "none";
+
     }
 
 }
+
 
 
 // ========================================
@@ -907,68 +1200,85 @@ async function createPatient(event) {
 
     event.preventDefault();
 
+
     const name =
         document.getElementById(
             "newPatientName"
         ).value.trim();
+
 
     const age =
         document.getElementById(
             "newPatientAge"
         ).value;
 
+
     const gender =
         document.getElementById(
             "newPatientGender"
         ).value;
+
 
     const errorBox =
         document.getElementById(
             "addPatientError"
         );
 
+
     const errorText =
         document.getElementById(
             "addPatientErrorText"
         );
+
 
     const submitButton =
         document.getElementById(
             "addPatientSubmit"
         );
 
+
     if (!name) {
 
         errorText.textContent =
             "Patient name is required.";
 
-        errorBox.style.display = "block";
+        errorBox.style.display =
+            "block";
 
         return;
+
     }
+
 
     if (!age) {
 
         errorText.textContent =
             "Patient age is required.";
 
-        errorBox.style.display = "block";
+        errorBox.style.display =
+            "block";
 
         return;
+
     }
+
 
     if (!gender) {
 
         errorText.textContent =
             "Please select gender.";
 
-        errorBox.style.display = "block";
+        errorBox.style.display =
+            "block";
 
         return;
+
     }
+
 
     const token =
         getAccessToken();
+
 
     if (!token) {
 
@@ -976,14 +1286,21 @@ async function createPatient(event) {
             "{{ url_for('login') }}";
 
         return;
+
     }
 
-    submitButton.disabled = true;
+
+    submitButton.disabled =
+        true;
+
 
     submitButton.textContent =
         "Adding...";
 
-    errorBox.style.display = "none";
+
+    errorBox.style.display =
+        "none";
+
 
     try {
 
@@ -994,11 +1311,13 @@ async function createPatient(event) {
                     method: "POST",
 
                     headers: {
+
                         "Authorization":
                             "Bearer " + token,
 
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body: JSON.stringify({
@@ -1013,8 +1332,10 @@ async function createPatient(event) {
                 }
             );
 
+
         const data =
             await response.json();
+
 
         if (!response.ok) {
 
@@ -1025,13 +1346,17 @@ async function createPatient(event) {
 
         }
 
+
         alert(
             "Patient added successfully!"
         );
 
+
         closeAddPatientModal();
 
+
         await loadPatients();
+
 
     } catch (error) {
 
@@ -1040,16 +1365,21 @@ async function createPatient(event) {
             error
         );
 
+
         errorText.textContent =
             error.message ||
             "Unable to create patient.";
 
+
         errorBox.style.display =
             "block";
 
+
     } finally {
 
-        submitButton.disabled = false;
+        submitButton.disabled =
+            false;
+
 
         submitButton.textContent =
             "Add Patient";
@@ -1057,6 +1387,7 @@ async function createPatient(event) {
     }
 
 }
+
 
 
 // ========================================
@@ -1070,21 +1401,26 @@ function updatePatientStats(patients) {
             "patientCount"
         );
 
+
     const recordCount =
         document.getElementById(
             "recordCount"
         );
+
 
     const latestPatient =
         document.getElementById(
             "latestPatient"
         );
 
+
     patientCount.textContent =
         patients.length;
 
+
     recordCount.textContent =
         patients.length;
+
 
     if (patients.length > 0) {
 
@@ -1101,6 +1437,7 @@ function updatePatientStats(patients) {
 }
 
 
+
 // ========================================
 // RENDER PATIENTS
 // ========================================
@@ -1112,7 +1449,9 @@ function renderPatients(patients) {
             "patientsTableBody"
         );
 
+
     tbody.innerHTML = "";
+
 
     if (patients.length === 0) {
 
@@ -1134,7 +1473,9 @@ function renderPatients(patients) {
         `;
 
         return;
+
     }
+
 
     patients.forEach(
         function (patient) {
@@ -1144,6 +1485,7 @@ function renderPatients(patients) {
                     "tr"
                 );
 
+
             const initial =
                 patient.name
                     ? patient.name
@@ -1151,12 +1493,14 @@ function renderPatients(patients) {
                         .toUpperCase()
                     : "P";
 
+
             const addedDate =
                 patient.created_at
                     ? formatDate(
                         patient.created_at
                     )
                     : "—";
+
 
             row.innerHTML = `
 
@@ -1170,6 +1514,7 @@ function renderPatients(patients) {
 
                         </div>
 
+
                         <div>
 
                             <strong>
@@ -1180,6 +1525,7 @@ function renderPatients(patients) {
                                 )}
 
                             </strong>
+
 
                             <small>
 
@@ -1253,12 +1599,14 @@ function renderPatients(patients) {
 
             `;
 
+
             tbody.appendChild(row);
 
         }
     );
 
 }
+
 
 
 // ========================================
@@ -1272,10 +1620,12 @@ function searchPatients() {
             "patientSearch"
         );
 
+
     const searchValue =
         searchInput.value
             .trim()
             .toLowerCase();
+
 
     const filteredPatients =
         allPatients.filter(
@@ -1286,6 +1636,7 @@ function searchPatients() {
                         patient.name || ""
                     ).toLowerCase();
 
+
                 return name.includes(
                     searchValue
                 );
@@ -1293,11 +1644,13 @@ function searchPatients() {
             }
         );
 
+
     renderPatients(
         filteredPatients
     );
 
 }
+
 
 
 // ========================================
@@ -1309,13 +1662,16 @@ async function viewPatient(patientId) {
     const token =
         getAccessToken();
 
+
     if (!token) {
 
         window.location.href =
             "{{ url_for('login') }}";
 
         return;
+
     }
+
 
     try {
 
@@ -1326,17 +1682,21 @@ async function viewPatient(patientId) {
                     method: "GET",
 
                     headers: {
+
                         "Authorization":
                             "Bearer " + token,
 
                         "Content-Type":
                             "application/json"
+
                     }
                 }
             );
 
+
         const data =
             await response.json();
+
 
         if (!response.ok) {
 
@@ -1347,28 +1707,34 @@ async function viewPatient(patientId) {
 
         }
 
+
         const patient =
             data.patient;
+
 
         document.getElementById(
             "modalPatientName"
         ).textContent =
             patient.name || "Patient";
 
+
         document.getElementById(
             "modalPatientAge"
         ).textContent =
             patient.age || "—";
+
 
         document.getElementById(
             "modalPatientGender"
         ).textContent =
             patient.gender || "—";
 
+
         document.getElementById(
             "modalPatientId"
         ).textContent =
             "#" + patient.id;
+
 
         document.getElementById(
             "modalPatientInitial"
@@ -1378,6 +1744,7 @@ async function viewPatient(patientId) {
                     .charAt(0)
                     .toUpperCase()
                 : "P";
+
 
         const localPatient =
             allPatients.find(
@@ -1391,6 +1758,7 @@ async function viewPatient(patientId) {
                 }
             );
 
+
         document.getElementById(
             "modalPatientDate"
         ).textContent =
@@ -1401,10 +1769,12 @@ async function viewPatient(patientId) {
                 )
                 : "—";
 
+
         document.getElementById(
             "patientModal"
         ).style.display =
             "flex";
+
 
     } catch (error) {
 
@@ -1412,6 +1782,7 @@ async function viewPatient(patientId) {
             "Patient details error:",
             error
         );
+
 
         alert(
             error.message ||
@@ -1421,6 +1792,7 @@ async function viewPatient(patientId) {
     }
 
 }
+
 
 
 // ========================================
@@ -1434,11 +1806,16 @@ function closePatientModal() {
             "patientModal"
         );
 
+
     if (modal) {
-        modal.style.display = "none";
+
+        modal.style.display =
+            "none";
+
     }
 
 }
+
 
 
 // ========================================
@@ -1451,16 +1828,21 @@ function formatDate(dateValue) {
         return "—";
     }
 
+
     const date =
         new Date(dateValue);
+
 
     if (
         isNaN(
             date.getTime()
         )
     ) {
+
         return "—";
+
     }
+
 
     return date.toLocaleDateString(
         "en-US",
@@ -1474,6 +1856,7 @@ function formatDate(dateValue) {
 }
 
 
+
 // ========================================
 // ESCAPE HTML
 // ========================================
@@ -1485,12 +1868,15 @@ function escapeHtml(value) {
             "div"
         );
 
+
     div.textContent =
         value;
+
 
     return div.innerHTML;
 
 }
+
 
 
 // ========================================
@@ -1503,18 +1889,22 @@ function logoutUser() {
         "access_token"
     );
 
+
     localStorage.removeItem(
         "user"
     );
+
 
     localStorage.removeItem(
         "user_role"
     );
 
+
     window.location.href =
         "{{ url_for('login') }}";
 
 }
+
 
 
 // ========================================
@@ -1527,12 +1917,15 @@ document.addEventListener(
 
         loadPatientPageUser();
 
+
         loadPatients();
+
 
         const searchInput =
             document.getElementById(
                 "patientSearch"
             );
+
 
         if (searchInput) {
 
@@ -1543,10 +1936,12 @@ document.addEventListener(
 
         }
 
+
         const addPatientForm =
             document.getElementById(
                 "addPatientForm"
             );
+
 
         if (addPatientForm) {
 
@@ -1557,10 +1952,12 @@ document.addEventListener(
 
         }
 
+
         const modal =
             document.getElementById(
                 "patientModal"
             );
+
 
         if (modal) {
 
@@ -1589,4 +1986,6 @@ document.addEventListener(
 
 </script>
 
-{% endblock %}
+</body>
+
+</html>

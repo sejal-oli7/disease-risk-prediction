@@ -1,12 +1,467 @@
-{% extends "base.html" %}{% block title %}About | MULTI{% endblock %}
+
+{% extends "base.html" %}
+
+{% block title %}About | HealthCare{% endblock %}
+
 {% block content %}
-<section class="page-head"><span class="eyebrow">ABOUT MULTI</span>
-    <h1>Technology that turns health data into understandable insights.</h1>
-    <p>MULTI is an academic web application concept combining authentication, health data collection, machine-learning prediction modules, history, analytics and administration in one platform.</p>
-</section><section class="section two-col"><div class="panel">
-    <h2>Project Focus</h2>
-    <p>The interface is designed to make prediction workflows easy to understand while keeping results organized for users and administrators.</p>
-</div><div class="panel">
-    <h2>Important Note</h2>
-    <p>This starter version uses demo prediction logic. Replace the prediction service with validated disease-specific trained models before any real-world or clinical use.</p>
-</div></section>{% endblock %}
+
+<!-- =========================================================
+     ABOUT HERO
+========================================================= -->
+<section class="page-head">
+
+    <span class="eyebrow">
+        ABOUT MULTI
+    </span>
+
+    <h1>
+        Multi Risk Disease Prediction
+    </h1>
+
+    <p>
+        MULTI is a machine-learning-based health risk prediction
+        system developed as part of the HealthCare platform.
+        It helps users organize patient information, provide
+        required health parameters and receive estimated risk
+        results through a simple and understandable interface.
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+========================================================= -->
+<section class="section two-col">
+
+    <div class="panel">
+
+        <span class="eyebrow">
+            PROJECT OVERVIEW
+        </span>
+
+        <h2>
+            One platform for multiple disease risk assessments
+        </h2>
+
+        <p>
+            MULTI brings patient management, health parameter
+            collection, machine-learning prediction, prediction
+            history and visual analytics together in one platform.
+        </p>
+
+        <p>
+            Users can manage multiple patients and perform
+            risk assessments for Diabetes, Heart Disease,
+            Kidney Disease, Liver Disease, Parkinson's Disease
+            and Stroke.
+        </p>
+
+    </div>
+
+
+    <div class="panel">
+
+        <span class="eyebrow">
+            PROJECT PURPOSE
+        </span>
+
+        <h2>
+            Making machine-learning results easier to understand
+        </h2>
+
+        <p>
+            The purpose of MULTI is to demonstrate how trained
+            machine-learning models can be integrated into a
+            web application and presented through clear risk
+            levels, probability values and visualizations.
+        </p>
+
+        <p>
+            The system is designed for academic, educational
+            and health-awareness purposes.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     KEY FEATURES
+========================================================= -->
+<section class="section">
+
+    <div class="section-head">
+
+        <span class="eyebrow">
+            KEY FEATURES
+        </span>
+
+        <h2>
+            Everything organized in one place
+        </h2>
+
+        <p>
+            MULTI combines the essential features required
+            for a complete disease risk prediction workflow.
+        </p>
+
+    </div>
+
+
+    <div class="card-grid">
+
+        <div class="info-card">
+
+            <div class="icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <h3>
+                Patient Management
+            </h3>
+
+            <p>
+                Add and manage multiple patient records
+                under a user account.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="icon">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+
+            <h3>
+                Machine Learning
+            </h3>
+
+            <p>
+                Disease-specific trained models process
+                the required health parameters.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="icon">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+
+            <h3>
+                Risk Analytics
+            </h3>
+
+            <p>
+                Prediction results are presented using
+                probability values and visual analytics.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="icon">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+
+            <h3>
+                Prediction History
+            </h3>
+
+            <p>
+                Users can review their previous prediction
+                records and risk results.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <h3>
+                Secure Access
+            </h3>
+
+            <p>
+                Authentication and protected APIs help
+                secure user-specific application data.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <h3>
+                Administration
+            </h3>
+
+            <p>
+                Administrators can monitor users, patients
+                and prediction records through the admin panel.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TECHNOLOGY
+========================================================= -->
+<div class="hw-band">
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <span class="eyebrow">
+                TECHNOLOGY
+            </span>
+
+            <h2>
+                Built with web and machine-learning technologies
+            </h2>
+
+            <p>
+                The system combines a Python backend, database,
+                machine-learning models and a lightweight frontend.
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <div class="info-card">
+
+                <div class="icon">
+                    <i class="fa-brands fa-python"></i>
+                </div>
+
+                <h3>
+                    Flask & Python
+                </h3>
+
+                <p>
+                    Used for backend development, routing,
+                    APIs and machine-learning integration.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+
+                <h3>
+                    PostgreSQL
+                </h3>
+
+                <p>
+                    Stores user accounts, patient information
+                    and prediction records.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+
+                <h3>
+                    Scikit-learn
+                </h3>
+
+                <p>
+                    Used for training and integrating
+                    disease-specific machine-learning models.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <h3>
+                    HTML, CSS & JavaScript
+                </h3>
+
+                <p>
+                    Provides the responsive frontend interface
+                    without a frontend framework.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-chart-column"></i>
+                </div>
+
+                <h3>
+                    Chart.js
+                </h3>
+
+                <p>
+                    Provides visual representations of
+                    prediction and risk analytics.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <h3>
+                    JWT Authentication
+                </h3>
+
+                <p>
+                    Protects authenticated application features
+                    and user-specific API access.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================================================
+     ACADEMIC PURPOSE
+========================================================= -->
+<section class="section">
+
+    <div class="panel about-academic">
+
+        <span class="eyebrow">
+            ACADEMIC PROJECT
+        </span>
+
+        <h2>
+            Developed to demonstrate practical integration
+            of machine learning and web development.
+        </h2>
+
+        <p>
+            MULTI demonstrates the complete process of connecting
+            trained machine-learning models with a web application,
+            database and user interface.
+        </p>
+
+        <p>
+            The project focuses on learning and demonstrating
+            machine learning, backend API development, database
+            management, authentication and data visualization
+            within a single application.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DISCLAIMER
+========================================================= -->
+<section class="hw-disclaimer">
+
+    <p>
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        <strong>
+            Medical disclaimer:
+        </strong>
+
+        MULTI provides estimated risk results for educational
+        and health-awareness purposes only. It is not a medical
+        diagnosis and should not be used as a substitute for
+        professional medical advice, diagnosis or treatment.
+
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     CALL TO ACTION
+========================================================= -->
+<section class="hw-cta">
+
+    <div class="hw-cta-inner">
+
+        <div>
+
+            <h2>
+                Explore HealthCare
+            </h2>
+
+            <p>
+                Learn more about the platform or create an
+                account to explore MULTI's prediction features.
+            </p>
+
+        </div>
+
+        <div class="actions">
+
+            <a
+                class="btn primary"
+                href="{{ url_for('register') }}"
+            >
+                Get Started
+            </a>
+
+            <a
+                class="btn ghost"
+                href="{{ url_for('services') }}"
+            >
+                Explore Services
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -528,424 +528,429 @@ const diseaseFields = {
 
     ],
 
-/* ====================================
-   HEART DISEASE
-==================================== */
 
-heart: [
+    /* ====================================
+       HEART DISEASE
+    ==================================== */
 
-    {
-        name: "Age",
-        label: "Age",
-        type: "number",
-        placeholder: "Enter age"
-    },
+    heart: [
 
-    {
-        name: "Gender",
-        label: "Gender",
-        type: "select",
-        options: [
-            "Male",
-            "Female"
-        ]
-    },
+        {
+            name: "Age",
+            label: "Age",
+            type: "number",
+            placeholder: "Enter age"
+        },
 
-    {
-        name: "Weight",
-        label: "Weight (kg)",
-        type: "number",
-        step: "0.1",
-        placeholder: "Enter weight"
-    },
+        {
+            name: "Gender",
+            label: "Gender",
+            type: "select",
+            options: [
+                "Male",
+                "Female"
+            ]
+        },
 
-    {
-        name: "Height",
-        label: "Height (cm)",
-        type: "number",
-        step: "0.1",
-        placeholder: "Enter height"
-    },
+        {
+            name: "Weight",
+            label: "Weight (kg)",
+            type: "number",
+            step: "0.1",
+            placeholder: "Enter weight"
+        },
 
-    {
-        name: "BMI",
-        label: "BMI",
-        type: "number",
-        step: "0.1",
-        placeholder: "Enter BMI"
-    },
+        {
+            name: "Height",
+            label: "Height (cm)",
+            type: "number",
+            step: "0.1",
+            placeholder: "Enter height"
+        },
 
-    {
-        name: "Smoking",
-        label: "Smoking",
-        type: "select",
-        options: [
-            "Never",
-            "Current",
-            "Former"
-        ]
-    },
+        {
+            name: "BMI",
+            label: "BMI",
+            type: "number",
+            step: "0.1",
+            placeholder: "Enter BMI"
+        },
 
-    {
-        name: "Alcohol_Intake",
-        label: "Alcohol Intake",
-        type: "select",
-        options: [
-            "None",
-            "Low",
-            "Moderate",
-            "High"
-        ]
-    },
+        {
+            name: "Smoking",
+            label: "Smoking",
+            type: "select",
+            options: [
+                "Never",
+                "Current",
+                "Former"
+            ]
+        },
 
-    {
-        name: "Physical_Activity",
-        label: "Physical Activity",
-        type: "select",
-        options: [
-            "Sedentary",
-            "Moderate",
-            "Active"
-        ]
-    },
+        {
+            name: "Alcohol_Intake",
+            label: "Alcohol Intake",
+            type: "select",
+            options: [
+                "None",
+                "Low",
+                "Moderate",
+                "High"
+            ]
+        },
 
-    {
-        name: "Diet",
-        label: "Diet",
-        type: "select",
-        options: [
-            "Healthy",
-            "Average",
-            "Unhealthy"
-        ]
-    },
+        {
+            name: "Physical_Activity",
+            label: "Physical Activity",
+            type: "select",
+            options: [
+                "Sedentary",
+                "Moderate",
+                "Active"
+            ]
+        },
 
-    {
-        name: "Stress_Level",
-        label: "Stress Level",
-        type: "select",
-        options: [
-            "Low",
-            "Medium",
-            "High"
-        ]
-    },
+        {
+            name: "Diet",
+            label: "Diet",
+            type: "select",
+            options: [
+                "Healthy",
+                "Average",
+                "Unhealthy"
+            ]
+        },
 
-    {
-        name: "Hypertension",
-        label: "Hypertension",
-        type: "select",
-        options: [
-            "Yes",
-            "No"
-        ],
-        binary: true
-    },
+        {
+            name: "Stress_Level",
+            label: "Stress Level",
+            type: "select",
+            options: [
+                "Low",
+                "Medium",
+                "High"
+            ]
+        },
 
-    {
-        name: "Diabetes",
-        label: "Diabetes",
-        type: "select",
-        options: [
-            "Yes",
-            "No"
-        ],
-        binary: true
-    },
+        {
+            name: "Hypertension",
+            label: "Hypertension",
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
+        },
 
-    {
-        name: "Hyperlipidemia",
-        label: "Hyperlipidemia",
-        type: "select",
-        options: [
-            "Yes",
-            "No"
-        ],
-        binary: true
-    },
+        {
+            name: "Diabetes",
+            label: "Diabetes",
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
+        },
 
-    {
-        name: "Family_History",
-        label: "Family History",
-        type: "select",
-        options: [
-            "Yes",
-            "No"
-        ],
-        binary: true
-    },
+        {
+            name: "Hyperlipidemia",
+            label: "Hyperlipidemia",
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
+        },
 
-    {
-        name: "Previous_Heart_Attack",
-        label: "Previous Heart Attack",
-        type: "select",
-        options: [
-            "Yes",
-            "No"
-        ],
-        binary: true
-    },
+        {
+            name: "Family_History",
+            label: "Family History",
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
+        },
 
-    {
-        name: "Systolic_BP",
-        label: "Systolic Blood Pressure",
-        type: "number",
-        placeholder: "e.g. 120"
-    },
+        {
+            name: "Previous_Heart_Attack",
+            label: "Previous Heart Attack",
+            type: "select",
+            options: [
+                "Yes",
+                "No"
+            ],
+            binary: true
+        },
 
-    {
-        name: "Diastolic_BP",
-        label: "Diastolic Blood Pressure",
-        type: "number",
-        placeholder: "e.g. 80"
-    },
+        {
+            name: "Systolic_BP",
+            label: "Systolic Blood Pressure",
+            type: "number",
+            placeholder: "e.g. 120"
+        },
 
-    {
-        name: "Heart_Rate",
-        label: "Heart Rate",
-        type: "number",
-        placeholder: "e.g. 72"
-    },
+        {
+            name: "Diastolic_BP",
+            label: "Diastolic Blood Pressure",
+            type: "number",
+            placeholder: "e.g. 80"
+        },
 
-    {
-        name: "Blood_Sugar_Fasting",
-        label: "Fasting Blood Sugar",
-        type: "number",
-        step: "0.1",
-        placeholder: "e.g. 90"
-    },
+        {
+            name: "Heart_Rate",
+            label: "Heart Rate",
+            type: "number",
+            placeholder: "e.g. 72"
+        },
 
-    {
-        name: "Cholesterol_Total",
-        label: "Total Cholesterol",
-        type: "number",
-        step: "0.1",
-        placeholder: "e.g. 180"
-    }
+        {
+            name: "Blood_Sugar_Fasting",
+            label: "Fasting Blood Sugar",
+            type: "number",
+            step: "0.1",
+            placeholder: "e.g. 90"
+        },
 
-],
+        {
+            name: "Cholesterol_Total",
+            label: "Total Cholesterol",
+            type: "number",
+            step: "0.1",
+            placeholder: "e.g. 180"
+        }
 
-// kidney disease
-kidney: [
+    ],
 
-    {
-        name: "age",
-        label: "Age",
-        type: "number",
-        placeholder: "Enter age"
-    },
 
-    {
-        name: "gender",
-        label: "Gender",
-        type: "select",
-        options: [
-            "Male",
-            "Female"
-        ]
-    },
+    /* ====================================
+       KIDNEY DISEASE
+    ==================================== */
 
-    {
-        name: "bp",
-        label: "Blood Pressure",
-        type: "number",
-        placeholder: "Enter blood pressure"
-    },
+    kidney: [
 
-    {
-        name: "sg",
-        label: "Specific Gravity",
-        type: "number",
-        step: "any",
-        placeholder: "Example: 1.020"
-    },
+        {
+            name: "age",
+            label: "Age",
+            type: "number",
+            placeholder: "Enter age"
+        },
 
-    {
-        name: "al",
-        label: "Albumin",
-        type: "number",
-        placeholder: "Enter albumin"
-    },
+        {
+            name: "gender",
+            label: "Gender",
+            type: "select",
+            options: [
+                "Male",
+                "Female"
+            ]
+        },
 
-    {
-        name: "su",
-        label: "Sugar",
-        type: "number",
-        placeholder: "Enter sugar"
-    },
+        {
+            name: "bp",
+            label: "Blood Pressure",
+            type: "number",
+            placeholder: "Enter blood pressure"
+        },
 
-    {
-        name: "rbc",
-        label: "Red Blood Cells",
-        type: "select",
-        options: [
-            "normal",
-            "abnormal"
-        ]
-    },
+        {
+            name: "sg",
+            label: "Specific Gravity",
+            type: "number",
+            step: "any",
+            placeholder: "Example: 1.020"
+        },
 
-    {
-        name: "pc",
-        label: "Pus Cell",
-        type: "select",
-        options: [
-            "normal",
-            "abnormal"
-        ]
-    },
+        {
+            name: "al",
+            label: "Albumin",
+            type: "number",
+            placeholder: "Enter albumin"
+        },
 
-    {
-        name: "pcc",
-        label: "Pus Cell Clumps",
-        type: "select",
-        options: [
-            "present",
-            "notpresent"
-        ]
-    },
+        {
+            name: "su",
+            label: "Sugar",
+            type: "number",
+            placeholder: "Enter sugar"
+        },
 
-    {
-        name: "ba",
-        label: "Bacteria",
-        type: "select",
-        options: [
-            "present",
-            "notpresent"
-        ]
-    },
+        {
+            name: "rbc",
+            label: "Red Blood Cells",
+            type: "select",
+            options: [
+                "normal",
+                "abnormal"
+            ]
+        },
 
-    {
-        name: "bgr",
-        label: "Blood Glucose Random",
-        type: "number",
-        step: "any",
-        placeholder: "Enter glucose level"
-    },
+        {
+            name: "pc",
+            label: "Pus Cell",
+            type: "select",
+            options: [
+                "normal",
+                "abnormal"
+            ]
+        },
 
-    {
-        name: "bu",
-        label: "Blood Urea",
-        type: "number",
-        step: "any",
-        placeholder: "Enter blood urea"
-    },
+        {
+            name: "pcc",
+            label: "Pus Cell Clumps",
+            type: "select",
+            options: [
+                "present",
+                "notpresent"
+            ]
+        },
 
-    {
-        name: "sc",
-        label: "Serum Creatinine",
-        type: "number",
-        step: "any",
-        placeholder: "Enter serum creatinine"
-    },
+        {
+            name: "ba",
+            label: "Bacteria",
+            type: "select",
+            options: [
+                "present",
+                "notpresent"
+            ]
+        },
 
-    {
-        name: "sod",
-        label: "Sodium",
-        type: "number",
-        step: "any",
-        placeholder: "Enter sodium"
-    },
+        {
+            name: "bgr",
+            label: "Blood Glucose Random",
+            type: "number",
+            step: "any",
+            placeholder: "Enter glucose level"
+        },
 
-    {
-        name: "pot",
-        label: "Potassium",
-        type: "number",
-        step: "any",
-        placeholder: "Enter potassium"
-    },
+        {
+            name: "bu",
+            label: "Blood Urea",
+            type: "number",
+            step: "any",
+            placeholder: "Enter blood urea"
+        },
 
-    {
-        name: "hemo",
-        label: "Hemoglobin",
-        type: "number",
-        step: "any",
-        placeholder: "Enter hemoglobin"
-    },
+        {
+            name: "sc",
+            label: "Serum Creatinine",
+            type: "number",
+            step: "any",
+            placeholder: "Enter serum creatinine"
+        },
 
-    {
-        name: "pcv",
-        label: "Packed Cell Volume",
-        type: "number",
-        step: "any",
-        placeholder: "Enter PCV"
-    },
+        {
+            name: "sod",
+            label: "Sodium",
+            type: "number",
+            step: "any",
+            placeholder: "Enter sodium"
+        },
 
-    {
-        name: "wc",
-        label: "White Blood Cell Count",
-        type: "number",
-        placeholder: "Enter White Blood Cell Count"
-    },
+        {
+            name: "pot",
+            label: "Potassium",
+            type: "number",
+            step: "any",
+            placeholder: "Enter potassium"
+        },
 
-    {
-        name: "rc",
-        label: "Red Blood Cell Count",
-        type: "number",
-        step: "any",
-        placeholder: "Enter Red Blood Cell Count"
-    },
+        {
+            name: "hemo",
+            label: "Hemoglobin",
+            type: "number",
+            step: "any",
+            placeholder: "Enter hemoglobin"
+        },
 
-    {
-        name: "htn",
-        label: "Hypertension",
-        type: "select",
-        options: [
-            "yes",
-            "no"
-        ]
-    },
+        {
+            name: "pcv",
+            label: "Packed Cell Volume",
+            type: "number",
+            step: "any",
+            placeholder: "Enter PCV"
+        },
 
-    {
-        name: "dm",
-        label: "Diabetes Mellitus",
-        type: "select",
-        options: [
-            "yes",
-            "no"
-        ]
-    },
+        {
+            name: "wc",
+            label: "White Blood Cell Count",
+            type: "number",
+            placeholder: "Enter White Blood Cell Count"
+        },
 
-    {
-        name: "cad",
-        label: "Coronary Artery Disease",
-        type: "select",
-        options: [
-            "yes",
-            "no"
-        ]
-    },
+        {
+            name: "rc",
+            label: "Red Blood Cell Count",
+            type: "number",
+            step: "any",
+            placeholder: "Enter Red Blood Cell Count"
+        },
 
-    {
-        name: "appet",
-        label: "Appetite",
-        type: "select",
-        options: [
-            "good",
-            "poor"
-        ]
-    },
+        {
+            name: "htn",
+            label: "Hypertension",
+            type: "select",
+            options: [
+                "yes",
+                "no"
+            ]
+        },
 
-    {
-        name: "pe",
-        label: "Pedal Edema",
-        type: "select",
-        options: [
-            "yes",
-            "no"
-        ]
-    },
+        {
+            name: "dm",
+            label: "Diabetes Mellitus",
+            type: "select",
+            options: [
+                "yes",
+                "no"
+            ]
+        },
 
-    {
-        name: "ane",
-        label: "Anemia",
-        type: "select",
-        options: [
-            "yes",
-            "no"
-        ]
-    }
+        {
+            name: "cad",
+            label: "Coronary Artery Disease",
+            type: "select",
+            options: [
+                "yes",
+                "no"
+            ]
+        },
 
-],
+        {
+            name: "appet",
+            label: "Appetite",
+            type: "select",
+            options: [
+                "good",
+                "poor"
+            ]
+        },
+
+        {
+            name: "pe",
+            label: "Pedal Edema",
+            type: "select",
+            options: [
+                "yes",
+                "no"
+            ]
+        },
+
+        {
+            name: "ane",
+            label: "Anemia",
+            type: "select",
+            options: [
+                "yes",
+                "no"
+            ]
+        }
+
+    ],
 
 
     /* ====================================
@@ -963,16 +968,13 @@ kidney: [
         },
 
         {
-
-             name: "Gender",
-             label: "Gender",
-             type: "select",
-             options: [
-                   "Male",
-                    "Female"
-    ]
-
-
+            name: "Gender",
+            label: "Gender",
+            type: "select",
+            options: [
+                "Male",
+                "Female"
+            ]
         },
 
         {
@@ -1200,7 +1202,8 @@ kidney: [
 
         {
             name: "NHR",
-            label: "NHR",
+            label:
+                "NHR",
             type: "number",
             step: "any",
             placeholder:
@@ -1209,7 +1212,8 @@ kidney: [
 
         {
             name: "HNR",
-            label: "HNR",
+            label:
+                "HNR",
             type: "number",
             step: "any",
             placeholder:
@@ -1218,7 +1222,8 @@ kidney: [
 
         {
             name: "RPDE",
-            label: "RPDE",
+            label:
+                "RPDE",
             type: "number",
             step: "any",
             placeholder:
@@ -1227,7 +1232,8 @@ kidney: [
 
         {
             name: "DFA",
-            label: "DFA",
+            label:
+                "DFA",
             type: "number",
             step: "any",
             placeholder:
@@ -1236,7 +1242,8 @@ kidney: [
 
         {
             name: "spread1",
-            label: "Spread 1",
+            label:
+                "Spread 1",
             type: "number",
             step: "any",
             placeholder:
@@ -1245,7 +1252,8 @@ kidney: [
 
         {
             name: "spread2",
-            label: "Spread 2",
+            label:
+                "Spread 2",
             type: "number",
             step: "any",
             placeholder:
@@ -1254,7 +1262,8 @@ kidney: [
 
         {
             name: "D2",
-            label: "D2",
+            label:
+                "D2",
             type: "number",
             step: "any",
             placeholder:
@@ -1263,7 +1272,8 @@ kidney: [
 
         {
             name: "PPE",
-            label: "PPE",
+            label:
+                "PPE",
             type: "number",
             step: "any",
             placeholder:
@@ -1297,11 +1307,6 @@ kidney: [
             placeholder:
                 "Enter age"
         },
-
-        /*
-         * UI shows Yes / No.
-         * Backend receives 1 / 0.
-         */
 
         {
             name: "hypertension",
@@ -1489,17 +1494,6 @@ function createInputField(field) {
                         "option"
                     );
 
-
-                /*
-                 * Stroke binary fields:
-                 *
-                 * Yes -> 1
-                 * No  -> 0
-                 *
-                 * The user sees Yes/No,
-                 * but the backend receives
-                 * numeric values.
-                 */
 
                 if (
                     field.binary === true &&
@@ -1699,16 +1693,658 @@ function getFieldValue(
     }
 
 
-    /*
-     * Select values are already
-     * prepared correctly.
-     *
-     * Stroke:
-     * Yes = "1"
-     * No  = "0"
-     */
-
     return value;
+}
+
+
+/* ========================================
+   LOAD USER PATIENTS
+======================================== */
+
+async function loadPredictionPatients() {
+
+    const patientSelect =
+        document.getElementById(
+            "patient_id"
+        );
+
+    const patientNameInput =
+        document.getElementById(
+            "patient_name"
+        );
+
+
+    if (!patientSelect) {
+
+        return;
+    }
+
+
+    const token =
+        getToken();
+
+
+    if (!token) {
+
+        patientSelect.innerHTML = `
+            <option value="">
+                Please login first
+            </option>
+        `;
+
+        return;
+    }
+
+
+    try {
+
+        patientSelect.innerHTML = `
+            <option value="">
+                Loading patients...
+            </option>
+        `;
+
+
+        const response =
+            await apiRequest(
+                "/api/patients",
+                {
+                    method: "GET"
+                }
+            );
+
+
+        const data =
+            await parseResponse(
+                response
+            );
+
+
+        /* ====================================
+           TOKEN EXPIRED
+        ==================================== */
+
+        if (
+            response.status === 401
+        ) {
+
+            removeToken();
+
+            patientSelect.innerHTML = `
+                <option value="">
+                    Session expired
+                </option>
+            `;
+
+            window.location.href =
+                "/auth";
+
+            return;
+        }
+
+
+        /* ====================================
+           SERVER ERROR
+        ==================================== */
+
+        if (!response.ok) {
+
+            patientSelect.innerHTML = `
+                <option value="">
+                    Unable to load patients
+                </option>
+            `;
+
+            console.error(
+                "Patient loading error:",
+                data
+            );
+
+            return;
+        }
+
+
+        const patients =
+            Array.isArray(
+                data.patients
+            )
+                ? data.patients
+                : [];
+
+
+        /* ====================================
+           CLEAR DROPDOWN
+        ==================================== */
+
+        patientSelect.innerHTML = `
+            <option value="">
+                Select a patient
+            </option>
+        `;
+
+
+        /* ====================================
+           NO PATIENTS
+        ==================================== */
+
+        if (
+            patients.length === 0
+        ) {
+
+            patientSelect.innerHTML = `
+                <option value="">
+                    No patients found
+                </option>
+            `;
+
+            if (patientNameInput) {
+
+                patientNameInput.value = "";
+            }
+
+            return;
+        }
+
+
+        /* ====================================
+           ADD PATIENT OPTIONS
+        ==================================== */
+
+        patients.forEach(
+            function (patient) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    patient.id;
+
+
+                option.textContent =
+                    `${patient.name} (ID: ${patient.id})`;
+
+
+                option.dataset.name =
+                    patient.name || "";
+
+
+                option.dataset.age =
+                    patient.age ?? "";
+
+
+                option.dataset.gender =
+                    patient.gender || "";
+
+
+                patientSelect.appendChild(
+                    option
+                );
+            }
+        );
+
+
+        /* ====================================
+           PATIENT SELECTION
+        ==================================== */
+
+        patientSelect.onchange =
+            function () {
+
+                const selectedOption =
+                    this.options[
+                        this.selectedIndex
+                    ];
+
+
+                if (!patientNameInput) {
+
+                    return;
+                }
+
+
+                if (
+                    selectedOption &&
+                    selectedOption.value
+                ) {
+
+                    patientNameInput.value =
+                        selectedOption.dataset.name ||
+                        "";
+
+                } else {
+
+                    patientNameInput.value =
+                        "";
+                }
+            };
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading patients:",
+            error
+        );
+
+
+        patientSelect.innerHTML = `
+            <option value="">
+                Unable to load patients
+            </option>
+        `;
+    }
+}
+
+
+/* ========================================
+   PREDICTION ANALYSIS CHART
+======================================== */
+
+let predictionProbabilityChart =
+    null;
+
+
+/* ========================================
+   DESTROY PREDICTION ANALYSIS CHART
+======================================== */
+
+function destroyPredictionAnalysisChart() {
+
+    if (
+        predictionProbabilityChart
+    ) {
+
+        predictionProbabilityChart.destroy();
+
+        predictionProbabilityChart =
+            null;
+    }
+}
+
+
+/* ========================================
+   DISPLAY PREDICTION ANALYSIS
+======================================== */
+
+function displayPredictionAnalysis(
+    data,
+    patientId,
+    selectedDisease
+) {
+
+    const analysisSection =
+        document.getElementById(
+            "predictionAnalysis"
+        );
+
+
+    if (!analysisSection) {
+
+        return;
+    }
+
+
+    const disease =
+        data.disease ||
+        selectedDisease;
+
+
+    const prediction =
+        data.prediction ??
+        data.result ??
+        data.label ??
+        "N/A";
+
+
+    const probability =
+        data.probability ??
+        data.risk_probability ??
+        data.confidence ??
+        null;
+
+
+    const risk =
+        data.risk_level ||
+        data.risk ||
+        getRiskLevel(
+            prediction,
+            probability
+        );
+
+
+    let percentage =
+        Number(probability);
+
+
+    if (
+        Number.isNaN(
+            percentage
+        )
+    ) {
+
+        percentage = 0;
+
+    } else {
+
+        if (
+            percentage <= 1
+        ) {
+
+            percentage *= 100;
+        }
+
+
+        percentage =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    percentage
+                )
+            );
+    }
+
+
+    const analysisDisease =
+        document.getElementById(
+            "analysisDisease"
+        );
+
+
+    const analysisRisk =
+        document.getElementById(
+            "analysisRisk"
+        );
+
+
+    const analysisProbability =
+        document.getElementById(
+            "analysisProbability"
+        );
+
+
+    const analysisPrediction =
+        document.getElementById(
+            "analysisPrediction"
+        );
+
+
+    const interpretation =
+        document.getElementById(
+            "analysisInterpretation"
+        );
+
+
+    /* ====================================
+       DISEASE
+    ==================================== */
+
+    if (analysisDisease) {
+
+        analysisDisease.textContent =
+            formatDiseaseName(
+                disease
+            );
+    }
+
+
+    /* ====================================
+       RISK
+    ==================================== */
+
+    if (analysisRisk) {
+
+        analysisRisk.textContent =
+            formatRisk(
+                risk
+            );
+
+
+        analysisRisk.classList.remove(
+            "risk-low",
+            "risk-medium",
+            "risk-high"
+        );
+
+
+        const riskText =
+            String(risk)
+                .toLowerCase();
+
+
+        if (
+            riskText.includes("high")
+        ) {
+
+            analysisRisk.classList.add(
+                "risk-high"
+            );
+
+        } else if (
+            riskText.includes("medium")
+        ) {
+
+            analysisRisk.classList.add(
+                "risk-medium"
+            );
+
+        } else if (
+            riskText.includes("low")
+        ) {
+
+            analysisRisk.classList.add(
+                "risk-low"
+            );
+        }
+    }
+
+
+    /* ====================================
+       PROBABILITY
+    ==================================== */
+
+    if (analysisProbability) {
+
+        if (
+            probability !== null &&
+            probability !== undefined &&
+            !Number.isNaN(
+                Number(probability)
+            )
+        ) {
+
+            analysisProbability.textContent =
+                `${percentage.toFixed(2)}%`;
+
+        } else {
+
+            analysisProbability.textContent =
+                "N/A";
+        }
+    }
+
+
+    /* ====================================
+       PREDICTION
+    ==================================== */
+
+    if (analysisPrediction) {
+
+        analysisPrediction.textContent =
+            prediction;
+    }
+
+
+    /* ====================================
+       INTERPRETATION
+    ==================================== */
+
+    if (interpretation) {
+
+        if (
+            probability !== null &&
+            probability !== undefined &&
+            !Number.isNaN(
+                Number(probability)
+            )
+        ) {
+
+            interpretation.textContent =
+                `The machine-learning model estimated a ${percentage.toFixed(2)}% probability for the selected outcome. This value represents model output and should not be interpreted as a medical diagnosis.`;
+
+        } else {
+
+            interpretation.textContent =
+                "The machine-learning model returned a prediction, but a probability value was not provided.";
+        }
+    }
+
+
+    /* ====================================
+       SHOW ANALYSIS
+    ==================================== */
+
+    analysisSection.style.display =
+        "block";
+
+
+    /* ====================================
+       CREATE CHART
+    ==================================== */
+
+    const canvas =
+        document.getElementById(
+            "predictionProbabilityChart"
+        );
+
+
+    if (
+        canvas &&
+        typeof Chart !== "undefined"
+    ) {
+
+        destroyPredictionAnalysisChart();
+
+
+        predictionProbabilityChart =
+            new Chart(
+                canvas,
+                {
+                    type: "doughnut",
+
+                    data: {
+
+                        labels: [
+                            "Estimated Probability",
+                            "Remaining"
+                        ],
+
+                        datasets: [
+
+                            {
+                                data: [
+                                    percentage,
+                                    100 - percentage
+                                ],
+
+                                borderWidth:
+                                    0
+                            }
+
+                        ]
+                    },
+
+                    options: {
+
+                        responsive:
+                            true,
+
+                        maintainAspectRatio:
+                            false,
+
+                        cutout:
+                            "72%",
+
+                        plugins: {
+
+                            legend: {
+
+                                position:
+                                    "bottom"
+                            },
+
+                            tooltip: {
+
+                                callbacks: {
+
+                                    label:
+                                        function (
+                                            context
+                                        ) {
+
+                                            return (
+                                                " " +
+                                                context.label +
+                                                ": " +
+                                                Number(
+                                                    context.raw
+                                                ).toFixed(
+                                                    2
+                                                ) +
+                                                "%"
+                                            );
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+    } else if (
+        typeof Chart === "undefined"
+    ) {
+
+        console.warn(
+            "Chart.js is not loaded. Prediction analysis chart cannot be created."
+        );
+    }
+
+
+    /* ====================================
+       SCROLL TO ANALYSIS
+    ==================================== */
+
+    analysisSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+/* ========================================
+   HIDE PREDICTION ANALYSIS
+======================================== */
+
+function hidePredictionAnalysis() {
+
+    const analysisSection =
+        document.getElementById(
+            "predictionAnalysis"
+        );
+
+
+    if (analysisSection) {
+
+        analysisSection.style.display =
+            "none";
+    }
+
+
+    destroyPredictionAnalysisChart();
 }
 
 
@@ -1772,25 +2408,30 @@ function displayPredictionResult(
             "resultRisk"
         );
 
+
     const resultMessage =
         document.getElementById(
             "resultMessage"
         );
+
 
     const resultDisease =
         document.getElementById(
             "resultDisease"
         );
 
+
     const resultPrediction =
         document.getElementById(
             "resultPrediction"
         );
 
+
     const resultProbability =
         document.getElementById(
             "resultProbability"
         );
+
 
     const resultPatient =
         document.getElementById(
@@ -1805,7 +2446,9 @@ function displayPredictionResult(
     if (resultRisk) {
 
         resultRisk.textContent =
-            formatRisk(risk);
+            formatRisk(
+                risk
+            );
 
 
         resultRisk.classList.remove(
@@ -1894,7 +2537,9 @@ function displayPredictionResult(
         ) {
 
             let percentage =
-                Number(probability);
+                Number(
+                    probability
+                );
 
 
             if (
@@ -1917,7 +2562,9 @@ function displayPredictionResult(
             } else {
 
                 resultProbability.textContent =
-                    String(probability);
+                    String(
+                        probability
+                    );
             }
 
         } else {
@@ -1945,6 +2592,17 @@ function displayPredictionResult(
 
     predictionResult.style.display =
         "block";
+
+
+    /* ====================================
+       SHOW IMMEDIATE ANALYSIS
+    ==================================== */
+
+    displayPredictionAnalysis(
+        data,
+        patientId,
+        selectedDisease
+    );
 
 
     predictionResult.scrollIntoView({
@@ -2023,6 +2681,13 @@ function initializePrediction() {
     console.log(
         "Prediction page initialized."
     );
+
+
+    /* ====================================
+       LOAD USER PATIENTS
+    ==================================== */
+
+    loadPredictionPatients();
 
 
     /* ====================================
@@ -2117,6 +2782,9 @@ function initializePrediction() {
             predictionResult.style.display =
                 "none";
         }
+
+
+        hidePredictionAnalysis();
     }
 
 
@@ -2176,6 +2844,19 @@ function initializePrediction() {
                 hideResult();
 
                 hideLoading();
+
+
+                const patientNameInput =
+                    document.getElementById(
+                        "patient_name"
+                    );
+
+
+                if (patientNameInput) {
+
+                    patientNameInput.value =
+                        "";
+                }
             }
         );
     }
@@ -2251,13 +2932,13 @@ function initializePrediction() {
 
 
             /* ====================================
-               VALIDATE PATIENT ID
+               VALIDATE PATIENT
             ==================================== */
 
             if (!patientId) {
 
                 showError(
-                    "Please enter the Patient ID."
+                    "Please select a patient."
                 );
 
                 return;
@@ -2276,7 +2957,17 @@ function initializePrediction() {
             ) {
 
                 showError(
-                    "Patient ID must be a valid number."
+                    "Selected patient is invalid."
+                );
+
+                return;
+            }
+
+
+            if (!patientName) {
+
+                showError(
+                    "Please select a valid patient."
                 );
 
                 return;
@@ -2737,80 +3428,53 @@ document.addEventListener(
 
 
 /* ========================================
-   ADMIN DASHBOARD ANALYTICS
+   ADMIN DASHBOARD
 ======================================== */
 
-let adminPredictionChart =
-    null;
+let adminRiskPieChart = null;
+let adminDiseaseBarChart = null;
 
-let adminRiskChart =
-    null;
+let adminUsers = [];
+let adminPatients = [];
+let adminPredictions = [];
 
 
 /* ========================================
    ADMIN API REQUEST
 ======================================== */
 
-async function adminRequest(
-    url,
-    options = {}
-) {
+async function adminRequest(url, options = {}) {
 
-    const token =
-        getToken();
-
+    const token = getToken();
 
     if (!token) {
-
-        throw new Error(
-            "Admin login session not found."
-        );
+        throw new Error("Admin login session not found.");
     }
 
-
     const headers = {
-
-        "Content-Type":
-            "application/json",
-
+        "Content-Type": "application/json",
         ...(options.headers || {})
     };
 
+    headers["Authorization"] = `Bearer ${token}`;
 
-    headers["Authorization"] =
-        `Bearer ${token}`;
+    const response = await fetch(url, {
+        ...options,
+        headers
+    });
 
+    const data = await parseResponse(response);
 
-    const response =
-        await fetch(
-            url,
-            {
-                ...options,
-                headers
-            }
-        );
-
-
-    const data =
-        await parseResponse(
-            response
-        );
-
-
-    if (
-        response.status === 401
-    ) {
+    if (response.status === 401) {
 
         removeToken();
 
-        window.location.href =
-            "/auth";
+        window.location.href = "/auth";
 
         throw new Error(
             "Admin session expired. Please login again."
         );
     }
-
 
     if (!response.ok) {
 
@@ -2822,56 +3486,741 @@ async function adminRequest(
         );
     }
 
-
     return data;
 }
 
 
 /* ========================================
-   DESTROY EXISTING CHARTS
+   ADMIN HELPERS
 ======================================== */
 
-function destroyAdminCharts() {
+function adminEscape(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function adminValue(object, ...keys) {
+
+    for (const key of keys) {
+
+        if (
+            object &&
+            object[key] !== undefined &&
+            object[key] !== null
+        ) {
+            return object[key];
+        }
+    }
+
+    return "";
+}
+
+
+function adminFormatDisease(disease) {
+
+    const value =
+        String(disease || "")
+            .toLowerCase()
+            .trim();
+
+    if (value.includes("diabetes")) {
+        return "Diabetes";
+    }
+
+    if (value.includes("heart")) {
+        return "Heart Disease";
+    }
+
+    if (value.includes("kidney")) {
+        return "Kidney Disease";
+    }
+
+    if (value.includes("liver")) {
+        return "Liver Disease";
+    }
+
+    if (value.includes("parkinson")) {
+        return "Parkinson's Disease";
+    }
+
+    if (value.includes("stroke")) {
+        return "Stroke";
+    }
+
+    return disease || "Unknown";
+}
+
+
+function adminNormalizeRisk(risk) {
+
+    const value =
+        String(risk || "")
+            .toLowerCase()
+            .trim();
+
+    if (value.includes("high")) {
+        return "High";
+    }
 
     if (
-        adminPredictionChart
+        value.includes("medium") ||
+        value.includes("moderate")
     ) {
+        return "Medium";
+    }
 
-        adminPredictionChart.destroy();
+    if (value.includes("low")) {
+        return "Low";
+    }
 
-        adminPredictionChart =
-            null;
+    return "Unknown";
+}
+
+
+function adminFormatDate(value) {
+
+    if (!value) {
+        return "—";
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return String(value);
+    }
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }
+    );
+}
+
+
+function adminFormatProbability(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "N/A";
+    }
+
+    let number = Number(value);
+
+    if (Number.isNaN(number)) {
+        return String(value);
+    }
+
+    if (number <= 1) {
+        number *= 100;
+    }
+
+    return `${number.toFixed(2)}%`;
+}
+
+
+function adminPredictionLabel(prediction) {
+
+    if (
+        prediction === 1 ||
+        String(prediction) === "1"
+    ) {
+        return "Positive";
+    }
+
+    if (
+        prediction === 0 ||
+        String(prediction) === "0"
+    ) {
+        return "Negative";
+    }
+
+    return prediction || "N/A";
+}
+
+
+function adminRiskClass(risk) {
+
+    const normalized =
+        adminNormalizeRisk(risk);
+
+    if (normalized === "High") {
+        return "risk-high";
+    }
+
+    if (normalized === "Medium") {
+        return "risk-medium";
+    }
+
+    if (normalized === "Low") {
+        return "risk-low";
+    }
+
+    return "";
+}
+
+
+/* ========================================
+   ADMIN ERROR
+======================================== */
+
+function showAdminError(message) {
+
+    const errorBox =
+        document.getElementById("adminError");
+
+    if (!errorBox) {
+        return;
+    }
+
+    errorBox.textContent =
+        message || "Something went wrong.";
+
+    errorBox.style.display = "block";
+}
+
+
+function hideAdminError() {
+
+    const errorBox =
+        document.getElementById("adminError");
+
+    if (!errorBox) {
+        return;
+    }
+
+    errorBox.textContent = "";
+
+    errorBox.style.display = "none";
+}
+
+
+/* ========================================
+   ADMIN SIDEBAR
+======================================== */
+
+function showAdminSection(sectionName) {
+
+    const sections = {
+
+        dashboard:
+            document.getElementById(
+                "adminDashboardSection"
+            ),
+
+        users:
+            document.getElementById(
+                "adminUsersSection"
+            ),
+
+        patients:
+            document.getElementById(
+                "adminPatientsSection"
+            ),
+
+        predictions:
+            document.getElementById(
+                "adminPredictionsSection"
+            )
+    };
+
+
+    Object.values(sections).forEach(
+        function (section) {
+
+            if (section) {
+                section.classList.remove("active");
+            }
+
+        }
+    );
+
+
+    if (sections[sectionName]) {
+
+        sections[sectionName]
+            .classList.add("active");
     }
 
 
-    if (
-        adminRiskChart
-    ) {
+    const navItems =
+        document.querySelectorAll(
+            ".admin-nav-item"
+        );
 
-        adminRiskChart.destroy();
 
-        adminRiskChart =
-            null;
+    navItems.forEach(
+        function (item) {
+
+            item.classList.remove("active");
+
+            if (
+                item.dataset.section ===
+                sectionName
+            ) {
+
+                item.classList.add("active");
+            }
+        }
+    );
+
+
+    const titles = {
+
+        dashboard: "Dashboard",
+
+        users: "Users",
+
+        patients: "Patients",
+
+        predictions: "Predictions"
+    };
+
+
+    const title =
+        document.getElementById(
+            "adminPageTitle"
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            titles[sectionName] ||
+            "Dashboard";
+    }
+
+
+    closeAdminSidebar();
+}
+
+
+function initializeAdminNavigation() {
+
+    const navItems =
+        document.querySelectorAll(
+            ".admin-nav-item"
+        );
+
+
+    navItems.forEach(
+        function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+                    const section =
+                        item.dataset.section;
+
+                    showAdminSection(
+                        section
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    const viewAllBtn =
+        document.querySelector(
+            "[data-section-target='predictions']"
+        );
+
+
+    if (viewAllBtn) {
+
+        viewAllBtn.addEventListener(
+            "click",
+            function () {
+
+                showAdminSection(
+                    "predictions"
+                );
+
+            }
+        );
     }
 }
 
 
 /* ========================================
-   CREATE PREDICTION BAR CHART
+   MOBILE SIDEBAR
 ======================================== */
 
-function createAdminPredictionChart(
-    predictions
+function openAdminSidebar() {
+
+    const sidebar =
+        document.getElementById(
+            "adminSidebar"
+        );
+
+    const overlay =
+        document.getElementById(
+            "adminSidebarOverlay"
+        );
+
+
+    if (sidebar) {
+        sidebar.classList.add("open");
+    }
+
+    if (overlay) {
+        overlay.classList.add("active");
+    }
+}
+
+
+function closeAdminSidebar() {
+
+    const sidebar =
+        document.getElementById(
+            "adminSidebar"
+        );
+
+    const overlay =
+        document.getElementById(
+            "adminSidebarOverlay"
+        );
+
+
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+
+    if (overlay) {
+        overlay.classList.remove("active");
+    }
+}
+
+
+function initializeAdminMobileMenu() {
+
+    const menuBtn =
+        document.getElementById(
+            "adminMenuBtn"
+        );
+
+    const overlay =
+        document.getElementById(
+            "adminSidebarOverlay"
+        );
+
+
+    if (menuBtn) {
+
+        menuBtn.addEventListener(
+            "click",
+            function () {
+
+                openAdminSidebar();
+
+            }
+        );
+    }
+
+
+    if (overlay) {
+
+        overlay.addEventListener(
+            "click",
+            function () {
+
+                closeAdminSidebar();
+
+            }
+        );
+    }
+}
+
+
+/* ========================================
+   ADMIN LOGOUT
+======================================== */
+
+function initializeAdminLogout() {
+
+    const logoutBtn =
+        document.getElementById(
+            "adminLogoutBtn"
+        );
+
+
+    if (!logoutBtn) {
+        return;
+    }
+
+
+    logoutBtn.addEventListener(
+        "click",
+        function () {
+
+            removeToken();
+
+            window.location.href =
+                "/auth";
+        }
+    );
+}
+
+
+/* ========================================
+   LOAD ADMIN NAME
+======================================== */
+
+function loadAdminName() {
+
+    const userText =
+        localStorage.getItem("user");
+
+    let user = null;
+
+
+    if (userText) {
+
+        try {
+
+            user =
+                JSON.parse(userText);
+
+        } catch (error) {
+
+            console.error(
+                "Unable to parse stored user:",
+                error
+            );
+        }
+    }
+
+
+    const name =
+        user?.name ||
+        "Admin";
+
+
+    const adminName =
+        document.getElementById(
+            "adminName"
+        );
+
+
+    const sidebarAdminName =
+        document.getElementById(
+            "sidebarAdminName"
+        );
+
+
+    if (adminName) {
+        adminName.textContent = name;
+    }
+
+
+    if (sidebarAdminName) {
+        sidebarAdminName.textContent = name;
+    }
+}
+
+
+/* ========================================
+   SET ADMIN TEXT
+======================================== */
+
+function setAdminText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.textContent =
+            value ?? "0";
+    }
+}
+
+
+/* ========================================
+   LOAD ADMIN DASHBOARD
+======================================== */
+
+async function loadAdminDashboard() {
+
+    try {
+
+        const data =
+            await adminRequest(
+                "/api/admin/dashboard"
+            );
+
+
+        console.log(
+            "Admin dashboard:",
+            data
+        );
+
+
+        const statistics =
+            data.statistics ||
+            data.stats ||
+            data.data ||
+            {};
+
+
+        const totalUsers =
+            adminValue(
+                statistics,
+                "total_users",
+                "users",
+                "user_count"
+            );
+
+
+        const totalPatients =
+            adminValue(
+                statistics,
+                "total_patients",
+                "patients",
+                "patient_count"
+            );
+
+
+        const totalPredictions =
+            adminValue(
+                statistics,
+                "total_predictions",
+                "predictions",
+                "prediction_count"
+            );
+
+
+        const highRisk =
+            adminValue(
+                statistics,
+                "high_risk",
+                "high",
+                "highRisk"
+            );
+
+
+        const mediumRisk =
+            adminValue(
+                statistics,
+                "medium_risk",
+                "medium",
+                "mediumRisk"
+            );
+
+
+        const lowRisk =
+            adminValue(
+                statistics,
+                "low_risk",
+                "low",
+                "lowRisk"
+            );
+
+
+        setAdminText(
+            "totalUsers",
+            totalUsers || 0
+        );
+
+
+        setAdminText(
+            "totalPatients",
+            totalPatients || 0
+        );
+
+
+        setAdminText(
+            "totalPredictions",
+            totalPredictions || 0
+        );
+
+
+        setAdminText(
+            "highRisk",
+            highRisk || 0
+        );
+
+
+        setAdminText(
+            "highRiskSummary",
+            highRisk || 0
+        );
+
+
+        setAdminText(
+            "mediumRisk",
+            mediumRisk || 0
+        );
+
+
+        setAdminText(
+            "lowRisk",
+            lowRisk || 0
+        );
+
+
+        createAdminRiskPieChart(
+            {
+                low:
+                    Number(lowRisk || 0),
+
+                medium:
+                    Number(mediumRisk || 0),
+
+                high:
+                    Number(highRisk || 0)
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin dashboard loading error:",
+            error
+        );
+
+        showAdminError(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   RISK PIE CHART
+======================================== */
+
+function createAdminRiskPieChart(
+    riskData
 ) {
 
     const canvas =
         document.getElementById(
-            "predictionChart"
+            "riskPieChart"
         );
 
 
     if (!canvas) {
-
         return;
     }
 
@@ -2888,95 +4237,165 @@ function createAdminPredictionChart(
     }
 
 
-    const diseaseCounts = {
+    if (adminRiskPieChart) {
 
-        diabetes: 0,
+        adminRiskPieChart.destroy();
 
-        heart: 0,
-
-        kidney: 0,
-
-        liver: 0,
-
-        parkinsons: 0,
-
-        stroke: 0
-    };
-
-
-    if (
-        Array.isArray(
-            predictions
-        )
-    ) {
-
-        predictions.forEach(
-            function (prediction) {
-
-                const disease =
-                    String(
-                        prediction.disease ||
-                        ""
-                    )
-                        .toLowerCase()
-                        .trim();
-
-
-                if (
-                    disease.includes(
-                        "diabetes"
-                    )
-                ) {
-
-                    diseaseCounts.diabetes++;
-
-                } else if (
-                    disease.includes(
-                        "heart"
-                    )
-                ) {
-
-                    diseaseCounts.heart++;
-
-                } else if (
-                    disease.includes(
-                        "kidney"
-                    )
-                ) {
-
-                    diseaseCounts.kidney++;
-
-                } else if (
-                    disease.includes(
-                        "liver"
-                    )
-                ) {
-
-                    diseaseCounts.liver++;
-
-                } else if (
-                    disease.includes(
-                        "parkinson"
-                    )
-                ) {
-
-                    diseaseCounts.parkinsons++;
-
-                } else if (
-                    disease.includes(
-                        "stroke"
-                    )
-                ) {
-
-                    diseaseCounts.stroke++;
-                }
-
-            }
-        );
+        adminRiskPieChart = null;
     }
 
 
-    const labels = [
+    adminRiskPieChart =
+        new Chart(
+            canvas,
+            {
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+                        "Low Risk",
+                        "Medium Risk",
+                        "High Risk"
+                    ],
+
+                    datasets: [
+
+                        {
+                            data: [
+                                riskData.low,
+                                riskData.medium,
+                                riskData.high
+                            ],
+
+                            backgroundColor: [
+                                "#20c58a",
+                                "#f5b942",
+                                "#ef5b5b"
+                            ],
+
+                            borderWidth: 0,
+
+                            hoverOffset: 8
+                        }
+
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    cutout: "68%",
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom",
+
+                            labels: {
+
+                                padding: 18,
+
+                                usePointStyle: true
+                            }
+                        },
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label:
+                                    function (
+                                        context
+                                    ) {
+
+                                        const values =
+                                            context
+                                                .dataset
+                                                .data;
+
+                                        const total =
+                                            values.reduce(
+                                                function (
+                                                    sum,
+                                                    value
+                                                ) {
+
+                                                    return (
+                                                        sum +
+                                                        Number(value)
+                                                    );
+
+                                                },
+                                                0
+                                            );
+
+                                        const value =
+                                            Number(
+                                                context.raw
+                                            );
+
+                                        const percentage =
+                                            total > 0
+                                                ? (
+                                                    value /
+                                                    total
+                                                ) *
+                                                100
+                                                : 0;
+
+                                        return (
+                                            ` ${context.label}: ` +
+                                            `${value} ` +
+                                            `(${percentage.toFixed(1)}%)`
+                                        );
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+}
+
+
+/* ========================================
+   DISEASE BAR CHART
+======================================== */
+
+function createAdminDiseaseBarChart(
+    predictions
+) {
+
+    const canvas =
+        document.getElementById(
+            "diseaseBarChart"
+        );
+
+
+    if (!canvas) {
+        return;
+    }
+
+
+    if (
+        typeof Chart === "undefined"
+    ) {
+
+        console.warn(
+            "Chart.js is not loaded."
+        );
+
+        return;
+    }
+
+
+    const diseaseNames = [
 
         "Diabetes",
 
@@ -2992,23 +4411,59 @@ function createAdminPredictionChart(
     ];
 
 
-    const values = [
+    const diseaseCounts = {
 
-        diseaseCounts.diabetes,
+        "Diabetes": 0,
 
-        diseaseCounts.heart,
+        "Heart Disease": 0,
 
-        diseaseCounts.kidney,
+        "Kidney Disease": 0,
 
-        diseaseCounts.liver,
+        "Liver Disease": 0,
 
-        diseaseCounts.parkinsons,
+        "Parkinson's Disease": 0,
 
-        diseaseCounts.stroke
-    ];
+        "Stroke": 0
+    };
 
 
-    adminPredictionChart =
+    if (
+        Array.isArray(
+            predictions
+        )
+    ) {
+
+        predictions.forEach(
+            function (prediction) {
+
+                const disease =
+                    adminFormatDisease(
+                        prediction.disease
+                    );
+
+
+                if (
+                    diseaseCounts[disease] !==
+                    undefined
+                ) {
+
+                    diseaseCounts[disease]++;
+                }
+
+            }
+        );
+    }
+
+
+    if (adminDiseaseBarChart) {
+
+        adminDiseaseBarChart.destroy();
+
+        adminDiseaseBarChart = null;
+    }
+
+
+    adminDiseaseBarChart =
         new Chart(
             canvas,
             {
@@ -3017,22 +4472,34 @@ function createAdminPredictionChart(
                 data: {
 
                     labels:
-                        labels,
+                        diseaseNames,
 
                     datasets: [
 
                         {
                             label:
-                                "Total Predictions",
+                                "Predictions",
 
                             data:
-                                values,
+                                diseaseNames.map(
+                                    function (
+                                        disease
+                                    ) {
 
-                            borderWidth:
-                                1,
+                                        return (
+                                            diseaseCounts[
+                                                disease
+                                            ]
+                                        );
+                                    }
+                                ),
 
-                            borderRadius:
-                                8
+                            borderWidth: 1,
+
+                            borderRadius: 8,
+
+                            backgroundColor:
+                                "#20c58a"
                         }
 
                     ]
@@ -3040,8 +4507,7 @@ function createAdminPredictionChart(
 
                 options: {
 
-                    responsive:
-                        true,
+                    responsive: true,
 
                     maintainAspectRatio:
                         false,
@@ -3049,8 +4515,8 @@ function createAdminPredictionChart(
                     plugins: {
 
                         legend: {
-                            display:
-                                false
+
+                            display: false
                         },
 
                         tooltip: {
@@ -3063,8 +4529,7 @@ function createAdminPredictionChart(
                                     ) {
 
                                         return (
-                                            " Predictions: " +
-                                            context.raw
+                                            ` Predictions: ${context.raw}`
                                         );
                                     }
                             }
@@ -3075,16 +4540,13 @@ function createAdminPredictionChart(
 
                         y: {
 
-                            beginAtZero:
-                                true,
+                            beginAtZero: true,
 
                             ticks: {
 
-                                precision:
-                                    0,
+                                precision: 0,
 
-                                stepSize:
-                                    1
+                                stepSize: 1
                             }
                         },
 
@@ -3092,11 +4554,9 @@ function createAdminPredictionChart(
 
                             ticks: {
 
-                                maxRotation:
-                                    0,
+                                maxRotation: 25,
 
-                                minRotation:
-                                    0
+                                minRotation: 0
                             }
                         }
                     }
@@ -3107,209 +4567,1713 @@ function createAdminPredictionChart(
 
 
 /* ========================================
-   CREATE RISK DOUGHNUT CHART
+   UPDATE MONITORING
 ======================================== */
 
-function createAdminRiskChart(
-    statistics
+function updateAdminMonitoring(
+    predictions
 ) {
 
-    const canvas =
+    const diseaseNames = [
+
+        "Diabetes",
+
+        "Heart Disease",
+
+        "Kidney Disease",
+
+        "Liver Disease",
+
+        "Parkinson's Disease",
+
+        "Stroke"
+    ];
+
+
+    const diseaseCounts = {
+
+        "Diabetes": 0,
+
+        "Heart Disease": 0,
+
+        "Kidney Disease": 0,
+
+        "Liver Disease": 0,
+
+        "Parkinson's Disease": 0,
+
+        "Stroke": 0
+    };
+
+
+    if (
+        Array.isArray(
+            predictions
+        )
+    ) {
+
+        predictions.forEach(
+            function (prediction) {
+
+                const disease =
+                    adminFormatDisease(
+                        prediction.disease
+                    );
+
+
+                if (
+                    diseaseCounts[disease] !==
+                    undefined
+                ) {
+
+                    diseaseCounts[disease]++;
+                }
+
+            }
+        );
+    }
+
+
+    /* ====================================
+       DISEASE COUNT
+    ==================================== */
+
+    setAdminText(
+        "diseaseCount",
+        diseaseNames.length
+    );
+
+
+    /* ====================================
+       TOP DISEASE
+    ==================================== */
+
+    let topDisease = "—";
+    let topCount = 0;
+
+
+    diseaseNames.forEach(
+        function (disease) {
+
+            if (
+                diseaseCounts[disease] >
+                topCount
+            ) {
+
+                topCount =
+                    diseaseCounts[disease];
+
+                topDisease =
+                    disease;
+            }
+
+        }
+    );
+
+
+    setAdminText(
+        "topDisease",
+        topCount > 0
+            ? topDisease
+            : "—"
+    );
+
+
+    /* ====================================
+       LATEST ACTIVITY
+    ==================================== */
+
+    let latestDate = null;
+
+
+    if (
+        Array.isArray(
+            predictions
+        )
+    ) {
+
+        predictions.forEach(
+            function (prediction) {
+
+                const date =
+                    adminValue(
+                        prediction,
+                        "created_at",
+                        "date",
+                        "prediction_date",
+                        "createdAt"
+                    );
+
+
+                if (!date) {
+                    return;
+                }
+
+
+                const currentDate =
+                    new Date(date);
+
+
+                if (
+                    Number.isNaN(
+                        currentDate.getTime()
+                    )
+                ) {
+
+                    return;
+                }
+
+
+                if (
+                    !latestDate ||
+                    currentDate >
+                    latestDate
+                ) {
+
+                    latestDate =
+                        currentDate;
+                }
+
+            }
+        );
+    }
+
+
+    setAdminText(
+        "latestActivity",
+        latestDate
+            ? adminFormatDate(
+                latestDate
+            )
+            : "—"
+    );
+
+
+    /* ====================================
+       MONITORING LIST
+    ==================================== */
+
+    const monitoring =
         document.getElementById(
-            "riskChart"
+            "diseaseMonitoring"
         );
 
 
-    if (!canvas) {
+    if (!monitoring) {
+        return;
+    }
 
+
+    const maxCount =
+        Math.max(
+            ...Object.values(
+                diseaseCounts
+            ),
+            1
+        );
+
+
+    monitoring.innerHTML =
+        diseaseNames.map(
+            function (disease) {
+
+                const count =
+                    diseaseCounts[disease];
+
+
+                const progress =
+                    (
+                        count /
+                        maxCount
+                    ) *
+                    100;
+
+
+                return `
+                    <div class="monitoring-item">
+
+                        <span>
+                            ${adminEscape(disease)}
+                        </span>
+
+                        <div class="monitoring-progress">
+                            <div
+                                class="monitoring-progress-bar"
+                                style="width: ${progress}%"
+                            ></div>
+                        </div>
+
+                        <strong>
+                            ${count}
+                        </strong>
+
+                    </div>
+                `;
+
+            }
+        ).join("");
+}
+
+
+/* ========================================
+   RECENT PREDICTIONS
+======================================== */
+
+function renderRecentPredictions(
+    predictions
+) {
+
+    const tbody =
+        document.getElementById(
+            "recentPredictionsBody"
+        );
+
+
+    if (!tbody) {
         return;
     }
 
 
     if (
-        typeof Chart === "undefined"
+        !Array.isArray(
+            predictions
+        ) ||
+        predictions.length === 0
     ) {
 
-        console.warn(
-            "Chart.js is not loaded."
-        );
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    class="admin-empty"
+                >
+                    No prediction records found.
+                </td>
+            </tr>
+        `;
 
         return;
     }
 
 
-    const low =
-        Number(
-            statistics?.low_risk ||
-            0
-        );
+    const recent =
+        [...predictions]
+            .sort(
+                function (a, b) {
 
+                    const dateA =
+                        new Date(
+                            adminValue(
+                                a,
+                                "created_at",
+                                "date",
+                                "prediction_date"
+                            )
+                        ).getTime();
 
-    const medium =
-        Number(
-            statistics?.medium_risk ||
-            0
-        );
+                    const dateB =
+                        new Date(
+                            adminValue(
+                                b,
+                                "created_at",
+                                "date",
+                                "prediction_date"
+                            )
+                        ).getTime();
 
-
-    const high =
-        Number(
-            statistics?.high_risk ||
-            0
-        );
-
-
-    adminRiskChart =
-        new Chart(
-            canvas,
-            {
-                type: "doughnut",
-
-                data: {
-
-                    labels: [
-
-                        "Low Risk",
-
-                        "Medium Risk",
-
-                        "High Risk"
-                    ],
-
-                    datasets: [
-
-                        {
-                            label:
-                                "Risk Distribution",
-
-                            data: [
-                                low,
-                                medium,
-                                high
-                            ],
-
-                            borderWidth:
-                                2,
-
-                            hoverOffset:
-                                8
-                        }
-
-                    ]
-                },
-
-                options: {
-
-                    responsive:
-                        true,
-
-                    maintainAspectRatio:
-                        false,
-
-                    cutout:
-                        "65%",
-
-                    plugins: {
-
-                        legend: {
-
-                            position:
-                                "bottom",
-
-                            labels: {
-
-                                padding:
-                                    18,
-
-                                usePointStyle:
-                                    true
-                            }
-                        },
-
-                        tooltip: {
-
-                            callbacks: {
-
-                                label:
-                                    function (
-                                        context
-                                    ) {
-
-                                        const total =
-                                            context
-                                                .dataset
-                                                .data
-                                                .reduce(
-                                                    function (
-                                                        sum,
-                                                        value
-                                                    ) {
-
-                                                        return (
-                                                            sum +
-                                                            Number(
-                                                                value
-                                                            )
-                                                        );
-
-                                                    },
-                                                    0
-                                                );
-
-
-                                        const value =
-                                            Number(
-                                                context.raw
-                                            );
-
-
-                                        let percentage =
-                                            0;
-
-
-                                        if (
-                                            total > 0
-                                        ) {
-
-                                            percentage =
-                                                (
-                                                    value /
-                                                    total
-                                                ) *
-                                                100;
-                                        }
-
-
-                                        return (
-                                            " " +
-                                            context.label +
-                                            ": " +
-                                            value +
-                                            " (" +
-                                            percentage.toFixed(
-                                                1
-                                            ) +
-                                            "%)"
-                                        );
-                                    }
-                            }
-                        }
-                    }
+                    return dateB - dateA;
                 }
+            )
+            .slice(0, 10);
+
+
+    tbody.innerHTML =
+        recent.map(
+            function (prediction) {
+
+                const id =
+                    adminValue(
+                        prediction,
+                        "id",
+                        "prediction_id"
+                    );
+
+
+                const patient =
+                    adminValue(
+                        prediction,
+                        "patient_name",
+                        "patient",
+                        "patient_id"
+                    );
+
+
+                const disease =
+                    adminFormatDisease(
+                        prediction.disease
+                    );
+
+
+                const predictionValue =
+                    adminPredictionLabel(
+                        adminValue(
+                            prediction,
+                            "prediction",
+                            "result",
+                            "label"
+                        )
+                    );
+
+
+                const probability =
+                    adminFormatProbability(
+                        adminValue(
+                            prediction,
+                            "probability",
+                            "risk_probability",
+                            "confidence"
+                        )
+                    );
+
+
+                const risk =
+                    adminNormalizeRisk(
+                        adminValue(
+                            prediction,
+                            "risk_level",
+                            "risk"
+                        )
+                    );
+
+
+                const date =
+                    adminFormatDate(
+                        adminValue(
+                            prediction,
+                            "created_at",
+                            "date",
+                            "prediction_date"
+                        )
+                    );
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            ${adminEscape(id)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(patient)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(disease)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(predictionValue)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(probability)}
+                        </td>
+
+                        <td>
+                            <span class="${adminRiskClass(risk)}">
+                                ${adminEscape(risk)}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${adminEscape(date)}
+                        </td>
+
+                    </tr>
+                `;
+
             }
-        );
+        ).join("");
 }
 
 
 /* ========================================
-   LOAD ADMIN DASHBOARD CHARTS
+   LOAD ADMIN PREDICTIONS
 ======================================== */
 
-async function loadAdminDashboardCharts() {
+async function loadAdminPredictions() {
 
-    /*
-     * Only run on admin page.
-     */
+    try {
+
+        const data =
+            await adminRequest(
+                "/api/admin/predictions"
+            );
+
+
+        console.log(
+            "Admin predictions:",
+            data
+        );
+
+
+        adminPredictions =
+            Array.isArray(
+                data.predictions
+            )
+                ? data.predictions
+                : Array.isArray(data)
+                    ? data
+                    : [];
+
+
+        renderRecentPredictions(
+            adminPredictions
+        );
+
+
+        createAdminDiseaseBarChart(
+            adminPredictions
+        );
+
+
+        updateAdminMonitoring(
+            adminPredictions
+        );
+
+
+        populateDiseaseFilter(
+            adminPredictions
+        );
+
+
+        renderAllPredictions();
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin predictions loading error:",
+            error
+        );
+
+
+        showAdminError(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   DISEASE FILTER
+======================================== */
+
+function populateDiseaseFilter(
+    predictions
+) {
+
+    const select =
+        document.getElementById(
+            "diseaseFilter"
+        );
+
+
+    if (!select) {
+        return;
+    }
+
+
+    const currentValue =
+        select.value;
+
+
+    const diseases = [
+        "Diabetes",
+        "Heart Disease",
+        "Kidney Disease",
+        "Liver Disease",
+        "Parkinson's Disease",
+        "Stroke"
+    ];
+
+
+    select.innerHTML = `
+        <option value="">
+            All Diseases
+        </option>
+    `;
+
+
+    diseases.forEach(
+        function (disease) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                disease;
+
+            option.textContent =
+                disease;
+
+            select.appendChild(
+                option
+            );
+        }
+    );
+
+
+    if (
+        diseases.includes(
+            currentValue
+        )
+    ) {
+
+        select.value =
+            currentValue;
+    }
+}
+
+
+/* ========================================
+   FILTER ADMIN PREDICTIONS
+======================================== */
+
+function getFilteredAdminPredictions() {
+
+    const searchInput =
+        document.getElementById(
+            "predictionSearch"
+        );
+
+
+    const diseaseFilter =
+        document.getElementById(
+            "diseaseFilter"
+        );
+
+
+    const riskFilter =
+        document.getElementById(
+            "riskFilter"
+        );
+
+
+    const dateFilter =
+        document.getElementById(
+            "dateFilter"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
+
+
+    const disease =
+        diseaseFilter
+            ? diseaseFilter.value
+            : "";
+
+
+    const risk =
+        riskFilter
+            ? riskFilter.value
+            : "";
+
+
+    const date =
+        dateFilter
+            ? dateFilter.value
+            : "";
+
+
+    return adminPredictions.filter(
+        function (prediction) {
+
+            const patient =
+                String(
+                    adminValue(
+                        prediction,
+                        "patient_name",
+                        "patient",
+                        "patient_id"
+                    )
+                ).toLowerCase();
+
+
+            const predictionText =
+                String(
+                    adminValue(
+                        prediction,
+                        "prediction",
+                        "result",
+                        "label"
+                    )
+                ).toLowerCase();
+
+
+            const diseaseText =
+                adminFormatDisease(
+                    prediction.disease
+                );
+
+
+            const riskText =
+                adminNormalizeRisk(
+                    adminValue(
+                        prediction,
+                        "risk_level",
+                        "risk"
+                    )
+                );
+
+
+            const id =
+                String(
+                    adminValue(
+                        prediction,
+                        "id",
+                        "prediction_id"
+                    )
+                ).toLowerCase();
+
+
+            const dateValue =
+                adminValue(
+                    prediction,
+                    "created_at",
+                    "date",
+                    "prediction_date"
+                );
+
+
+            let matchesSearch = true;
+            let matchesDisease = true;
+            let matchesRisk = true;
+            let matchesDate = true;
+
+
+            if (search) {
+
+                const combined =
+                    `${id} ${patient} ${diseaseText} ${predictionText} ${riskText}`
+                        .toLowerCase();
+
+                matchesSearch =
+                    combined.includes(
+                        search
+                    );
+            }
+
+
+            if (disease) {
+
+                matchesDisease =
+                    diseaseText ===
+                    disease;
+            }
+
+
+            if (risk) {
+
+                matchesRisk =
+                    riskText ===
+                    risk;
+            }
+
+
+            if (date) {
+
+                const predictionDate =
+                    new Date(
+                        dateValue
+                    );
+
+
+                if (
+                    !Number.isNaN(
+                        predictionDate.getTime()
+                    )
+                ) {
+
+                    const localDate =
+                        predictionDate
+                            .toISOString()
+                            .slice(0, 10);
+
+                    matchesDate =
+                        localDate === date;
+                } else {
+
+                    matchesDate = false;
+                }
+            }
+
+
+            return (
+                matchesSearch &&
+                matchesDisease &&
+                matchesRisk &&
+                matchesDate
+            );
+        }
+    );
+}
+
+
+/* ========================================
+   RENDER ALL PREDICTIONS
+======================================== */
+
+function renderAllPredictions() {
+
+    const tbody =
+        document.getElementById(
+            "allPredictionsBody"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const predictions =
+        getFilteredAdminPredictions();
+
+
+    if (
+        predictions.length === 0
+    ) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="admin-empty"
+                >
+                    No prediction records found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    tbody.innerHTML =
+        predictions.map(
+            function (prediction) {
+
+                const id =
+                    adminValue(
+                        prediction,
+                        "id",
+                        "prediction_id"
+                    );
+
+
+                const patient =
+                    adminValue(
+                        prediction,
+                        "patient_name",
+                        "patient",
+                        "patient_id"
+                    );
+
+
+                const disease =
+                    adminFormatDisease(
+                        prediction.disease
+                    );
+
+
+                const predictionValue =
+                    adminPredictionLabel(
+                        adminValue(
+                            prediction,
+                            "prediction",
+                            "result",
+                            "label"
+                        )
+                    );
+
+
+                const probability =
+                    adminFormatProbability(
+                        adminValue(
+                            prediction,
+                            "probability",
+                            "risk_probability",
+                            "confidence"
+                        )
+                    );
+
+
+                const risk =
+                    adminNormalizeRisk(
+                        adminValue(
+                            prediction,
+                            "risk_level",
+                            "risk"
+                        )
+                    );
+
+
+                const date =
+                    adminFormatDate(
+                        adminValue(
+                            prediction,
+                            "created_at",
+                            "date",
+                            "prediction_date"
+                        )
+                    );
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            ${adminEscape(id)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(patient)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(disease)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(predictionValue)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(probability)}
+                        </td>
+
+                        <td>
+                            <span class="${adminRiskClass(risk)}">
+                                ${adminEscape(risk)}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${adminEscape(date)}
+                        </td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="admin-delete-btn"
+                                onclick="deleteAdminPrediction(${Number(id)})"
+                            >
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join("");
+}
+
+
+/* ========================================
+   LOAD USERS
+======================================== */
+
+async function loadAdminUsers() {
+
+    try {
+
+        const data =
+            await adminRequest(
+                "/api/admin/users"
+            );
+
+
+        adminUsers =
+            Array.isArray(
+                data.users
+            )
+                ? data.users
+                : Array.isArray(data)
+                    ? data
+                    : [];
+
+
+        renderAdminUsers();
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin users loading error:",
+            error
+        );
+
+        showAdminError(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   RENDER USERS
+======================================== */
+
+function renderAdminUsers() {
+
+    const tbody =
+        document.getElementById(
+            "usersTableBody"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const searchInput =
+        document.getElementById(
+            "userSearch"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
+
+
+    const filtered =
+        adminUsers.filter(
+            function (user) {
+
+                const id =
+                    String(
+                        adminValue(
+                            user,
+                            "id",
+                            "user_id"
+                        )
+                    ).toLowerCase();
+
+
+                const name =
+                    String(
+                        adminValue(
+                            user,
+                            "name"
+                        )
+                    ).toLowerCase();
+
+
+                const email =
+                    String(
+                        adminValue(
+                            user,
+                            "email"
+                        )
+                    ).toLowerCase();
+
+
+                return (
+                    !search ||
+                    id.includes(search) ||
+                    name.includes(search) ||
+                    email.includes(search)
+                );
+            }
+        );
+
+
+    if (
+        filtered.length === 0
+    ) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="5"
+                    class="admin-empty"
+                >
+                    No users found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    tbody.innerHTML =
+        filtered.map(
+            function (user) {
+
+                const id =
+                    adminValue(
+                        user,
+                        "id",
+                        "user_id"
+                    );
+
+
+                const name =
+                    adminValue(
+                        user,
+                        "name"
+                    ) ||
+                    "—";
+
+
+                const email =
+                    adminValue(
+                        user,
+                        "email"
+                    ) ||
+                    "—";
+
+
+                const role =
+                    adminValue(
+                        user,
+                        "role"
+                    ) ||
+                    "user";
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            ${adminEscape(id)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(name)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(email)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(role)}
+                        </td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="admin-delete-btn"
+                                onclick="deleteAdminUser(${Number(id)})"
+                            >
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join("");
+}
+
+
+/* ========================================
+   DELETE USER
+======================================== */
+
+async function deleteAdminUser(
+    userId
+) {
+
+    if (!userId) {
+        return;
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "Are you sure you want to delete this user?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        await adminRequest(
+            `/api/admin/users/${userId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        alert(
+            "User deleted successfully."
+        );
+
+
+        await Promise.all([
+            loadAdminDashboard(),
+            loadAdminUsers(),
+            loadAdminPatients(),
+            loadAdminPredictions()
+        ]);
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete user error:",
+            error
+        );
+
+        alert(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   LOAD PATIENTS
+======================================== */
+
+async function loadAdminPatients() {
+
+    try {
+
+        const data =
+            await adminRequest(
+                "/api/admin/patients"
+            );
+
+
+        adminPatients =
+            Array.isArray(
+                data.patients
+            )
+                ? data.patients
+                : Array.isArray(data)
+                    ? data
+                    : [];
+
+
+        renderAdminPatients();
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin patients loading error:",
+            error
+        );
+
+        showAdminError(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   RENDER PATIENTS
+======================================== */
+
+function renderAdminPatients() {
+
+    const tbody =
+        document.getElementById(
+            "patientsTableBody"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const searchInput =
+        document.getElementById(
+            "patientSearch"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
+
+
+    const filtered =
+        adminPatients.filter(
+            function (patient) {
+
+                const id =
+                    String(
+                        adminValue(
+                            patient,
+                            "id",
+                            "patient_id"
+                        )
+                    ).toLowerCase();
+
+
+                const userId =
+                    String(
+                        adminValue(
+                            patient,
+                            "user_id"
+                        )
+                    ).toLowerCase();
+
+
+                const name =
+                    String(
+                        adminValue(
+                            patient,
+                            "name",
+                            "patient_name"
+                        )
+                    ).toLowerCase();
+
+
+                return (
+                    !search ||
+                    id.includes(search) ||
+                    userId.includes(search) ||
+                    name.includes(search)
+                );
+            }
+        );
+
+
+    if (
+        filtered.length === 0
+    ) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="6"
+                    class="admin-empty"
+                >
+                    No patients found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    tbody.innerHTML =
+        filtered.map(
+            function (patient) {
+
+                const id =
+                    adminValue(
+                        patient,
+                        "id",
+                        "patient_id"
+                    );
+
+
+                const userId =
+                    adminValue(
+                        patient,
+                        "user_id"
+                    );
+
+
+                const name =
+                    adminValue(
+                        patient,
+                        "name",
+                        "patient_name"
+                    ) ||
+                    "—";
+
+
+                const age =
+                    adminValue(
+                        patient,
+                        "age"
+                    ) ||
+                    "—";
+
+
+                const gender =
+                    adminValue(
+                        patient,
+                        "gender"
+                    ) ||
+                    "—";
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            ${adminEscape(id)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(userId)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(name)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(age)}
+                        </td>
+
+                        <td>
+                            ${adminEscape(gender)}
+                        </td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="admin-delete-btn"
+                                onclick="deleteAdminPatient(${Number(id)})"
+                            >
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+                `;
+
+            }
+        ).join("");
+}
+
+
+/* ========================================
+   DELETE PATIENT
+======================================== */
+
+async function deleteAdminPatient(
+    patientId
+) {
+
+    if (!patientId) {
+        return;
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "Are you sure you want to delete this patient?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        await adminRequest(
+            `/api/admin/patients/${patientId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        alert(
+            "Patient deleted successfully."
+        );
+
+
+        await Promise.all([
+            loadAdminDashboard(),
+            loadAdminPatients(),
+            loadAdminPredictions()
+        ]);
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete patient error:",
+            error
+        );
+
+        alert(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   DELETE PREDICTION
+======================================== */
+
+async function deleteAdminPrediction(
+    predictionId
+) {
+
+    if (!predictionId) {
+        return;
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "Are you sure you want to delete this prediction?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        await adminRequest(
+            `/api/admin/predictions/${predictionId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        alert(
+            "Prediction deleted successfully."
+        );
+
+
+        await Promise.all([
+            loadAdminDashboard(),
+            loadAdminPredictions()
+        ]);
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete prediction error:",
+            error
+        );
+
+        alert(
+            error.message
+        );
+    }
+}
+
+
+/* ========================================
+   ADMIN SEARCH AND FILTERS
+======================================== */
+
+function initializeAdminFilters() {
+
+    const userSearch =
+        document.getElementById(
+            "userSearch"
+        );
+
+
+    if (userSearch) {
+
+        userSearch.addEventListener(
+            "input",
+            function () {
+
+                renderAdminUsers();
+
+            }
+        );
+    }
+
+
+    const patientSearch =
+        document.getElementById(
+            "patientSearch"
+        );
+
+
+    if (patientSearch) {
+
+        patientSearch.addEventListener(
+            "input",
+            function () {
+
+                renderAdminPatients();
+
+            }
+        );
+    }
+
+
+    const predictionSearch =
+        document.getElementById(
+            "predictionSearch"
+        );
+
+
+    const diseaseFilter =
+        document.getElementById(
+            "diseaseFilter"
+        );
+
+
+    const riskFilter =
+        document.getElementById(
+            "riskFilter"
+        );
+
+
+    const dateFilter =
+        document.getElementById(
+            "dateFilter"
+        );
+
+
+    if (predictionSearch) {
+
+        predictionSearch.addEventListener(
+            "input",
+            renderAllPredictions
+        );
+    }
+
+
+    if (diseaseFilter) {
+
+        diseaseFilter.addEventListener(
+            "change",
+            renderAllPredictions
+        );
+    }
+
+
+    if (riskFilter) {
+
+        riskFilter.addEventListener(
+            "change",
+            renderAllPredictions
+        );
+    }
+
+
+    if (dateFilter) {
+
+        dateFilter.addEventListener(
+            "change",
+            renderAllPredictions
+        );
+    }
+}
+
+
+/* ========================================
+   REFRESH ADMIN DASHBOARD
+======================================== */
+
+function initializeAdminRefresh() {
+
+    const refreshBtn =
+        document.getElementById(
+            "refreshAdminBtn"
+        );
+
+
+    if (!refreshBtn) {
+        return;
+    }
+
+
+    refreshBtn.addEventListener(
+        "click",
+        async function () {
+
+            refreshBtn.disabled =
+                true;
+
+
+            refreshBtn.classList.add(
+                "loading"
+            );
+
+
+            hideAdminError();
+
+
+            try {
+
+                await Promise.all([
+
+                    loadAdminDashboard(),
+
+                    loadAdminUsers(),
+
+                    loadAdminPatients(),
+
+                    loadAdminPredictions()
+
+                ]);
+
+            } catch (error) {
+
+                console.error(
+                    "Admin refresh error:",
+                    error
+                );
+
+            } finally {
+
+                refreshBtn.disabled =
+                    false;
+
+                refreshBtn.classList.remove(
+                    "loading"
+                );
+            }
+
+        }
+    );
+}
+
+
+/* ========================================
+   ADMIN INITIALIZATION
+======================================== */
+
+async function initializeAdminDashboard() {
 
     if (
         window.location.pathname !==
@@ -3320,114 +6284,70 @@ async function loadAdminDashboardCharts() {
     }
 
 
-    const predictionCanvas =
-        document.getElementById(
-            "predictionChart"
-        );
+    console.log(
+        "Admin dashboard initialized."
+    );
 
 
-    const riskCanvas =
-        document.getElementById(
-            "riskChart"
-        );
+    hideAdminError();
 
 
-    if (
-        !predictionCanvas &&
-        !riskCanvas
-    ) {
-
-        console.log(
-            "Admin chart containers not found."
-        );
-
-        return;
-    }
+    loadAdminName();
 
 
-    try {
+    initializeAdminNavigation();
 
-        const dashboardData =
-            await adminRequest(
-                "/api/admin/dashboard"
-            );
+    initializeAdminMobileMenu();
 
+    initializeAdminLogout();
 
-        const predictionData =
-            await adminRequest(
-                "/api/admin/predictions"
-            );
+    initializeAdminFilters();
+
+    initializeAdminRefresh();
 
 
-        const statistics =
-            dashboardData.statistics ||
-            dashboardData.data ||
-            {};
+    showAdminSection(
+        "dashboard"
+    );
 
 
-        const predictions =
-            predictionData.predictions ||
-            [];
+    await Promise.all([
 
+        loadAdminDashboard(),
 
-        console.log(
-            "Admin dashboard statistics:",
-            statistics
-        );
+        loadAdminUsers(),
 
+        loadAdminPatients(),
 
-        console.log(
-            "Admin predictions:",
-            predictions
-        );
+        loadAdminPredictions()
 
-
-        destroyAdminCharts();
-
-
-        createAdminPredictionChart(
-            predictions
-        );
-
-
-        createAdminRiskChart(
-            statistics
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Admin dashboard chart error:",
-            error
-        );
-    }
+    ]);
 }
 
 
 /* ========================================
-   ADMIN DASHBOARD INITIALIZATION
+   ADMIN DOM READY
 ======================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    async function () {
 
-        if (
-            window.location.pathname !==
-            "/admin"
-        ) {
+        try {
 
-            return;
+            await initializeAdminDashboard();
+
+        } catch (error) {
+
+            console.error(
+                "Admin initialization error:",
+                error
+            );
+
+            showAdminError(
+                error.message
+            );
         }
-
-
-        console.log(
-            "Admin dashboard initialized."
-        );
-
-
-        loadAdminDashboardCharts();
 
     }
 );
