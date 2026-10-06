@@ -12,7 +12,6 @@ class User(db.Model):
     role = db.Column(db.String(20), default="user", nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    patients = db.relationship("Patient", backref="user", lazy=True)
     predictions = db.relationship("Prediction", backref="user", lazy=True)
 
     def __repr__(self):

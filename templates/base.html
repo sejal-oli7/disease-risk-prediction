@@ -72,21 +72,18 @@
         <nav class="sidebar-nav">
 
             <a href="{{ url_for('dashboard') }}">
-                <span>🏠</span> Dashboard
+                 Dashboard
             </a>
 
             <a href="{{ url_for('prediction') }}"
                {% if request.path == "/prediction" %}class="active"{% endif %}>
-                <span>🩺</span> Disease Prediction
+                 Disease Prediction
             </a>
 
-            <a href="{{ url_for('patients') }}">
-                <span>👤</span> My Patients
-            </a>
 
             <a href="{{ url_for('prediction_history') }}"
                {% if request.path == "/prediction-history" %}class="active"{% endif %}>
-                <span>📊</span> Prediction History
+                Prediction History
             </a>
 
           
@@ -199,7 +196,7 @@
             <p><i class="fa-solid fa-envelope"></i> support@multi.com</p>
             <p><i class="fa-solid fa-phone"></i> +977 98XXXXXXXX</p>
             <p><i class="fa-solid fa-location-dot"></i> Kathmandu, Nepal</p>
-            <p><i class="fa-solid fa-clock"></i> Sun – Fri, 9:00 AM – 5:00 PM</p>
+           
         </div>
 
     </div>

@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models.patient import Patient
 from models.prediction import Prediction
 
 
@@ -16,15 +15,9 @@ dashboard_bp = Blueprint(
 def dashboard_stats():
 
     try:
+
         # Get the logged-in user's ID from JWT
         user_id = int(get_jwt_identity())
-
-        # Get only patients belonging to the logged-in user
-        patients = (
-            Patient.query
-            .filter_by(user_id=user_id)
-            .all()
-        )
 
         # Get only predictions belonging to the logged-in user
         predictions = (
@@ -37,28 +30,42 @@ def dashboard_stats():
         prediction_data = []
 
         for item in predictions:
+
             prediction_data.append({
+
                 "id": item.id,
+
                 "user_id": item.user_id,
-                "patient_id": item.patient_id,
+
                 "disease": item.disease,
+
                 "prediction": item.prediction,
+
                 "probability": item.probability,
+
                 "risk_level": item.risk_level,
+
                 "created_at": (
                     item.created_at.isoformat()
                     if item.created_at
                     else None
                 )
+
             })
 
         return jsonify({
+
             "total_predictions": len(predictions),
-            "total_patients": len(patients),
+
+
             "predictions": prediction_data
+
         }), 200
 
     except Exception as e:
+
         return jsonify({
+
             "error": str(e)
+
         }), 500

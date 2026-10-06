@@ -52,18 +52,22 @@ async function parseResponse(response) {
 }
 
 
-/* ========================================
-   API REQUEST
-======================================== */
-
 async function apiRequest(url, options = {}) {
 
     const token = getToken();
 
     const headers = {
-        "Content-Type": "application/json",
         ...(options.headers || {})
     };
+
+    /*
+       Do not set Content-Type manually for FormData.
+       The browser automatically sets multipart/form-data
+       with the required boundary.
+    */
+    if (!(options.body instanceof FormData)) {
+        headers["Content-Type"] = "application/json";
+    }
 
     if (token) {
         headers["Authorization"] =
@@ -455,6 +459,24 @@ const diseaseFields = {
     diabetes: [
 
         {
+            name: "Age",
+            label: "Age",
+            type: "number",
+            placeholder:
+                "Enter age"
+        },
+
+        {
+    name: "Gender",
+    label: "Gender",
+    type: "select",
+    options: [
+        "Male",
+        "Female"
+    ]
+},
+
+        {
             name: "Pregnancies",
             label: "Pregnancies",
             type: "number",
@@ -518,13 +540,7 @@ const diseaseFields = {
                 "Enter pedigree value"
         },
 
-        {
-            name: "Age",
-            label: "Age",
-            type: "number",
-            placeholder:
-                "Enter age"
-        }
+        
 
     ],
 
@@ -1060,6 +1076,8 @@ const diseaseFields = {
 
     parkinsons: [
 
+
+
         {
             name: "MDVP:Fo(Hz)",
             label:
@@ -1289,16 +1307,6 @@ const diseaseFields = {
 
     stroke: [
 
-        {
-            name: "gender",
-            label: "Gender",
-            type: "select",
-            options: [
-                "Male",
-                "Female",
-                "Other"
-            ]
-        },
 
         {
             name: "age",
@@ -1307,7 +1315,7 @@ const diseaseFields = {
             placeholder:
                 "Enter age"
         },
-
+           
         {
             name: "hypertension",
             label: "Hypertension",
@@ -1611,9 +1619,12 @@ function createDiseaseFields(
         "";
 
 
+    const diseaseKey =
+        String(disease).trim().toLowerCase();
+
     if (
         !disease ||
-        !diseaseFields[disease]
+        !diseaseFields[diseaseKey]
     ) {
 
         diseaseFieldsContainer.style.display =
@@ -1623,17 +1634,78 @@ function createDiseaseFields(
     }
 
 
-    diseaseFields[disease].forEach(
-        function (field) {
+    diseaseFields[diseaseKey].forEach(
+    function (field) {
 
-            const fieldElement =
-                createInputField(field);
+        const fieldElement =
+            createInputField(field);
 
-            fieldsContainer.appendChild(
-                fieldElement
-            );
+        fieldsContainer.appendChild(
+            fieldElement
+        );
+    }
+);
+
+ /* ====================================
+   DIABETES GENDER LOGIC
+==================================== */
+
+if (diseaseKey === "diabetes") {
+
+    const genderSelect =
+        document.getElementById("field_Gender");
+
+    const pregnancyInput =
+        document.getElementById(
+            "field_Pregnancies"
+        );
+
+    if (
+        genderSelect &&
+        pregnancyInput
+    ) {
+
+        const pregnancyWrapper =
+            pregnancyInput.parentElement;
+
+        function updatePregnancyField() {
+
+            if (
+                genderSelect.value === "Male"
+            ) {
+
+                pregnancyWrapper.style.display =
+                    "none";
+
+                pregnancyInput.value =
+                    "0";
+
+                pregnancyInput.required =
+                    false;
+
+            } else {
+
+                pregnancyWrapper.style.display =
+                    "block";
+
+                pregnancyInput.value =
+                    "";
+
+                pregnancyInput.required =
+                    true;
+            }
         }
-    );
+
+
+        genderSelect.addEventListener(
+            "change",
+            updatePregnancyField
+        );
+
+
+        updatePregnancyField();
+    }
+}
 
 
     diseaseFieldsContainer.style.display =
@@ -1698,248 +1770,6 @@ function getFieldValue(
 
 
 /* ========================================
-   LOAD USER PATIENTS
-======================================== */
-
-async function loadPredictionPatients() {
-
-    const patientSelect =
-        document.getElementById(
-            "patient_id"
-        );
-
-    const patientNameInput =
-        document.getElementById(
-            "patient_name"
-        );
-
-
-    if (!patientSelect) {
-
-        return;
-    }
-
-
-    const token =
-        getToken();
-
-
-    if (!token) {
-
-        patientSelect.innerHTML = `
-            <option value="">
-                Please login first
-            </option>
-        `;
-
-        return;
-    }
-
-
-    try {
-
-        patientSelect.innerHTML = `
-            <option value="">
-                Loading patients...
-            </option>
-        `;
-
-
-        const response =
-            await apiRequest(
-                "/api/patients",
-                {
-                    method: "GET"
-                }
-            );
-
-
-        const data =
-            await parseResponse(
-                response
-            );
-
-
-        /* ====================================
-           TOKEN EXPIRED
-        ==================================== */
-
-        if (
-            response.status === 401
-        ) {
-
-            removeToken();
-
-            patientSelect.innerHTML = `
-                <option value="">
-                    Session expired
-                </option>
-            `;
-
-            window.location.href =
-                "/auth";
-
-            return;
-        }
-
-
-        /* ====================================
-           SERVER ERROR
-        ==================================== */
-
-        if (!response.ok) {
-
-            patientSelect.innerHTML = `
-                <option value="">
-                    Unable to load patients
-                </option>
-            `;
-
-            console.error(
-                "Patient loading error:",
-                data
-            );
-
-            return;
-        }
-
-
-        const patients =
-            Array.isArray(
-                data.patients
-            )
-                ? data.patients
-                : [];
-
-
-        /* ====================================
-           CLEAR DROPDOWN
-        ==================================== */
-
-        patientSelect.innerHTML = `
-            <option value="">
-                Select a patient
-            </option>
-        `;
-
-
-        /* ====================================
-           NO PATIENTS
-        ==================================== */
-
-        if (
-            patients.length === 0
-        ) {
-
-            patientSelect.innerHTML = `
-                <option value="">
-                    No patients found
-                </option>
-            `;
-
-            if (patientNameInput) {
-
-                patientNameInput.value = "";
-            }
-
-            return;
-        }
-
-
-        /* ====================================
-           ADD PATIENT OPTIONS
-        ==================================== */
-
-        patients.forEach(
-            function (patient) {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-
-                option.value =
-                    patient.id;
-
-
-                option.textContent =
-                    `${patient.name} (ID: ${patient.id})`;
-
-
-                option.dataset.name =
-                    patient.name || "";
-
-
-                option.dataset.age =
-                    patient.age ?? "";
-
-
-                option.dataset.gender =
-                    patient.gender || "";
-
-
-                patientSelect.appendChild(
-                    option
-                );
-            }
-        );
-
-
-        /* ====================================
-           PATIENT SELECTION
-        ==================================== */
-
-        patientSelect.onchange =
-            function () {
-
-                const selectedOption =
-                    this.options[
-                        this.selectedIndex
-                    ];
-
-
-                if (!patientNameInput) {
-
-                    return;
-                }
-
-
-                if (
-                    selectedOption &&
-                    selectedOption.value
-                ) {
-
-                    patientNameInput.value =
-                        selectedOption.dataset.name ||
-                        "";
-
-                } else {
-
-                    patientNameInput.value =
-                        "";
-                }
-            };
-
-
-    } catch (error) {
-
-        console.error(
-            "Error loading patients:",
-            error
-        );
-
-
-        patientSelect.innerHTML = `
-            <option value="">
-                Unable to load patients
-            </option>
-        `;
-    }
-}
-
-
-/* ========================================
    PREDICTION ANALYSIS CHART
 ======================================== */
 
@@ -1971,7 +1801,6 @@ function destroyPredictionAnalysisChart() {
 
 function displayPredictionAnalysis(
     data,
-    patientId,
     selectedDisease
 ) {
 
@@ -2354,7 +2183,6 @@ function hidePredictionAnalysis() {
 
 function displayPredictionResult(
     data,
-    patientId,
     selectedDisease
 ) {
 
@@ -2430,12 +2258,6 @@ function displayPredictionResult(
     const resultProbability =
         document.getElementById(
             "resultProbability"
-        );
-
-
-    const resultPatient =
-        document.getElementById(
-            "resultPatient"
         );
 
 
@@ -2576,17 +2398,6 @@ function displayPredictionResult(
 
 
     /* ====================================
-       PATIENT
-    ==================================== */
-
-    if (resultPatient) {
-
-        resultPatient.textContent =
-            patientId;
-    }
-
-
-    /* ====================================
        SHOW RESULT
     ==================================== */
 
@@ -2600,7 +2411,6 @@ function displayPredictionResult(
 
     displayPredictionAnalysis(
         data,
-        patientId,
         selectedDisease
     );
 
@@ -2626,8 +2436,78 @@ function initializePrediction() {
 
     if (!predictionForm) {
 
-        return;
-    }
+    return;
+}
+
+
+/* ====================================
+   PREDICTION METHOD SELECTION
+==================================== */
+
+const manualPredictionSection =
+    document.getElementById(
+        "manualPredictionSection"
+    );
+
+const healthReportSection =
+    document.getElementById(
+        "healthReportSection"
+    );
+
+const startManualPredictionBtn =
+    document.getElementById(
+        "startManualPredictionBtn"
+    );
+
+const startPdfAnalysisBtn =
+    document.getElementById(
+        "startPdfAnalysisBtn"
+    );
+
+
+if (startManualPredictionBtn) {
+
+    startManualPredictionBtn.addEventListener(
+        "click",
+        function () {
+
+            manualPredictionSection.style.display =
+                "block";
+
+            healthReportSection.style.display =
+                "none";
+
+            manualPredictionSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+    );
+}
+
+
+if (startPdfAnalysisBtn) {
+
+    startPdfAnalysisBtn.addEventListener(
+        "click",
+        function () {
+
+            manualPredictionSection.style.display =
+                "none";
+
+            healthReportSection.style.display =
+                "block";
+
+            healthReportSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+    );
+}
+
 
 
     const diseaseSelect =
@@ -2683,11 +2563,7 @@ function initializePrediction() {
     );
 
 
-    /* ====================================
-       LOAD USER PATIENTS
-    ==================================== */
-
-    loadPredictionPatients();
+   
 
 
     /* ====================================
@@ -2846,17 +2722,6 @@ function initializePrediction() {
                 hideLoading();
 
 
-                const patientNameInput =
-                    document.getElementById(
-                        "patient_name"
-                    );
-
-
-                if (patientNameInput) {
-
-                    patientNameInput.value =
-                        "";
-                }
             }
         );
     }
@@ -2897,81 +2762,13 @@ function initializePrediction() {
             }
 
 
+
             /* ====================================
-               PATIENT DATA
+               GET SELECTED DISEASE
             ==================================== */
-
-            const patientIdElement =
-                document.getElementById(
-                    "patient_id"
-                );
-
-
-            const patientNameElement =
-                document.getElementById(
-                    "patient_name"
-                );
-
-
-            const patientId =
-                patientIdElement
-                    ? patientIdElement.value.trim()
-                    : "";
-
-
-            const patientName =
-                patientNameElement
-                    ? patientNameElement.value.trim()
-                    : "";
-
 
             const disease =
-                diseaseSelect
-                    ? diseaseSelect.value
-                    : "";
-
-
-            /* ====================================
-               VALIDATE PATIENT
-            ==================================== */
-
-            if (!patientId) {
-
-                showError(
-                    "Please select a patient."
-                );
-
-                return;
-            }
-
-
-            const numericPatientId =
-                Number(patientId);
-
-
-            if (
-                Number.isNaN(
-                    numericPatientId
-                ) ||
-                numericPatientId <= 0
-            ) {
-
-                showError(
-                    "Selected patient is invalid."
-                );
-
-                return;
-            }
-
-
-            if (!patientName) {
-
-                showError(
-                    "Please select a valid patient."
-                );
-
-                return;
-            }
+                diseaseSelect.value;
 
 
             /* ====================================
@@ -2988,8 +2785,11 @@ function initializePrediction() {
             }
 
 
+            const diseaseKey =
+                String(disease).trim().toLowerCase();
+
             const fields =
-                diseaseFields[disease];
+                diseaseFields[diseaseKey];
 
 
             if (!fields) {
@@ -3068,12 +2868,6 @@ function initializePrediction() {
             ==================================== */
 
             const payload = {
-
-                patient_id:
-                    numericPatientId,
-
-                patient_name:
-                    patientName,
 
                 disease:
                     disease,
@@ -3217,7 +3011,6 @@ function initializePrediction() {
 
                 displayPredictionResult(
                     data,
-                    numericPatientId,
                     disease
                 );
 
@@ -3435,7 +3228,6 @@ let adminRiskPieChart = null;
 let adminDiseaseBarChart = null;
 
 let adminUsers = [];
-let adminPatients = [];
 let adminPredictions = [];
 
 
@@ -3728,11 +3520,6 @@ function showAdminSection(sectionName) {
                 "adminUsersSection"
             ),
 
-        patients:
-            document.getElementById(
-                "adminPatientsSection"
-            ),
-
         predictions:
             document.getElementById(
                 "adminPredictionsSection"
@@ -3785,8 +3572,6 @@ function showAdminSection(sectionName) {
         dashboard: "Dashboard",
 
         users: "Users",
-
-        patients: "Patients",
 
         predictions: "Predictions"
     };
@@ -4091,15 +3876,6 @@ async function loadAdminDashboard() {
             );
 
 
-        const totalPatients =
-            adminValue(
-                statistics,
-                "total_patients",
-                "patients",
-                "patient_count"
-            );
-
-
         const totalPredictions =
             adminValue(
                 statistics,
@@ -4139,12 +3915,6 @@ async function loadAdminDashboard() {
         setAdminText(
             "totalUsers",
             totalUsers || 0
-        );
-
-
-        setAdminText(
-            "totalPatients",
-            totalPatients || 0
         );
 
 
@@ -4451,7 +4221,7 @@ function createAdminDiseaseBarChart(
                 }
 
             }
-        );
+        )
     }
 
 
@@ -4899,15 +4669,6 @@ function renderRecentPredictions(
                     );
 
 
-                const patient =
-                    adminValue(
-                        prediction,
-                        "patient_name",
-                        "patient",
-                        "patient_id"
-                    );
-
-
                 const disease =
                     adminFormatDisease(
                         prediction.disease
@@ -4962,10 +4723,6 @@ function renderRecentPredictions(
 
                         <td>
                             ${adminEscape(id)}
-                        </td>
-
-                        <td>
-                            ${adminEscape(patient)}
                         </td>
 
                         <td>
@@ -5198,17 +4955,6 @@ function getFilteredAdminPredictions() {
     return adminPredictions.filter(
         function (prediction) {
 
-            const patient =
-                String(
-                    adminValue(
-                        prediction,
-                        "patient_name",
-                        "patient",
-                        "patient_id"
-                    )
-                ).toLowerCase();
-
-
             const predictionText =
                 String(
                     adminValue(
@@ -5264,7 +5010,7 @@ function getFilteredAdminPredictions() {
             if (search) {
 
                 const combined =
-                    `${id} ${patient} ${diseaseText} ${predictionText} ${riskText}`
+                    `${id} ${diseaseText} ${predictionText} ${riskText}`
                         .toLowerCase();
 
                 matchesSearch =
@@ -5381,15 +5127,6 @@ function renderAllPredictions() {
                     );
 
 
-                const patient =
-                    adminValue(
-                        prediction,
-                        "patient_name",
-                        "patient",
-                        "patient_id"
-                    );
-
-
                 const disease =
                     adminFormatDisease(
                         prediction.disease
@@ -5444,10 +5181,6 @@ function renderAllPredictions() {
 
                         <td>
                             ${adminEscape(id)}
-                        </td>
-
-                        <td>
-                            ${adminEscape(patient)}
                         </td>
 
                         <td>
@@ -5738,7 +5471,6 @@ async function deleteAdminUser(
         await Promise.all([
             loadAdminDashboard(),
             loadAdminUsers(),
-            loadAdminPatients(),
             loadAdminPredictions()
         ]);
 
@@ -5747,285 +5479,6 @@ async function deleteAdminUser(
 
         console.error(
             "Delete user error:",
-            error
-        );
-
-        alert(
-            error.message
-        );
-    }
-}
-
-
-/* ========================================
-   LOAD PATIENTS
-======================================== */
-
-async function loadAdminPatients() {
-
-    try {
-
-        const data =
-            await adminRequest(
-                "/api/admin/patients"
-            );
-
-
-        adminPatients =
-            Array.isArray(
-                data.patients
-            )
-                ? data.patients
-                : Array.isArray(data)
-                    ? data
-                    : [];
-
-
-        renderAdminPatients();
-
-
-    } catch (error) {
-
-        console.error(
-            "Admin patients loading error:",
-            error
-        );
-
-        showAdminError(
-            error.message
-        );
-    }
-}
-
-
-/* ========================================
-   RENDER PATIENTS
-======================================== */
-
-function renderAdminPatients() {
-
-    const tbody =
-        document.getElementById(
-            "patientsTableBody"
-        );
-
-
-    if (!tbody) {
-        return;
-    }
-
-
-    const searchInput =
-        document.getElementById(
-            "patientSearch"
-        );
-
-
-    const search =
-        searchInput
-            ? searchInput.value
-                .toLowerCase()
-                .trim()
-            : "";
-
-
-    const filtered =
-        adminPatients.filter(
-            function (patient) {
-
-                const id =
-                    String(
-                        adminValue(
-                            patient,
-                            "id",
-                            "patient_id"
-                        )
-                    ).toLowerCase();
-
-
-                const userId =
-                    String(
-                        adminValue(
-                            patient,
-                            "user_id"
-                        )
-                    ).toLowerCase();
-
-
-                const name =
-                    String(
-                        adminValue(
-                            patient,
-                            "name",
-                            "patient_name"
-                        )
-                    ).toLowerCase();
-
-
-                return (
-                    !search ||
-                    id.includes(search) ||
-                    userId.includes(search) ||
-                    name.includes(search)
-                );
-            }
-        );
-
-
-    if (
-        filtered.length === 0
-    ) {
-
-        tbody.innerHTML = `
-            <tr>
-                <td
-                    colspan="6"
-                    class="admin-empty"
-                >
-                    No patients found.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    tbody.innerHTML =
-        filtered.map(
-            function (patient) {
-
-                const id =
-                    adminValue(
-                        patient,
-                        "id",
-                        "patient_id"
-                    );
-
-
-                const userId =
-                    adminValue(
-                        patient,
-                        "user_id"
-                    );
-
-
-                const name =
-                    adminValue(
-                        patient,
-                        "name",
-                        "patient_name"
-                    ) ||
-                    "—";
-
-
-                const age =
-                    adminValue(
-                        patient,
-                        "age"
-                    ) ||
-                    "—";
-
-
-                const gender =
-                    adminValue(
-                        patient,
-                        "gender"
-                    ) ||
-                    "—";
-
-
-                return `
-                    <tr>
-
-                        <td>
-                            ${adminEscape(id)}
-                        </td>
-
-                        <td>
-                            ${adminEscape(userId)}
-                        </td>
-
-                        <td>
-                            ${adminEscape(name)}
-                        </td>
-
-                        <td>
-                            ${adminEscape(age)}
-                        </td>
-
-                        <td>
-                            ${adminEscape(gender)}
-                        </td>
-
-                        <td>
-                            <button
-                                type="button"
-                                class="admin-delete-btn"
-                                onclick="deleteAdminPatient(${Number(id)})"
-                            >
-                                Delete
-                            </button>
-                        </td>
-
-                    </tr>
-                `;
-
-            }
-        ).join("");
-}
-
-
-/* ========================================
-   DELETE PATIENT
-======================================== */
-
-async function deleteAdminPatient(
-    patientId
-) {
-
-    if (!patientId) {
-        return;
-    }
-
-
-    const confirmed =
-        window.confirm(
-            "Are you sure you want to delete this patient?"
-        );
-
-
-    if (!confirmed) {
-        return;
-    }
-
-
-    try {
-
-        await adminRequest(
-            `/api/admin/patients/${patientId}`,
-            {
-                method: "DELETE"
-            }
-        );
-
-
-        alert(
-            "Patient deleted successfully."
-        );
-
-
-        await Promise.all([
-            loadAdminDashboard(),
-            loadAdminPatients(),
-            loadAdminPredictions()
-        ]);
-
-
-    } catch (error) {
-
-        console.error(
-            "Delete patient error:",
             error
         );
 
@@ -6114,25 +5567,6 @@ function initializeAdminFilters() {
             function () {
 
                 renderAdminUsers();
-
-            }
-        );
-    }
-
-
-    const patientSearch =
-        document.getElementById(
-            "patientSearch"
-        );
-
-
-    if (patientSearch) {
-
-        patientSearch.addEventListener(
-            "input",
-            function () {
-
-                renderAdminPatients();
 
             }
         );
@@ -6241,7 +5675,6 @@ function initializeAdminRefresh() {
 
                     loadAdminUsers(),
 
-                    loadAdminPatients(),
 
                     loadAdminPredictions()
 
@@ -6317,7 +5750,6 @@ async function initializeAdminDashboard() {
 
         loadAdminUsers(),
 
-        loadAdminPatients(),
 
         loadAdminPredictions()
 
@@ -6351,3 +5783,939 @@ document.addEventListener(
 
     }
 );
+/* ========================================
+   MEDICAL REPORT ANALYSIS
+======================================== */
+
+function initializePdfAnalysis() {
+
+    const pdfFile =
+        document.getElementById("pdfFile");
+
+    const analyzePdfBtn =
+        document.getElementById("analyzePdfBtn");
+
+    const clearPdfBtn =
+        document.getElementById("clearPdfBtn");
+
+    const pdfLoadingBox =
+        document.getElementById("pdfLoadingBox");
+
+    const pdfErrorBox =
+        document.getElementById("pdfErrorBox");
+
+    const pdfAnalysisResult =
+        document.getElementById("pdfAnalysisResult");
+
+
+    /* ====================================
+       REQUIRED ELEMENT CHECK
+    ==================================== */
+
+    if (
+        !pdfFile ||
+        !analyzePdfBtn ||
+        !clearPdfBtn
+    ) {
+        return;
+    }
+
+
+    /* ====================================
+       ANALYZE MEDICAL REPORT
+    ==================================== */
+
+    analyzePdfBtn.addEventListener(
+        "click",
+        async function () {
+
+            /* Hide previous messages */
+
+            if (pdfErrorBox) {
+                pdfErrorBox.style.display =
+                    "none";
+            }
+
+            if (pdfAnalysisResult) {
+                pdfAnalysisResult.style.display =
+                    "none";
+            }
+
+
+            /* ====================================
+               VALIDATE FILE
+            ==================================== */
+
+            const file =
+                pdfFile.files[0];
+
+
+            if (!file) {
+
+                showPdfError(
+                    "Please select a medical report."
+                );
+
+                return;
+            }
+
+
+            /* ====================================
+               CHECK SUPPORTED FILE TYPE
+            ==================================== */
+
+            const fileName =
+                file.name.toLowerCase();
+
+            const allowedExtensions = [
+                ".pdf",
+                ".jpg",
+                ".jpeg",
+                ".png"
+            ];
+
+            const isSupported =
+                allowedExtensions.some(
+                    function (extension) {
+                        return fileName.endsWith(
+                            extension
+                        );
+                    }
+                );
+
+
+            if (!isSupported) {
+
+                showPdfError(
+                    "Only PDF, JPG, JPEG, and PNG medical reports are supported."
+                );
+
+                return;
+            }
+
+
+            /* ====================================
+               LOADING
+            ==================================== */
+
+            if (pdfLoadingBox) {
+                pdfLoadingBox.style.display =
+                    "block";
+            }
+
+            analyzePdfBtn.disabled = true;
+
+
+            try {
+
+                const formData =
+                    new FormData();
+
+
+                /*
+                   Send the uploaded medical report.
+                   Backend handles PDF extraction or
+                   OCR for image files.
+                */
+
+                formData.append(
+                    "file",
+                    file
+                );
+
+
+                /* ====================================
+                   SEND REPORT TO BACKEND
+                ==================================== */
+
+                const response =
+                    await apiRequest(
+                        "/api/predict/pdf-analyze",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                const data =
+                    await parseResponse(
+                        response
+                    );
+
+
+                console.log(
+                    "Medical report analysis response:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        data.error ||
+                        "Unable to analyze the medical report."
+                    );
+                }
+
+
+                /* ====================================
+                   DISPLAY RESULT
+                ==================================== */
+
+                displayPdfAnalysisResult(
+                    data
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Medical report analysis error:",
+                    error
+                );
+
+
+                showPdfError(
+                    error.message ||
+                    "An error occurred while analyzing the medical report."
+                );
+
+
+            } finally {
+
+                if (pdfLoadingBox) {
+                    pdfLoadingBox.style.display =
+                        "none";
+                }
+
+                analyzePdfBtn.disabled = false;
+            }
+
+        }
+    );
+
+
+    /* ====================================
+       CLEAR MEDICAL REPORT FORM
+    ==================================== */
+
+    clearPdfBtn.addEventListener(
+        "click",
+        function () {
+
+            pdfFile.value = "";
+
+
+            if (pdfErrorBox) {
+                pdfErrorBox.style.display =
+                    "none";
+            }
+
+
+            if (pdfAnalysisResult) {
+                pdfAnalysisResult.style.display =
+                    "none";
+            }
+
+
+            clearPdfAnalysisResult();
+
+        }
+    );
+}
+
+
+/* ========================================
+   INITIALIZE MEDICAL REPORT ANALYSIS
+======================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        initializePdfAnalysis();
+
+    }
+);
+
+
+/* ========================================
+   PDF ERROR
+======================================== */
+
+function showPdfError(message) {
+
+    const pdfErrorBox =
+        document.getElementById(
+            "pdfErrorBox"
+        );
+
+    const pdfErrorMessage =
+        document.getElementById(
+            "pdfErrorMessage"
+        );
+
+
+    if (pdfErrorMessage) {
+
+        pdfErrorMessage.textContent =
+            message;
+
+    }
+
+
+    if (pdfErrorBox) {
+
+        pdfErrorBox.style.display =
+            "block";
+
+        pdfErrorBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+}
+
+
+/* ========================================
+   DISPLAY PDF ANALYSIS RESULT
+======================================== */
+
+function displayPdfAnalysisResult(data) {
+
+    const result =
+        document.getElementById(
+            "pdfAnalysisResult"
+        );
+
+
+    if (!result) {
+        return;
+    }
+
+
+    /* ====================================
+       BASIC INFORMATION
+    ==================================== */
+
+    const parameterCount =
+        document.getElementById(
+            "pdfParameterCount"
+        );
+
+    const diseaseCount =
+        document.getElementById(
+            "pdfDiseaseCount"
+        );
+
+
+    const extractedValues =
+        data.extracted_values || {};
+
+
+    const predictions =
+        Array.isArray(data.predictions)
+            ? data.predictions
+            : [];
+
+
+    const notAnalyzed =
+        Array.isArray(data.not_analyzed)
+            ? data.not_analyzed
+            : [];
+
+
+    const errors =
+        Array.isArray(data.errors)
+            ? data.errors
+            : [];
+
+
+    if (parameterCount) {
+
+        parameterCount.textContent =
+            Object.keys(
+                extractedValues
+            ).length;
+    }
+
+
+    if (diseaseCount) {
+
+        diseaseCount.textContent =
+            predictions.length;
+    }
+
+
+    /* ====================================
+       EXTRACTED PARAMETERS
+    ==================================== */
+
+    renderPdfExtractedValues(
+        extractedValues
+    );
+
+
+    /* ====================================
+       DISEASE PREDICTIONS
+    ==================================== */
+
+    renderPdfPredictions(
+        predictions
+    );
+
+
+    /* ====================================
+       NOT ANALYZED
+    ==================================== */
+
+    renderPdfNotAnalyzed(
+        notAnalyzed
+    );
+
+
+    /* ====================================
+       ERRORS
+    ==================================== */
+
+    renderPdfErrors(
+        errors
+    );
+
+
+    /* ====================================
+       DISCLAIMER
+    ==================================== */
+
+    const disclaimer =
+        document.getElementById(
+            "pdfDisclaimer"
+        );
+
+
+    if (disclaimer) {
+
+        disclaimer.textContent =
+            data.disclaimer ||
+            "These results are estimated predictions based on available health parameters and are not a medical diagnosis.";
+    }
+
+
+    /* ====================================
+       SHOW RESULT
+    ==================================== */
+
+    result.style.display =
+        "block";
+
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+/* ========================================
+   RENDER EXTRACTED VALUES
+======================================== */
+
+function renderPdfExtractedValues(values) {
+
+    const container =
+        document.getElementById(
+            "pdfExtractedValues"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    const entries =
+        Object.entries(values);
+
+
+    if (entries.length === 0) {
+
+        container.innerHTML = `
+            <div class="result-item">
+                <span>Information</span>
+                <strong>No health parameters were extracted.</strong>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    entries.forEach(
+        function ([key, value]) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "result-item";
+
+
+            const label =
+                document.createElement(
+                    "span"
+                );
+
+            label.textContent =
+                formatPdfParameterName(
+                    key
+                );
+
+
+            const valueElement =
+                document.createElement(
+                    "strong"
+                );
+
+            valueElement.textContent =
+                value ?? "-";
+
+
+            item.appendChild(label);
+
+            item.appendChild(
+                valueElement
+            );
+
+            container.appendChild(item);
+        }
+    );
+}
+
+
+/* ========================================
+   RENDER DISEASE PREDICTIONS
+======================================== */
+
+function renderPdfPredictions(predictions) {
+
+    const container =
+        document.getElementById(
+            "pdfPredictions"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (predictions.length === 0) {
+
+        container.innerHTML = `
+            <div class="result-item">
+                <span>Information</span>
+                <strong>No disease prediction was generated.</strong>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    predictions.forEach(
+        function (item) {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "result-card";
+
+
+            const main =
+                document.createElement(
+                    "div"
+                );
+
+            main.className =
+                "result-main";
+
+
+            const label =
+                document.createElement(
+                    "span"
+                );
+
+            label.className =
+                "result-label";
+
+            label.textContent =
+                "RISK LEVEL";
+
+
+            const risk =
+                document.createElement(
+                    "h2"
+                );
+
+            risk.textContent =
+                item.risk_level || "-";
+
+
+            const message =
+                document.createElement(
+                    "p"
+                );
+
+            message.textContent =
+                `${item.disease || "Disease"} prediction completed.`;
+
+
+            main.appendChild(label);
+
+            main.appendChild(risk);
+
+            main.appendChild(message);
+
+
+            const details =
+                document.createElement(
+                    "div"
+                );
+
+            details.className =
+                "result-details";
+
+
+            details.innerHTML = `
+                <div class="result-item">
+                    <span>Disease</span>
+                    <strong>${escapePdfHtml(item.disease || "-")}</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Prediction</span>
+                    <strong>${escapePdfHtml(item.prediction ?? "-")}</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Probability</span>
+                    <strong>${formatPdfProbability(item.probability)}</strong>
+                </div>
+            `;
+
+
+            card.appendChild(main);
+
+            card.appendChild(details);
+
+            container.appendChild(card);
+        }
+    );
+}
+
+
+/* ========================================
+   RENDER NOT ANALYZED
+======================================== */
+
+function renderPdfNotAnalyzed(items) {
+
+    const section =
+        document.getElementById(
+            "pdfNotAnalyzedSection"
+        );
+
+    const container =
+        document.getElementById(
+            "pdfNotAnalyzed"
+        );
+
+
+    if (!section || !container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (items.length === 0) {
+
+        section.style.display =
+            "none";
+
+        return;
+    }
+
+
+    section.style.display =
+        "block";
+
+
+    items.forEach(
+        function (item) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "result-item";
+
+
+            const missing =
+                Array.isArray(
+                    item.missing_fields
+                )
+                    ? item.missing_fields.join(", ")
+                    : "Required parameters unavailable";
+
+
+            div.innerHTML = `
+                <span>
+                    ${escapePdfHtml(item.disease || "-")}
+                </span>
+
+                <strong>
+                    ${escapePdfHtml(missing)}
+                </strong>
+            `;
+
+
+            container.appendChild(div);
+        }
+    );
+}
+
+
+/* ========================================
+   RENDER ERRORS
+======================================== */
+
+function renderPdfErrors(items) {
+
+    const section =
+        document.getElementById(
+            "pdfErrorsSection"
+        );
+
+    const container =
+        document.getElementById(
+            "pdfErrors"
+        );
+
+
+    if (!section || !container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (items.length === 0) {
+
+        section.style.display =
+            "none";
+
+        return;
+    }
+
+
+    section.style.display =
+        "block";
+
+
+    items.forEach(
+        function (item) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "result-item";
+
+
+            div.innerHTML = `
+                <span>
+                    ${escapePdfHtml(item.disease || "-")}
+                </span>
+
+                <strong>
+                    ${escapePdfHtml(item.error || "Unknown error")}
+                </strong>
+            `;
+
+
+            container.appendChild(div);
+        }
+    );
+}
+
+
+/* ========================================
+   CLEAR PDF RESULT
+======================================== */
+
+function clearPdfAnalysisResult() {
+
+    const ids = [
+        "pdfParameterCount",
+        "pdfDiseaseCount"
+    ];
+
+
+    ids.forEach(
+        function (id) {
+
+            const element =
+                document.getElementById(id);
+
+            if (element) {
+                element.textContent = "-";
+            }
+        }
+    );
+
+
+    const extracted =
+        document.getElementById(
+            "pdfExtractedValues"
+        );
+
+    if (extracted) {
+        extracted.innerHTML = "";
+    }
+
+
+    const predictions =
+        document.getElementById(
+            "pdfPredictions"
+        );
+
+    if (predictions) {
+        predictions.innerHTML = "";
+    }
+
+
+    const notAnalyzed =
+        document.getElementById(
+            "pdfNotAnalyzed"
+        );
+
+    if (notAnalyzed) {
+        notAnalyzed.innerHTML = "";
+    }
+
+
+    const errors =
+        document.getElementById(
+            "pdfErrors"
+        );
+
+    if (errors) {
+        errors.innerHTML = "";
+    }
+
+
+    const notAnalyzedSection =
+        document.getElementById(
+            "pdfNotAnalyzedSection"
+        );
+
+    if (notAnalyzedSection) {
+        notAnalyzedSection.style.display =
+            "none";
+    }
+
+
+    const errorsSection =
+        document.getElementById(
+            "pdfErrorsSection"
+        );
+
+    if (errorsSection) {
+        errorsSection.style.display =
+            "none";
+    }
+}
+
+
+/* ========================================
+   PDF PARAMETER LABEL
+======================================== */
+
+function formatPdfParameterName(name) {
+
+    return String(name)
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, function (letter) {
+            return letter.toUpperCase();
+        });
+}
+
+
+/* ========================================
+   PDF PROBABILITY FORMAT
+======================================== */
+
+function formatPdfProbability(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "-";
+    }
+
+
+    const number =
+        Number(value);
+
+
+    if (Number.isNaN(number)) {
+        return String(value);
+    }
+
+
+    if (number <= 1) {
+
+        return `${(number * 100).toFixed(2)}%`;
+    }
+
+
+    return `${number.toFixed(2)}%`;
+}
+
+
+/* ========================================
+   BASIC HTML ESCAPE
+======================================== */
+
+function escapePdfHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}

@@ -52,7 +52,7 @@
 
         <a href="{{ url_for('dashboard') }}">
 
-            <span>🏠</span>
+            
 
             Dashboard
 
@@ -61,28 +61,20 @@
 
         <a href="{{ url_for('prediction') }}">
 
-            <span>🩺</span>
+            
 
             Disease Prediction
 
         </a>
 
 
-        <a href="{{ url_for('patients') }}">
-
-            <span>👤</span>
-
-            My Patients
-
-        </a>
-
-
+        
         <a
             href="{{ url_for('prediction_history') }}"
             class="active"
         >
 
-            <span>📊</span>
+        
 
             Prediction History
 
@@ -541,11 +533,6 @@
 
                             <th>
                                 Disease
-                            </th>
-
-
-                            <th>
-                                Patient
                             </th>
 
 
@@ -1074,11 +1061,6 @@ function renderHistory(
                 "Unknown";
 
 
-            const patient =
-                record.patient_name ||
-                "Unknown Patient";
-
-
             const result =
                 record.prediction !== undefined
                     ? record.prediction
@@ -1130,13 +1112,6 @@ function renderHistory(
                         </strong>
 
                     </div>
-
-                </td>
-
-
-                <td>
-
-                    ${escapeHtml(patient)}
 
                 </td>
 

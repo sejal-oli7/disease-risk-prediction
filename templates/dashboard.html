@@ -47,32 +47,25 @@
                 href="{{ url_for('dashboard') }}"
                 class="active"
             >
-                <span>🏠</span>
+              
                 Dashboard
             </a>
 
 
             <a href="{{ url_for('prediction') }}">
 
-                <span>🩺</span>
+                
 
                 Disease Prediction
 
             </a>
 
 
-            <a href="{{ url_for('patients') }}">
-
-                <span>👤</span>
-
-                My Patients
-
-            </a>
 
 
             <a href="{{ url_for('prediction_history') }}">
 
-                <span>📊</span>
+               
 
                 Prediction History
 
@@ -124,7 +117,7 @@
                         User
                     </span>
 
-                    👋
+                    
 
                 </h1>
 
@@ -174,82 +167,36 @@
         <!-- =================================================
              STATISTICS
         ================================================== -->
+             
+<section class="dashboard-stats">
+    <div class="stat-card">
+        <div>
+            <span>Total Predictions</span>
+            <h2 id="totalPredictions">0</h2>
+        </div>
+    </div>
 
-        <section class="dashboard-stats">
+    <div class="stat-card">
+        <div>
+            <span>Diseases Analyzed</span>
+            <h2 id="diseasesAnalyzed">0</h2>
+        </div>
+    </div>
 
+    <div class="stat-card">
+        <div>
+            <span>High Risk</span>
+            <h2 id="highRisk">0</h2>
+        </div>
+    </div>
 
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🩺
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Total Predictions
-                    </span>
-
-
-                    <h2 id="totalPredictions">
-                        0
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    👤
-                </div>
-
-
-                <div>
-
-                    <span>
-                        My Patients
-                    </span>
-
-
-                    <h2 id="totalPatients">
-                        0
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🧬
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Diseases Covered
-                    </span>
-
-
-                    <h2>
-                        6
-                    </h2>
-
-                </div>
-
-            </div>
-
-        </section>
-
+    <div class="stat-card">
+        <div>
+            <span>Last Prediction</span>
+            <h2 id="lastPrediction">—</h2>
+        </div>
+    </div>
+</section>
 
 
         <!-- =================================================
@@ -263,10 +210,7 @@
 
             <div class="dashboard-card prediction-card">
 
-                <div class="card-icon">
-                    🧠
-                </div>
-
+              
 
                 <h2>
                     Start a Health Prediction
@@ -323,7 +267,7 @@
                     <div class="disease-item">
 
                         <span>
-                            🩸 Diabetes
+                            Diabetes
                         </span>
 
                         <span class="status available">
@@ -337,7 +281,7 @@
                     <div class="disease-item">
 
                         <span>
-                            ❤️ Heart Disease
+                            Heart Disease
                         </span>
 
                         <span class="status available">
@@ -351,7 +295,7 @@
                     <div class="disease-item">
 
                         <span>
-                            🫘 Kidney Disease
+                            Kidney Disease
                         </span>
 
                         <span class="status available">
@@ -365,7 +309,7 @@
                     <div class="disease-item">
 
                         <span>
-                            🧬 Liver Disease
+                             Liver Disease
                         </span>
 
                         <span class="status available">
@@ -379,7 +323,7 @@
                     <div class="disease-item">
 
                         <span>
-                            🧠 Parkinson's Disease
+                            Parkinson's Disease
                         </span>
 
                         <span class="status available">
@@ -393,7 +337,7 @@
                     <div class="disease-item">
 
                         <span>
-                            🩺 Stroke
+                            Stroke
                         </span>
 
                         <span class="status available">
@@ -728,10 +672,6 @@
                                 </th>
 
                                 <th>
-                                    Patient
-                                </th>
-
-                                <th>
                                     Risk
                                 </th>
 
@@ -827,8 +767,7 @@
                         <p>
 
                             Latest prediction compared with the
-                            previous one for the same patient
-                            and disease.
+                            previous prediction for the same disease.
 
                         </p>
 
@@ -904,7 +843,7 @@
 
                     <p>
 
-                        Predict the same disease for the same patient
+                        Predict the same disease for the same user
                         at least twice to see how the risk changed.
 
                     </p>
@@ -925,46 +864,11 @@
         <section class="dashboard-grid">
 
 
-            <!-- PATIENTS -->
-
-            <div class="dashboard-card">
-
-                <div class="card-icon">
-                    👥
-                </div>
-
-
-                <h2>
-                    My Patients
-                </h2>
-
-
-                <p>
-
-                    View and manage patients registered
-                    under your account.
-
-                </p>
-
-
-                <a
-                    href="{{ url_for('patients') }}"
-                    class="btn-secondary"
-                >
-                    View Patients →
-                </a>
-
-            </div>
-
-
-
             <!-- PREDICTION HISTORY -->
 
             <div class="dashboard-card">
 
-                <div class="card-icon">
-                    📋
-                </div>
+                
 
 
                 <h2>
@@ -1990,16 +1894,6 @@
 
                                 <td>
 
-                                    ${esc(
-                                        prediction.patient_name ||
-                                        "-"
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
                                     ${riskPill(risk)}
 
                                 </td>
@@ -2069,8 +1963,6 @@
             prediction => {
 
                 const key =
-                    prediction.patient_id +
-                    "|" +
                     prediction.disease;
 
 
@@ -2375,21 +2267,13 @@
                                     <strong>
 
                                         ${esc(
-                                            row.latest.patient_name ||
-                                            "Unknown Patient"
-                                        )}
-
-                                    </strong>
-
-
-                                    <span>
-
-                                        ${esc(
                                             cleanDisease(
                                                 row.latest.disease
                                             ) ||
                                             row.latest.disease
                                         )}
+
+                                    </strong>
 
                                         ${
                                             date
@@ -2522,11 +2406,6 @@
         const labels =
             items.map(
                 row =>
-                    (
-                        row.latest.patient_name ||
-                        "Patient"
-                    ) +
-                    " · " +
                     (
                         cleanDisease(
                             row.latest.disease
@@ -2741,12 +2620,9 @@
                                             context
                                         ) {
 
-                                            return
-                                                context.tick.value === 0
-
-                                                    ? "rgba(255,255,255,0.35)"
-
-                                                    : "rgba(255,255,255,0.06)";
+                                            return context.tick.value === 0
+                                             ? "rgba(255,255,255,0.35)"
+                                             : "rgba(255,255,255,0.06)";
 
                                         }
 
@@ -2924,35 +2800,10 @@
                 document.getElementById(
                     "totalPredictions"
                 );
-
-
-            const totalPatients =
-                document.getElementById(
-                    "totalPatients"
-                );
-
-
-            if (
-                totalPredictions
-            ) {
-
+            if (totalPredictions){
                 totalPredictions.textContent =
-                    data.total_predictions ??
-                    predictions.length;
-
+                   predictions.length;
             }
-
-
-            if (
-                totalPatients
-            ) {
-
-                totalPatients.textContent =
-                    data.total_patients ??
-                    0;
-
-            }
-
 
 
             /* =============================================
@@ -3026,6 +2877,43 @@
 
                 }
             );
+
+
+
+/* =============================================
+   ADDITIONAL DASHBOARD STATISTICS
+============================================== */
+
+const diseasesAnalyzed =
+    document.getElementById("diseasesAnalyzed");
+
+if (diseasesAnalyzed) {
+    diseasesAnalyzed.textContent =
+        Object.keys(byDisease).length;
+}
+
+
+const highRisk =
+    document.getElementById("highRisk");
+
+if (highRisk) {
+    highRisk.textContent =
+        risk.High;
+}
+
+
+const lastPrediction =
+    document.getElementById("lastPrediction");
+
+if (lastPrediction) {
+    lastPrediction.textContent =
+        predictions.length > 0 &&
+        predictions[0].created_at
+            ? new Date(
+                predictions[0].created_at
+              ).toLocaleDateString()
+            : "—";
+}
 
 
 

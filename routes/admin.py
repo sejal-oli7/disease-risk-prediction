@@ -6,7 +6,6 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from extensions import db
 from models.user import User
-from models.patient import Patient
 from models.prediction import Prediction
 
 
@@ -32,11 +31,13 @@ def admin_required(fn):
         user = User.query.get(user_id)
 
         if not user:
+
             return jsonify({
                 "error": "User not found"
             }), 404
 
         if user.role != "admin":
+
             return jsonify({
                 "error": "Admin access required"
             }), 403
@@ -55,8 +56,6 @@ def admin_required(fn):
 def admin_dashboard():
 
     total_users = User.query.count()
-
-    total_patients = Patient.query.count()
 
     total_predictions = Prediction.query.count()
 
@@ -83,18 +82,34 @@ def admin_dashboard():
 
     for item in recent_predictions:
 
+        user = User.query.get(item.user_id)
+
         predictions.append({
+
             "id": item.id,
-            "patient_id": item.patient_id,
+
+            "user_id": item.user_id,
+
+            "user_name": (
+                user.name
+                if user
+                else None
+            ),
+
             "disease": item.disease,
+
             "prediction": item.prediction,
+
             "probability": item.probability,
+
             "risk_level": item.risk_level,
+
             "created_at": (
                 item.created_at.isoformat()
                 if item.created_at
                 else None
             )
+
         })
 
     return jsonify({
@@ -107,9 +122,6 @@ def admin_dashboard():
             "total_users":
                 total_users,
 
-            "total_patients":
-                total_patients,
-
             "total_predictions":
                 total_predictions,
 
@@ -121,6 +133,7 @@ def admin_dashboard():
 
             "low_risk":
                 low_risk
+
         },
 
         "recent_predictions":
@@ -162,44 +175,6 @@ def get_users():
 
 
 # ========================================
-# GET PATIENTS
-# ========================================
-
-@admin_bp.route("/patients", methods=["GET"])
-@admin_required
-def get_patients():
-
-    patients = (
-        Patient.query
-        .order_by(Patient.id.desc())
-        .all()
-    )
-
-    return jsonify({
-
-        "patients": [
-
-            {
-                "id": patient.id,
-                "user_id": patient.user_id,
-                "name": patient.name,
-                "age": patient.age,
-                "gender": patient.gender,
-                "created_at": (
-                    patient.created_at.isoformat()
-                    if patient.created_at
-                    else None
-                )
-            }
-
-            for patient in patients
-
-        ]
-
-    }), 200
-
-
-# ========================================
 # GET ALL PREDICTIONS
 # ========================================
 
@@ -213,28 +188,51 @@ def get_predictions():
         .all()
     )
 
+    prediction_list = []
+
+    for prediction in predictions:
+
+        user = User.query.get(
+            prediction.user_id
+        )
+
+        prediction_list.append({
+
+            "id": prediction.id,
+
+            "user_id":
+                prediction.user_id,
+
+            "user_name": (
+                user.name
+                if user
+                else None
+            ),
+
+            "disease":
+                prediction.disease,
+
+            "prediction":
+                prediction.prediction,
+
+            "probability":
+                prediction.probability,
+
+            "risk_level":
+                prediction.risk_level,
+
+            "created_at": (
+                prediction.created_at.isoformat()
+                if prediction.created_at
+                else None
+            )
+
+        })
+
     return jsonify({
 
-        "predictions": [
-
-            {
-                "id": prediction.id,
-                "user_id": prediction.user_id,
-                "patient_id": prediction.patient_id,
-                "disease": prediction.disease,
-                "prediction": prediction.prediction,
-                "probability": prediction.probability,
-                "risk_level": prediction.risk_level,
-                "created_at": (
-                    prediction.created_at.isoformat()
-                    if prediction.created_at
-                    else None
-                )
-            }
-
-            for prediction in predictions
-
-        ]
+        "predictions":
+            prediction_list
 
     }), 200
 
@@ -250,7 +248,9 @@ def get_predictions():
 @admin_required
 def delete_prediction(prediction_id):
 
-    prediction = Prediction.query.get(prediction_id)
+    prediction = Prediction.query.get(
+        prediction_id
+    )
 
     if not prediction:
 
@@ -258,7 +258,9 @@ def delete_prediction(prediction_id):
             "error": "Prediction not found"
         }), 404
 
-    db.session.delete(prediction)
+    db.session.delete(
+        prediction
+    )
 
     db.session.commit()
 
@@ -266,44 +268,6 @@ def delete_prediction(prediction_id):
 
         "message":
             "Prediction deleted successfully"
-
-    }), 200
-
-
-# ========================================
-# DELETE PATIENT
-# ========================================
-
-@admin_bp.route(
-    "/patients/<int:patient_id>",
-    methods=["DELETE"]
-)
-@admin_required
-def delete_patient(patient_id):
-
-    patient = Patient.query.get(patient_id)
-
-    if not patient:
-
-        return jsonify({
-            "error": "Patient not found"
-        }), 404
-
-    # Delete predictions belonging to this patient first.
-    Prediction.query.filter_by(
-        patient_id=patient_id
-    ).delete(
-        synchronize_session=False
-    )
-
-    db.session.delete(patient)
-
-    db.session.commit()
-
-    return jsonify({
-
-        "message":
-            "Patient and related predictions deleted successfully"
 
     }), 200
 
@@ -327,11 +291,15 @@ def delete_user(user_id):
     if user_id == current_admin_id:
 
         return jsonify({
+
             "error":
                 "You cannot delete your own admin account."
+
         }), 400
 
-    user = User.query.get(user_id)
+    user = User.query.get(
+        user_id
+    )
 
     if not user:
 
@@ -339,27 +307,22 @@ def delete_user(user_id):
             "error": "User not found"
         }), 404
 
-    # Delete predictions belonging to the user.
+    # Delete predictions belonging to the user first.
     Prediction.query.filter_by(
         user_id=user_id
     ).delete(
         synchronize_session=False
     )
 
-    # Delete patients belonging to the user.
-    Patient.query.filter_by(
-        user_id=user_id
-    ).delete(
-        synchronize_session=False
+    db.session.delete(
+        user
     )
-
-    db.session.delete(user)
 
     db.session.commit()
 
     return jsonify({
 
         "message":
-            "User and related records deleted successfully"
+            "User and related predictions deleted successfully"
 
     }), 200

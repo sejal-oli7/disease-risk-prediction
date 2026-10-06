@@ -1,9 +1,39 @@
+# Virtual environment
 .venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# Python cache
 __pycache__/
 *.pyc
-.env
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+
+# Database files
 *.db
 *.sqlite
-instance/
+*.sqlite3
+
+# Temporary PDF files
+test_*.pdf
+uploads/
+
+# Python build files
+build/
+dist/
+*.egg-info/
+
+# Jupyter
 .ipynb_checkpoints/
-.vscode/

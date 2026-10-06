@@ -1,746 +1,545 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
 
 <head>
 
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <title>New Prediction | MULTI</title>
 
-<title>New Prediction | MULTI</title>
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
-<!-- Main CSS -->
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}"
->
-
-<!-- Font Awesome -->
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
->
-
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
 </head>
+
 
 <body>
 
 <div class="dashboard-layout">
 
 
-<!-- ========================================
-     SIDEBAR
-======================================== -->
-
-<aside class="sidebar">
-
-    <div class="logo">
-
-        <h2>Health Care</h2>
-
-    </div>
-
-
-    <nav class="sidebar-nav">
-
-        <a href="{{ url_for('dashboard') }}">
-
-            <span>🏠</span>
-
-            Dashboard
-
-        </a>
-
-
-        <a
-            href="{{ url_for('prediction') }}"
-            class="active"
-        >
-
-            <span>🩺</span>
-
-            Disease Prediction
-
-        </a>
-
-
-        <a href="{{ url_for('patients') }}">
-
-            <span>👤</span>
-
-            My Patients
-
-        </a>
-
-
-        <a href="{{ url_for('prediction_history') }}">
-
-            <span>📊</span>
-
-            Prediction History
-
-        </a>
-
-    </nav>
-
-
-    <div class="sidebar-bottom">
-
-        <button
-            type="button"
-            onclick="logoutUser()"
-            class="logout-btn"
-        >
-            Logout
-        </button>
-
-    </div>
-
-</aside>
-
-
-
-<!-- ========================================
-     MAIN CONTENT
-======================================== -->
-
-<main class="dashboard-main">
-
-
     <!-- ========================================
-         PAGE HEADER
+         SIDEBAR
     ======================================== -->
 
-    <header class="dashboard-header">
+    <aside class="sidebar">
 
-        <div>
+        <div class="logo">
 
-            <p class="dashboard-label">
-                HEALTH RISK ASSESSMENT
-            </p>
-
-
-            <h1>
-                New Disease Prediction
-            </h1>
-
-
-            <p class="dashboard-subtitle">
-
-                Select a registered patient and choose a disease
-                to perform a machine-learning-based risk prediction.
-
-            </p>
+            <h2>Health Care</h2>
 
         </div>
 
 
-        <!-- USER PROFILE -->
+        <nav class="sidebar-nav">
 
-        <div class="user-profile">
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
 
-            <div
-                class="profile-avatar"
-                id="userInitial"
+
+            <a
+                href="{{ url_for('prediction') }}"
+                class="active"
             >
-                U
-            </div>
+                Disease Prediction
+            </a>
 
+
+            <a href="{{ url_for('prediction_history') }}">
+                Prediction History
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                onclick="logoutUser()"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ======================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- ========================================
+             PAGE HEADER
+        ======================================== -->
+
+        <header class="dashboard-header">
 
             <div>
 
-                <strong id="profileName">
-                    User
-                </strong>
+                <p class="dashboard-label">
+                    HEALTH RISK ASSESSMENT
+                </p>
 
 
-                <small id="profileEmail">
-                    user@example.com
-                </small>
+                <h1>
+                    New Disease Prediction
+                </h1>
 
-            </div>
 
-        </div>
-
-    </header>
-
-
-
-    <!-- ========================================
-         PREDICTION CONTENT
-    ======================================== -->
-
-    <div class="prediction-page">
-
-        <div class="prediction-container">
-
-
-            <!-- ========================================
-                 NOTICE
-            ======================================== -->
-
-            <div class="notice-box">
-
-                <strong>
-
-                    <i class="fa-solid fa-circle-info"></i>
-
-                    Important:
-
-                </strong>
-
-
-                This system provides machine-learning-based risk
-                predictions for health awareness purposes only.
-                It is not a medical diagnosis or treatment recommendation.
-
-            </div>
-
-
-
-            <!-- ========================================
-                 PREDICTION FORM
-            ======================================== -->
-
-            <section class="prediction-card">
-
-                <form id="predictionForm">
-
-
-                    <!-- ========================================
-                         PATIENT INFORMATION
-                    ======================================== -->
-
-                    <div class="form-section">
-
-                        <div class="form-section-title">
-
-                            <h2>
-                                Patient Information
-                            </h2>
-
-
-                            <p>
-
-                                Select a patient from your registered
-                                patient records.
-
-                            </p>
-
-                        </div>
-
-
-                        <div class="form-grid">
-
-
-                            <!-- PATIENT -->
-
-                            <div class="form-group">
-
-                                <label for="patient_id">
-                                    Select Patient
-                                </label>
-
-
-                                <select
-                                    id="patient_id"
-                                    name="patient_id"
-                                    required
-                                >
-
-                                    <option value="">
-                                        Loading patients...
-                                    </option>
-
-                                </select>
-
-
-                                <small class="form-help">
-
-                                    Only patients registered under your
-                                    account are available.
-
-                                </small>
-
-                            </div>
-
-
-
-                            <!-- PATIENT NAME -->
-
-                            <div class="form-group">
-
-                                <label for="patient_name">
-                                    Patient Name
-                                </label>
-
-
-                                <input
-                                    type="text"
-                                    id="patient_name"
-                                    name="patient_name"
-                                    placeholder="Patient name"
-                                    readonly
-                                >
-
-                            </div>
-
-
-
-                            <!-- DISEASE -->
-
-                            <div class="form-group">
-
-                                <label for="disease">
-                                    Select Disease
-                                </label>
-
-
-                                <select
-                                    id="disease"
-                                    name="disease"
-                                    required
-                                >
-
-                                    <option value="">
-                                        Select a disease
-                                    </option>
-
-
-                                    <option value="diabetes">
-                                        Diabetes
-                                    </option>
-
-
-                                    <option value="heart">
-                                        Heart Disease
-                                    </option>
-
-
-                                    <option value="kidney">
-                                        Kidney Disease
-                                    </option>
-
-
-                                    <option value="liver">
-                                        Liver Disease
-                                    </option>
-
-
-                                    <option value="parkinsons">
-                                        Parkinson's Disease
-                                    </option>
-
-
-                                    <option value="stroke">
-                                        Stroke
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- ========================================
-                         DYNAMIC MODEL FIELDS
-                    ======================================== -->
-
-                    <div
-                        id="diseaseFields"
-                        class="form-section"
-                        style="display: none;"
-                    >
-
-                        <div class="form-section-title">
-
-                            <h2>
-                                Model Input Parameters
-                            </h2>
-
-
-                            <p>
-
-                                Enter the values required for the selected
-                                disease prediction model.
-
-                            </p>
-
-                        </div>
-
-
-                        <div
-                            id="fieldsContainer"
-                            class="form-grid"
-                        >
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- ========================================
-                         FORM ACTIONS
-                    ======================================== -->
-
-                    <div class="form-actions">
-
-
-                        <button
-                            type="button"
-                            id="clearBtn"
-                            class="btn btn-secondary"
-                        >
-
-                            <i class="fa-solid fa-rotate-left"></i>
-
-                            Clear
-
-                        </button>
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary"
-                        >
-
-                            <i class="fa-solid fa-chart-line"></i>
-
-                            Generate Prediction
-
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </section>
-
-
-
-            <!-- ========================================
-                 LOADING
-            ======================================== -->
-
-            <div
-                id="loadingBox"
-                class="loading-box"
-                style="display: none;"
-            >
-
-                <div class="loader"></div>
-
-
-                <p>
-                    Processing prediction...
+                <p class="dashboard-subtitle">
+                    Select a disease and enter the required
+                    health parameters to perform a
+                    machine-learning-based risk prediction.
                 </p>
 
             </div>
 
 
+            <!-- USER PROFILE -->
 
-            <!-- ========================================
-                 ERROR
-            ======================================== -->
+            <div class="user-profile">
 
-            <div
-                id="errorBox"
-                class="error-box"
-                style="display: none;"
-            >
-
-                <strong>
-
-                    <i class="fa-solid fa-circle-exclamation"></i>
-
-                    Error
-
-                </strong>
+                <div
+                    class="profile-avatar"
+                    id="userInitial"
+                >
+                    U
+                </div>
 
 
-                <p id="errorMessage"></p>
+                <div>
+
+                    <strong id="profileName">
+                        User
+                    </strong>
+
+
+                    <small id="profileEmail">
+                        user@example.com
+                    </small>
+
+                </div>
 
             </div>
 
+        </header>
 
 
-            <!-- ========================================
-                 PREDICTION RESULT
-            ======================================== -->
 
-            <section
-                id="predictionResult"
-                class="prediction-result"
-                style="display: none;"
-            >
+        <!-- ========================================
+             PREDICTION CONTENT
+        ======================================== -->
 
-                <div class="result-card">
+        <div class="prediction-page">
+
+            <div class="prediction-container">
 
 
-                    <!-- MAIN RESULT -->
+                <!-- ========================================
+                     NOTICE
+                ======================================== -->
 
-                    <div class="result-main">
+                <div class="notice-box">
 
-                        <span class="result-label">
-                            RISK LEVEL
-                        </span>
+                    <strong>
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        Important:
+
+                    </strong>
 
 
-                        <h2 id="resultRisk">
-                            -
+                    This system provides machine-learning-based
+                    risk predictions for health awareness purposes
+                    only. It is not a medical diagnosis or treatment
+                    recommendation.
+
+                </div>
+
+
+
+                <!-- ========================================
+                     PREDICTION METHOD SELECTION
+                ======================================== -->
+
+                <section class="prediction-method-section">
+
+                    <div class="form-section-title">
+
+                        <h2>
+                            How would you like to analyze?
                         </h2>
 
-
-                        <p id="resultMessage">
-
-                            Prediction completed successfully.
-
+                        <p>
+                            Choose a method to perform your health risk analysis.
                         </p>
 
                     </div>
 
 
-
-                    <!-- RESULT DETAILS -->
-
-                    <div class="result-details">
+                    <div class="prediction-method-grid">
 
 
-                        <!-- DISEASE -->
+                        <!-- MANUAL PREDICTION -->
 
-                        <div class="result-item">
+                        <div
+                            class="prediction-method-card"
+                            id="manualPredictionCard"
+                        >
 
-                            <span>
-                                Disease
-                            </span>
+                            <div class="method-icon">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
 
+                            <h3>
+                                Manual Prediction
+                            </h3>
 
-                            <strong id="resultDisease">
-                                -
-                            </strong>
+                            <p>
+                                Enter the required health parameters
+                                and generate a disease risk prediction.
+                            </p>
 
-                        </div>
-
-
-
-                        <!-- PREDICTION -->
-
-                        <div class="result-item">
-
-                            <span>
-                                Prediction
-                            </span>
-
-
-                            <strong id="resultPrediction">
-                                -
-                            </strong>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="startManualPredictionBtn"
+                            >
+                                <i class="fa-solid fa-arrow-right"></i>
+                                Start Prediction
+                            </button>
 
                         </div>
 
 
+                        <!-- HEALTH REPORT ANALYSIS -->
 
-                        <!-- PROBABILITY -->
+                        <div
+                            class="prediction-method-card"
+                            id="healthReportCard"
+                        >
 
-                        <div class="result-item">
+                            <div class="method-icon">
+                                <i class="fa-solid fa-file-medical"></i>
+                            </div>
 
-                            <span>
-                                Probability
-                            </span>
+                            <h3>
+                                Health Report Analysis
+                            </h3>
 
+                            <p>
+                                Upload a PDF health report and extract
+                                available parameters for analysis.
+                            </p>
 
-                            <strong id="resultProbability">
-                                -
-                            </strong>
-
-                        </div>
-
-
-
-                        <!-- PATIENT -->
-
-                        <div class="result-item">
-
-                            <span>
-                                Patient ID
-                            </span>
-
-
-                            <strong id="resultPatient">
-                                -
-                            </strong>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="startPdfAnalysisBtn"
+                            >
+                                <i class="fa-solid fa-upload"></i>
+                                Upload & Analyze
+                            </button>
 
                         </div>
+
 
                     </div>
 
-                </div>
-
-            </section>
+                </section>
 
 
 
-            <!-- ========================================
-                 IMMEDIATE PREDICTION ANALYSIS
-            ======================================== -->
+                <!-- ========================================
+                     MANUAL PREDICTION FORM
+                ======================================== -->
+                    <section
+                        id="manualPredictionSection"
+                        class="prediction-card"
+                       style="display: none;"
+>
 
-            <section
-                id="predictionAnalysis"
-                class="prediction-analysis"
-                style="display: none;"
-            >
+            <form id="predictionForm">
+
+                        <!-- ========================================
+                             DISEASE SELECTION
+                        ======================================== -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <h2>
+                                    Prediction Information
+                                </h2>
 
 
-                <!-- ANALYSIS HEADER -->
+                                <p>
+                                    Select a disease to enter the
+                                    required health parameters.
+                                </p>
 
-                <div class="analysis-header">
-
-                    <span class="section-badge">
-                        PREDICTION ANALYSIS
-                    </span>
+                            </div>
 
 
-                    <h2>
-                        Prediction Analysis
-                    </h2>
+                            <div class="form-grid">
+
+
+                                <!-- DISEASE -->
+
+                                <div class="form-group">
+
+                                    <label for="disease">
+                                        Select Disease
+                                    </label>
+
+
+                                    <select
+                                        id="disease"
+                                        name="disease"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select a disease
+                                        </option>
+
+
+                                        <option value="diabetes">
+                                            Diabetes
+                                        </option>
+
+
+                                        <option value="heart">
+                                            Heart Disease
+                                        </option>
+
+
+                                        <option value="kidney">
+                                            Kidney Disease
+                                        </option>
+
+
+                                        <option value="liver">
+                                            Liver Disease
+                                        </option>
+
+
+                                        <option value="parkinsons">
+                                            Parkinson's Disease
+                                        </option>
+
+
+                                        <option value="stroke">
+                                            Stroke
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ========================================
+                             DYNAMIC MODEL FIELDS
+                        ======================================== -->
+
+                        <div
+                            id="diseaseFields"
+                            class="form-section"
+                            style="display: none;"
+                        >
+
+                            <div class="form-section-title">
+
+                                <h2>
+                                    Model Input Parameters
+                                </h2>
+
+
+                                <p>
+                                    Enter the values required for
+                                    the selected disease prediction
+                                    model.
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                id="fieldsContainer"
+                                class="form-grid"
+                            >
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ========================================
+                             FORM ACTIONS
+                        ======================================== -->
+
+                        <div class="form-actions">
+
+
+                            <button
+                                type="button"
+                                id="clearBtn"
+                                class="btn btn-secondary"
+                            >
+
+                                <i class="fa-solid fa-rotate-left"></i>
+
+                                Clear
+
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+
+                                <i class="fa-solid fa-chart-line"></i>
+
+                                Generate Prediction
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+
+                <!-- ========================================
+                     LOADING
+                ======================================== -->
+
+                <div
+                    id="loadingBox"
+                    class="loading-box"
+                    style="display: none;"
+                >
+
+                    <div class="loader"></div>
 
 
                     <p>
-
-                        Visual summary of the generated prediction
-                        and estimated risk probability.
-
+                        Processing prediction...
                     </p>
 
                 </div>
 
 
 
-                <!-- ANALYSIS GRID -->
+                <!-- ========================================
+                     ERROR
+                ======================================== -->
 
-                <div class="analysis-grid">
+                <div
+                    id="errorBox"
+                    class="error-box"
+                    style="display: none;"
+                >
 
+                    <strong>
 
-                    <!-- ========================================
-                         PROBABILITY CHART
-                    ======================================== -->
+                        <i class="fa-solid fa-circle-exclamation"></i>
 
-                    <div class="analysis-card chart-card">
+                        Error
 
-                        <div class="analysis-card-header">
-
-                            <div>
-
-                                <span class="analysis-label">
-                                    PROBABILITY
-                                </span>
-
-
-                                <h3>
-                                    Risk Probability
-                                </h3>
-
-                            </div>
-
-                        </div>
+                    </strong>
 
 
-                        <div class="prediction-chart-wrapper">
+                    <p id="errorMessage"></p>
 
-                            <canvas
-                                id="predictionProbabilityChart"
-                            ></canvas>
-
-                        </div>
-
-                    </div>
+                </div>
 
 
 
-                    <!-- ========================================
-                         RISK SUMMARY
-                    ======================================== -->
+                <!-- ========================================
+                     MANUAL PREDICTION RESULT
+                ======================================== -->
 
-                    <div class="analysis-card">
+                <section
+                    id="predictionResult"
+                    class="prediction-result"
+                    style="display: none;"
+                >
 
-                        <div class="analysis-card-header">
-
-                            <div>
-
-                                <span class="analysis-label">
-                                    RISK SUMMARY
-                                </span>
+                    <div class="result-card">
 
 
-                                <h3>
-                                    Assessment Overview
-                                </h3>
+                        <!-- MAIN RESULT -->
 
-                            </div>
+                        <div class="result-main">
+
+                            <span class="result-label">
+                                RISK LEVEL
+                            </span>
+
+
+                            <h2 id="resultRisk">
+                                -
+                            </h2>
+
+
+                            <p id="resultMessage">
+                                Prediction completed successfully.
+                            </p>
 
                         </div>
 
 
-                        <div class="analysis-summary">
+
+                        <!-- RESULT DETAILS -->
+
+                        <div class="result-details">
 
 
                             <!-- DISEASE -->
 
-                            <div class="analysis-stat">
+                            <div class="result-item">
 
                                 <span>
                                     Disease
                                 </span>
 
 
-                                <strong id="analysisDisease">
-                                    -
-                                </strong>
-
-                            </div>
-
-
-
-                            <!-- RISK -->
-
-                            <div class="analysis-stat">
-
-                                <span>
-                                    Risk Level
-                                </span>
-
-
-                                <strong
-                                    id="analysisRisk"
-                                    class="analysis-risk"
-                                >
-                                    -
-                                </strong>
-
-                            </div>
-
-
-
-                            <!-- PROBABILITY -->
-
-                            <div class="analysis-stat">
-
-                                <span>
-                                    Probability
-                                </span>
-
-
-                                <strong id="analysisProbability">
+                                <strong id="resultDisease">
                                     -
                                 </strong>
 
@@ -750,14 +549,31 @@
 
                             <!-- PREDICTION -->
 
-                            <div class="analysis-stat">
+                            <div class="result-item">
 
                                 <span>
                                     Prediction
                                 </span>
 
 
-                                <strong id="analysisPrediction">
+                                <strong id="resultPrediction">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- PROBABILITY -->
+
+                            <div class="result-item">
+
+                                <span>
+                                    Probability
+                                </span>
+
+
+                                <strong id="resultProbability">
                                     -
                                 </strong>
 
@@ -765,61 +581,414 @@
 
                         </div>
 
+                    </div>
+
+                </section>
 
 
-                        <!-- INTERPRETATION -->
 
-                        <div
-                            id="analysisInterpretation"
-                            class="analysis-interpretation"
-                        >
+                <!-- ========================================
+                     PDF HEALTH REPORT ANALYSIS
+                ======================================== -->
 
-                            Prediction analysis will appear here.
+                <section 
+                    id="healthReportSection"
+                    class="prediction-card"
+                    style="display:none;"
+                    >
+
+                    <div class="form-section">
+
+                        <div class="form-section-title">
+
+                            <h2>
+
+                                <i class="fa-solid fa-file-medical"></i>
+
+                                Health Report Analysis
+
+                            </h2>
+
+
+                            <p> 
+                                Upload a medical report in PDF or image format. 
+                                The system extracts available health parameters and analyzes eligible diseases using trained machine learning models.
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="form-grid">
+
+
+                            <!-- PDF FILE -->
+
+                            <div class="form-group">
+
+                                <label for="pdfFile">
+                                    Upload Health Report
+                                </label>
+
+
+                                <input type="file"
+                                  id="pdfFile"
+                                  accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+                                 >
+                                <small class="form-help">
+                                   The system extracts available health parameters and analyzes
+                                   only the diseases for which sufficient data is available.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- PDF ACTION -->
+
+                        <div class="form-actions">
+
+
+                            <button
+                                type="button"
+                                id="clearPdfBtn"
+                                class="btn btn-secondary"
+                            >
+
+                                <i class="fa-solid fa-rotate-left"></i>
+
+                                Clear
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="analyzePdfBtn"
+                                class="btn btn-primary"
+                            >
+
+                                <i class="fa-solid fa-file-medical"></i>
+
+                                Analyze Health Report
+
+                            </button>
 
                         </div>
 
                     </div>
 
-                </div>
+                </section>
 
 
 
                 <!-- ========================================
-                     DISCLAIMER
+                     PDF ANALYSIS RESULT
                 ======================================== -->
 
-                <div class="analysis-disclaimer">
+                <section
+                    id="pdfAnalysisResult"
+                    class="prediction-result"
+                    style="display: none;"
+                >
 
-                    <i class="fa-solid fa-circle-info"></i>
+
+                    <!-- ====================================
+                         REPORT SUMMARY
+                    ==================================== -->
+
+                    <div class="result-card">
+
+                        <div class="result-main">
+
+                            <span class="result-label">
+                                HEALTH REPORT
+                            </span>
 
 
-                    <span>
+                            <h2 id="pdfReportTitle">
+                                Report Analysis
+                            </h2>
 
-                        This visualization represents the model's
-                        estimated prediction probability. It is
-                        intended for health awareness and does not
-                        constitute a medical diagnosis.
 
-                    </span>
+                            <p>
+                                Report analysis completed successfully.
+                            </p>
 
-                </div>
+                        </div>
 
-            </section>
 
+                        <div class="result-details">
+
+
+                            <!-- EXTRACTED PARAMETERS -->
+
+                            <div class="result-item">
+
+                                <span>
+                                    Extracted Parameters
+                                </span>
+
+
+                                <strong id="pdfParameterCount">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- DISEASES ANALYZED -->
+
+                            <div class="result-item">
+
+                                <span>
+                                    Diseases Analyzed
+                                </span>
+
+
+                                <strong id="pdfDiseaseCount">
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ====================================
+                         REPORT FINDINGS
+                    ==================================== -->
+
+                    <div class="prediction-card">
+
+                        <div class="form-section-title">
+
+                            <h2>
+
+                                <i class="fa-solid fa-file-medical"></i>
+
+                                Report Findings
+
+                            </h2>
+
+
+                            <p>
+                                Disease findings identified from the
+                                uploaded health report.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="pdfReportFindings"
+                            class="form-grid"
+                        >
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ====================================
+                         EXTRACTED PARAMETERS
+                    ==================================== -->
+
+                    <div class="prediction-card">
+
+                        <div class="form-section-title">
+
+                            <h2>
+
+                                <i class="fa-solid fa-file-lines"></i>
+
+                                Extracted Report Parameters
+
+                            </h2>
+
+
+                            <p>
+                                Health parameters detected from the
+                                uploaded report.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="pdfExtractedValues"
+                            class="form-grid"
+                        >
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ====================================
+                         ML ANALYSIS
+                    ==================================== -->
+
+                    <div class="prediction-card">
+
+                        <div class="form-section-title">
+
+                            <h2>
+
+                                <i class="fa-solid fa-brain"></i>
+
+                                Multi-Disease ML Analysis
+
+                            </h2>
+
+
+                            <p>
+                                Risk predictions generated using the
+                                available extracted health parameters.
+                            </p>
+                            
+
+                        </div>
+
+
+                        <div
+                            id="pdfPredictions"
+                            class="form-grid"
+                        >
+                        </div>
+
+                        <div class="medical-guidance">
+
+    <h2>Medical Guidance</h2>
+
+    <p>
+        These results are estimated predictions and may not be 100% accurate.
+        Please consult a qualified healthcare professional to confirm your health condition.
+    </p>
+
+</div>
+
+                    </div>
+
+
+
+                    <!-- ====================================
+                         NOT ANALYZED
+                    ==================================== -->
+
+                    <div
+                        id="pdfNotAnalyzedSection"
+                        class="prediction-card"
+                        style="display: none;"
+                    >
+
+                        <div class="form-section-title">
+
+                            <h2>
+
+                                <i class="fa-solid fa-circle-info"></i>
+
+                                Diseases Not Analyzed
+
+                            </h2>
+
+
+                            <p>
+                                These diseases could not be analyzed
+                                because the required health parameters
+                                were unavailable in the report.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="pdfNotAnalyzed"
+                            class="form-grid"
+                        >
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ====================================
+                         ERRORS
+                    ==================================== -->
+
+                    <div
+                        id="pdfErrorsSection"
+                        class="error-box"
+                        style="display: none;"
+                    >
+
+                        <strong>
+
+                            <i class="fa-solid fa-circle-exclamation"></i>
+
+                            Analysis Errors
+
+                        </strong>
+
+
+                        <div id="pdfErrors"></div>
+
+                    </div>
+                    
+
+
+
+                    <!-- ====================================
+                         DISCLAIMER
+                    ==================================== -->
+
+                    <div class="notice-box">
+
+                        <strong>
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Disclaimer:
+
+                        </strong>
+
+
+                        <span id="pdfDisclaimer">
+
+                            These results are estimated predictions
+                            based on available health parameters and
+                            are not a medical diagnosis.
+
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+            </div>
 
         </div>
 
-    </div>
-
-</main>
+    </main>
 
 </div>
+
+
 
 <!-- ========================================
      SHARED JAVASCRIPT
 ======================================== -->
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
 
 <!-- ========================================
      LOAD USER PROFILE
@@ -933,6 +1102,7 @@
 })();
 
 </script>
+
 
 </body>
 

@@ -58,15 +58,6 @@
             <button
                 type="button"
                 class="admin-nav-item"
-                data-section="patients"
-            >
-                <span class="admin-nav-icon">♙</span>
-                <span>Patients</span>
-            </button>
-
-            <button
-                type="button"
-                class="admin-nav-item"
                 data-section="predictions"
             >
                 <span class="admin-nav-icon">◫</span>
@@ -192,7 +183,7 @@
                         </h2>
 
                         <p>
-                            Monitor users, patients, predictions and
+                            Monitor user accounts, predictions and risk statistics.
                             disease risk statistics.
                         </p>
                     </div>
@@ -208,15 +199,6 @@
                         <div>
                             <p>Total Users</p>
                             <h3 id="totalUsers">0</h3>
-                        </div>
-                    </div>
-
-                    <div class="admin-stat-card">
-                        <div class="admin-stat-icon">♙</div>
-
-                        <div>
-                            <p>Total Patients</p>
-                            <h3 id="totalPatients">0</h3>
                         </div>
                     </div>
 
@@ -453,7 +435,6 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Patient</th>
                                     <th>Disease</th>
                                     <th>Prediction</th>
                                     <th>Probability</th>
@@ -466,7 +447,7 @@
 
                                 <tr>
                                     <td
-                                        colspan="7"
+                                        colspan="6"
                                         class="admin-loading"
                                     >
                                         Loading...
@@ -537,75 +518,6 @@
                                 <tr>
                                     <td
                                         colspan="5"
-                                        class="admin-loading"
-                                    >
-                                        Loading...
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- PATIENTS -->
-            <section
-                id="adminPatientsSection"
-                class="admin-page-section"
-            >
-
-                <div class="admin-page-heading">
-
-                    <div>
-                        <span class="admin-label">
-                            PATIENT MANAGEMENT
-                        </span>
-
-                        <h2>Patients</h2>
-
-                        <p>
-                            View and manage all registered patients.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="admin-section">
-
-                    <div class="admin-filter-bar single-filter">
-
-                        <input
-                            type="text"
-                            id="patientSearch"
-                            class="admin-filter-input"
-                            placeholder="Search by patient ID, user ID or name..."
-                        >
-
-                    </div>
-
-                    <div class="admin-table-wrapper">
-
-                        <table class="admin-table">
-
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody id="patientsTableBody">
-                                <tr>
-                                    <td
-                                        colspan="6"
                                         class="admin-loading"
                                     >
                                         Loading...
@@ -699,7 +611,6 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Patient</th>
                                     <th>Disease</th>
                                     <th>Prediction</th>
                                     <th>Probability</th>
@@ -712,7 +623,7 @@
                             <tbody id="allPredictionsBody">
                                 <tr>
                                     <td
-                                        colspan="8"
+                                        colspan="7"
                                         class="admin-loading"
                                     >
                                         Loading...
