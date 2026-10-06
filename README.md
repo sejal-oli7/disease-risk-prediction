@@ -13,7 +13,6 @@ The system supports both **manual health-parameter-based prediction** and **PDF 
 * User Registration and Login
 * JWT-based Authentication
 * Role-based access control
-* Patient management
 * Multi-disease risk prediction
 * Manual health parameter input
 * PDF health report analysis
@@ -219,7 +218,6 @@ The application uses **PostgreSQL** to store application data.
 The database is used for storing information related to:
 
 * Users
-* Patients
 * Predictions
 * Disease results
 * Risk levels
@@ -512,7 +510,7 @@ Sensitive credentials and environment configuration are excluded from version co
 **Sejal Oli**
 
 BCA Student
-Aspiring QA Engineer / Software Developer
+Aspiring AI/ML Engineer
 
 ---
 
